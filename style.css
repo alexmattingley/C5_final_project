@@ -38,8 +38,24 @@ Home Page // Create account block
 Home Page // Locations block
 ******************/
 
-.location-tabs > ul > li {
+.location-tabs {
+    background: #60695C;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.location-tabs h3 {
+    margin-top: 0px;
+    color: white;
+}
+
+.col-xs-10 > ul > li {
     background: #5bc0de;
+    color: white;
     padding: 6px 12px;
     border-radius: 4px;
+}
+.location-sub-menu {
+    background: #C5D6D8;
+    padding: 6px 12px;
 }

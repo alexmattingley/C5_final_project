@@ -50,20 +50,32 @@
        </div>
        <div class="clearfix"></div>
     </div>
-    <div class="location-tabs col-xs-10 col-offset-1">
-        <h3>Select your location:</h3>
-        <ul class=" list-unstyled">
-            <li id="socal-tab pills">SoCal<i class="glyphicon glyphicon-chevron-down"></i></li>
-            <ul class="location-sub-menu list-unstyled">
-                <li>Santa Barbara</li>
-                <li>Ventura</li>
-                <li>Los Angeles</li>
-                <li>North Orange County</li>
-                <li>South Orange County</li>
-                <li>North San Diego</li>
-                <li>South San Diego</li>
+    <div class="location-tabs">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3>Select your location:</h3>
+            <ul class=" list-unstyled">
+                <li id="socal-tab pills">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <ul class="location-sub-menu list-unstyled">
+                    <li><a href="javascript:;">Santa Barbara</a></li>
+                    <li><a href="javascript:;">Ventura</a></li>
+                    <li><a href="javascript:;">Los Angeles</a></li>
+                    <li><a href="javascript:;">North Orange County</a></li>
+                    <li><a href="javascript:;">South Orange County</a></li>
+                    <li><a href="javascript:;">North San Diego</a></li>
+                    <li><a href="javascript:;">South San Diego</a></li>
+                </ul>
             </ul>
-        </ul>
+            <ul class=" list-unstyled">
+                <li id="socal-tab pills">Central California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <ul class="location-sub-menu list-unstyled">
+                    <li><a href="javascript:;">SLO County</a></li>
+                    <li><a href="javascript:;">Big Sur</a></li>
+                    <li><a href="javascript:;">Santa Cruz</a></li>
+                    <li><a href="javascript:;">San Fransisco</a></li>
+                </ul>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
     </div>
 </body>
 </html>
