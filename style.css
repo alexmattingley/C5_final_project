@@ -33,3 +33,13 @@ Home Page // Create account block
 .create-account-block {
     background: #D6F9DD;
 }
+
+/****************
+Home Page // Locations block
+******************/
+
+.location-tabs > ul > li {
+    background: #5bc0de;
+    padding: 6px 12px;
+    border-radius: 4px;
+}

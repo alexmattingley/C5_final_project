@@ -50,6 +50,20 @@
        </div>
        <div class="clearfix"></div>
     </div>
-
+    <div class="location-tabs col-xs-10 col-offset-1">
+        <h3>Select your location:</h3>
+        <ul class=" list-unstyled">
+            <li id="socal-tab pills">SoCal<i class="glyphicon glyphicon-chevron-down"></i></li>
+            <ul class="location-sub-menu list-unstyled">
+                <li>Santa Barbara</li>
+                <li>Ventura</li>
+                <li>Los Angeles</li>
+                <li>North Orange County</li>
+                <li>South Orange County</li>
+                <li>North San Diego</li>
+                <li>South San Diego</li>
+            </ul>
+        </ul>
+    </div>
 </body>
 </html>
