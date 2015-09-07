@@ -20,20 +20,36 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
+                    <div class="right-side-nav pull-right">
+                        <button class="btn btn-default">Login</button>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse left-side-nav navbar-left" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse left-side-nav pull-left" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="about.php">About</a></li>
-                        <li><a href="index.php#work">Work</a></li>
-                        <li><a href="index.php#contact">Contact</a></li>
-                </div>
-                <div class="right-side-nav pull-right">
-                    <button class="btn btn-default">Login</button>
+                        <li><a href="#">About</a></li>
+                        <li><a href="">Contact Us</a></li>
                 </div>
             </div>
         </nav>
-
+        <div class="hero-text text-center col-xs-10 col-xs-offset-1">
+            <h1>Goggles' Data</h1>
+            <h3>A no frills tool to help you get barreled.</h3>
+        </div>
     </div>
+    <div class="create-account-block text-center">
+       <div class="col-xs-10 col-xs-offset-1">
+           <div class="account-cta">
+               <p>Create an account if you would like to be able to customize your data (don't worry its free).</p>
+               <button class="btn btn-info">Create an account</button>
+           </div>
+           <h4>-Or-</h4>
+           <div class="default-cta">
+               <p>Select a location below to see what this is all about.</p>
+           </div>
+       </div>
+       <div class="clearfix"></div>
+    </div>
+
 </body>
 </html>

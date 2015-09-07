@@ -6,3 +6,30 @@ Home Page // Header Styles
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.hero_banner {
+    background: url("images/calafia.jpg");
+    color: white;
+    height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    /*99F7AB*/
+}
+
+.hero_banner a {
+    color: white;
+}
+
+@media(min-width: 768px) {
+    .navbar-header {
+        float: right;
+    }
+}
+
+/***************
+Home Page // Create account block
+****************/
+
+.create-account-block {
+    background: #D6F9DD;
+}
