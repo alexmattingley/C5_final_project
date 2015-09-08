@@ -24,11 +24,15 @@ function add_contact_info() {
     phe_class.html(phe_icon + pNum);
 }
 
+/***************************
+ * functionName: toggle_location_sub_menu();
+ * @purpose:
+ * @param location_tab
+ */
 function toggle_location_sub_menu(location_tab){
-    console.log("toggle_location_sub_menu");
     $(location_tab).click(function(){
         var toggle_parent = "#"+this.getAttribute("id");
-        var sub_menu = $(toggle_parent+ "+ul");
+        var sub_menu = $(toggle_parent + "+ul");
         sub_menu.slideToggle("slow");
     });
 }
