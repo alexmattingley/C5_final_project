@@ -5,11 +5,8 @@
 	<title>C5 final project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-    <script src="main.js"></script>
 </head>
 <body>
     <div class="hero_banner">
@@ -54,7 +51,7 @@
         <div class="col-xs-10 col-xs-offset-1">
             <h3>Select your location:</h3>
             <ul class=" list-unstyled">
-                <li id="socal-tab pills">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <li id="socal-tab" class="location-indiv-tab">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
                 <ul class="location-sub-menu list-unstyled">
                     <li><a href="javascript:;">Santa Barbara</a></li>
                     <li><a href="javascript:;">Ventura</a></li>
@@ -66,7 +63,7 @@
                 </ul>
             </ul>
             <ul class=" list-unstyled">
-                <li id="socal-tab pills">Central California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <li id="cencal-tab" class="location-indiv-tab">Central California<i class="glyphicon glyphicon-chevron-down"></i></li>
                 <ul class="location-sub-menu list-unstyled">
                     <li><a href="javascript:;">SLO County</a></li>
                     <li><a href="javascript:;">Big Sur</a></li>
@@ -77,5 +74,11 @@
         </div>
         <div class="clearfix"></div>
     </div>
+    <footer class="clearfix">
+        <p class="col-xs-12 col-sm-12 text-center copyright">Copyright &copy; <?php echo date('Y'); ?> . All rights reserved.</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
