@@ -50,9 +50,12 @@ function toggle_location_sub_menu(location_tab){
 
 function noaa_ajax_call() {
     $.ajax({
-        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2",
+        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/datatypes",
         headers:{
           token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
+        },
+        data:{
+           limit: 100
         },
         cache: false,
         dataType: 'json',
