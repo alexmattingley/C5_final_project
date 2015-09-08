@@ -25,8 +25,10 @@ function add_contact_info() {
 }
 
 function toggle_location_sub_menu(location_tab){
-    var sub_menu = $(location_tab + "+ul");
+    console.log("toggle_location_sub_menu");
     $(location_tab).click(function(){
+        var toggle_parent = "#"+this.getAttribute("id");
+        var sub_menu = $(toggle_parent+ "+ul");
         sub_menu.slideToggle("slow");
     });
 }
