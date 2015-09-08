@@ -62,6 +62,7 @@ Home Page // Locations block
 .location-sub-menu {
     background: #C5D6D8;
     padding: 6px 12px;
+    display: none;
 }
 
 /*******************

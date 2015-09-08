@@ -51,7 +51,7 @@
         <div class="col-xs-10 col-xs-offset-1">
             <h3>Select your location:</h3>
             <ul class=" list-unstyled">
-                <li id="socal-tab pills">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <li id="socal-tab pills" class="location-indiv-tab">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
                 <ul class="location-sub-menu list-unstyled">
                     <li><a href="javascript:;">Santa Barbara</a></li>
                     <li><a href="javascript:;">Ventura</a></li>
@@ -63,7 +63,7 @@
                 </ul>
             </ul>
             <ul class=" list-unstyled">
-                <li id="socal-tab pills">Central California<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <li id="cencal-tab pills" class="location-indiv-tab">Central California<i class="glyphicon glyphicon-chevron-down"></i></li>
                 <ul class="location-sub-menu list-unstyled">
                     <li><a href="javascript:;">SLO County</a></li>
                     <li><a href="javascript:;">Big Sur</a></li>

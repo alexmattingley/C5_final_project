@@ -1,5 +1,7 @@
 $(document).ready(function(){
     add_contact_info();
+    toggle_location_sub_menu('.location-indiv-tab');
+
 });
 
 /**********************
@@ -22,4 +24,9 @@ function add_contact_info() {
     phe_class.html(phe_icon + pNum);
 }
 
-
+function toggle_location_sub_menu(location_tab){
+    var sub_menu = $(location_tab + "+ul");
+    $(location_tab).click(function(){
+        sub_menu.slideToggle("slow");
+    });
+}
