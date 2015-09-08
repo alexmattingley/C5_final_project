@@ -1,6 +1,7 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
+    noaa_ajax_call();
 
 });
 
@@ -26,13 +27,37 @@ function add_contact_info() {
 
 /***************************
  * functionName: toggle_location_sub_menu();
- * @purpose:
- * @param location_tab
+ * @purpose: toggles the sub_menus from visible to invisible on click of the locations tab.
+ * @param: location_tab
+ * @globals: N/A
+ * @return: N/A
  */
 function toggle_location_sub_menu(location_tab){
     $(location_tab).click(function(){
         var toggle_parent = "#"+this.getAttribute("id");
         var sub_menu = $(toggle_parent + "+ul");
         sub_menu.slideToggle("slow");
+    });
+}
+
+/***************************
+ * functionName: noaa_ajax_call();
+ * @purpose: Calls noaa api to obtain buoy data
+ * @param:
+ * @globals:
+ * @return:
+ */
+
+function noaa_ajax_call() {
+    $.ajax({
+        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2",
+        headers:{
+          token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
+        },
+        cache: false,
+        dataType: 'json',
+        success: function(response) {
+           console.log(response);
+        }
     });
 }
