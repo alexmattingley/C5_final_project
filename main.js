@@ -70,9 +70,9 @@ function noaa_ajax_call() {
 
 function cdip_curl_request(){
     $.ajax({
-        url: "http://cdip.ucsd.edu/data_access/synopsis_pm.cdip",
+        url: "data_handlers/cdip_curl_request.php",
         cache: false,
-        dataType: 'text',
+        dataType: 'html',
         success: function(response) {
             console.log(response);
 
