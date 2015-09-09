@@ -50,12 +50,13 @@ function toggle_location_sub_menu(location_tab){
 
 function noaa_ajax_call() {
     $.ajax({
-        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/datatypes",
+        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
         headers:{
           token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
         },
         data:{
-           limit: 100
+            offset:1262,
+            limit:1000
         },
         cache: false,
         dataType: 'json',
