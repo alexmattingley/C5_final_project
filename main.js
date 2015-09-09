@@ -74,11 +74,17 @@ function cdip_curl_request(){
         cache: false,
         dataType: 'text',
         success: function(response) {
-            //console.log(response);
             var super_load_length = response.length;
-            //console.log(super_load_length);
-            var split = response.split("\n");
-            console.log(split);
+            var split_by_line = response.split("\n");
+            var all_buoy_info = [];
+            for(var i=3; i < split_by_line.length; i++){ //eliminates headers and other unnecessary data
+                all_buoy_info.push(split_by_line[i]);
+            }
+            console.log(all_buoy_info); //so this each line of the table.
+            console.log(all_buoy_info[0].length);
+
+
+
             //for(var i = 0; i <= 234; i++){
             //    //console.log(response[i]);
             //    var buoy_object = {};
