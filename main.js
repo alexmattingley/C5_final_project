@@ -1,7 +1,8 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
-    noaa_ajax_call();
+    //noaa_ajax_call();
+    cdip_curl_request();
 
 });
 
@@ -50,18 +51,31 @@ function toggle_location_sub_menu(location_tab){
 
 function noaa_ajax_call() {
     $.ajax({
-        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/stations",
+        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets",
         headers:{
           token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
         },
         data:{
-            offset:1262,
-            limit:1000
+            stationid:"COOP:010957"
         },
+        method: "GET",
         cache: false,
         dataType: 'json',
         success: function(response) {
            console.log(response);
+
+        }
+    });
+}
+
+function cdip_curl_request(){
+    $.ajax({
+        url: "http://cdip.ucsd.edu/data_access/synopsis_pm.cdip",
+        cache: false,
+        dataType: 'text',
+        success: function(response) {
+            console.log(response);
+
         }
     });
 }
