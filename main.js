@@ -1,6 +1,8 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
+    //noaa_ajax_call();
+    cdip_curl_request();
 
 });
 
@@ -24,11 +26,66 @@ function add_contact_info() {
     phe_class.html(phe_icon + pNum);
 }
 
+/***************************
+ * functionName: toggle_location_sub_menu();
+ * @purpose: toggles the sub_menus from visible to invisible on click of the locations tab.
+ * @param: location_tab
+ * @globals: N/A
+ * @return: N/A
+ */
 function toggle_location_sub_menu(location_tab){
-    console.log("toggle_location_sub_menu");
     $(location_tab).click(function(){
         var toggle_parent = "#"+this.getAttribute("id");
-        var sub_menu = $(toggle_parent+ "+ul");
+        var sub_menu = $(toggle_parent + "+ul");
         sub_menu.slideToggle("slow");
+    });
+}
+
+/***************************
+ * functionName: noaa_ajax_call();
+ * @purpose: Calls noaa api to obtain buoy data
+ * @param:
+ * @globals:
+ * @return:
+ */
+
+function noaa_ajax_call() {
+    $.ajax({
+        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets",
+        headers:{
+          token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
+        },
+        data:{
+            stationid:"COOP:010957"
+        },
+        method: "GET",
+        cache: false,
+        dataType: 'json',
+        success: function(response) {
+           console.log(response);
+
+        }
+    });
+}
+
+function cdip_curl_request(){
+    $.ajax({
+        url: "data_handlers/cdip_curl_request.php",
+        cache: false,
+        dataType: 'text',
+        success: function(response) {
+            //console.log(response);
+            var super_load_length = response.length;
+            //console.log(super_load_length);
+            var split = response.split("\n");
+            console.log(split);
+            //for(var i = 0; i <= 234; i++){
+            //    //console.log(response[i]);
+            //    var buoy_object = {};
+            //    buoy_object[i] = response[i];
+            //    console.log(buoy_object);
+            //
+            //}
+        }
     });
 }

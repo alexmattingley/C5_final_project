@@ -74,6 +74,7 @@
         </div>
         <div class="clearfix"></div>
     </div>
+    <div class="place-here"></div>
     <footer class="clearfix">
         <p class="col-xs-12 col-sm-12 text-center copyright">Copyright &copy; <?php echo date('Y'); ?> . All rights reserved.</p>
     </footer>
