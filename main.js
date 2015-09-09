@@ -72,10 +72,20 @@ function cdip_curl_request(){
     $.ajax({
         url: "data_handlers/cdip_curl_request.php",
         cache: false,
-        dataType: 'html',
+        dataType: 'text',
         success: function(response) {
-            console.log(response);
-
+            //console.log(response);
+            var super_load_length = response.length;
+            //console.log(super_load_length);
+            var split = response.split("\n");
+            console.log(split);
+            //for(var i = 0; i <= 234; i++){
+            //    //console.log(response[i]);
+            //    var buoy_object = {};
+            //    buoy_object[i] = response[i];
+            //    console.log(buoy_object);
+            //
+            //}
         }
     });
 }
