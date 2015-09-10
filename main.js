@@ -68,25 +68,25 @@ function noaa_ajax_call() {
     });
 }
 
+var buoy_object = {};
+
 function cdip_curl_request(){
     $.ajax({
         url: "data_handlers/cdip_curl_request.php",
         cache: false,
         dataType: 'text',
         success: function(response) {
-            var super_load_length = response.length;
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
-            for(var i=3; i < split_by_line.length; i++){ //eliminates headers and other unnecessary data
+            for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
                 all_buoy_info.push(split_by_line[i]);
             }
             //console.log(all_buoy_info); //so this each line of the table.
-            console.log(all_buoy_info[0]); //length is gonna be 78 for each array
             for(var i = 0; i < all_buoy_info[0].length; i++){ //this loops through the individual
-                var buoy_object = {};
-                buoy_object[i] = all_buoy_info[0][i];
-                console.log("buoy_object" , buoy_object);
-                //station #: 0-2
+                var index_indentifier_object = {};
+                index_indentifier_object[i] = all_buoy_info[0][i];
+                //console.log("index_indetifier_object" , index_indentifier_object); //this prints out each indiv character with an assoc number
+                //station #: 0-3
                 //station name: 4-29
                 //DOM PST: 30-31
                 //Time PST: 33-36
@@ -94,7 +94,14 @@ function cdip_curl_request(){
                 //Peak Direction(DP): 55-56
                 //wave-heigh(Meters)t: 47-49
             }
-            console.log("buoy_object" , buoy_object);
+            var create_station = '';
+            for (var i = 0; i < 3; i++){
+                create_station = create_station + all_buoy_info[0][i];
+
+            }
+            buoy_object.stationNum = create_station;
+            console.log(buoy_object);
+            console.log(create_station);
 
 
 
