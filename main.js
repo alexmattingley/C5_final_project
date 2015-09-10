@@ -80,14 +80,21 @@ function cdip_curl_request(){
             for(var i=3; i < split_by_line.length; i++){ //eliminates headers and other unnecessary data
                 all_buoy_info.push(split_by_line[i]);
             }
-            console.log(all_buoy_info); //so this each line of the table.
-            console.log(all_buoy_info[0]); //gonna be 78 for each array
-            for(var i = 0; i < all_buoy_info[0].length; i++){
-                //console.log(all_buoy_info[0][i]);
+            //console.log(all_buoy_info); //so this each line of the table.
+            console.log(all_buoy_info[0]); //length is gonna be 78 for each array
+            for(var i = 0; i < all_buoy_info[0].length; i++){ //this loops through the individual
                 var buoy_object = {};
                 buoy_object[i] = all_buoy_info[0][i];
-                //47-49:wave-height
+                console.log("buoy_object" , buoy_object);
+                //station #: 0-2
+                //station name: 4-29
+                //DOM PST: 30-31
+                //Time PST: 33-36
+                //Peak Period(TP): 51-52
+                //Peak Direction(DP): 55-56
+                //wave-heigh(Meters)t: 47-49
             }
+            console.log("buoy_object" , buoy_object);
 
 
 
