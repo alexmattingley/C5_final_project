@@ -81,7 +81,13 @@ function cdip_curl_request(){
                 all_buoy_info.push(split_by_line[i]);
             }
             console.log(all_buoy_info); //so this each line of the table.
-            console.log(all_buoy_info[0].length);
+            console.log(all_buoy_info[0]); //gonna be 78 for each array
+            for(var i = 0; i < all_buoy_info[0].length; i++){
+                //console.log(all_buoy_info[0][i]);
+                var buoy_object = {};
+                buoy_object[i] = all_buoy_info[0][i];
+                //47-49:wave-height
+            }
 
 
 
