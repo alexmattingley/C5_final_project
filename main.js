@@ -68,7 +68,7 @@ function noaa_ajax_call() {
     });
 }
 
-var buoy_object = {};
+var buoy_static = {};
 
 function cdip_curl_request(){
     $.ajax({
@@ -94,14 +94,31 @@ function cdip_curl_request(){
                 //Peak Direction(DP): 55-56
                 //wave-heigh(Meters)t: 47-49
             }
-            var create_station = '';
-            for (var i = 0; i < 3; i++){
-                create_station = create_station + all_buoy_info[0][i];
 
+            function get_station_number(){
+                var stationId = '';
+                for (var i = 0; i < 3; i++){
+                    stationId = stationId + all_buoy_info[0][i];
+                }
+                return stationId;
             }
-            buoy_object.stationNum = create_station;
-            console.log(buoy_object);
-            console.log(create_station);
+
+            function get_station_name(){
+                var stationName = '';
+                for (var i = 4; i < 29; i++){
+                    stationName = stationName + all_buoy_info[0][i];
+                }
+                return stationName;
+            }
+
+
+            var buoy_object = function(stationNum, stationNameParam){
+                this.stationNum = stationNum;
+                this.stationName = stationNameParam;
+            };
+
+            var buoy_guam = new buoy_object(get_station_number(),get_station_name());
+            console.log(buoy_guam);
 
 
 
