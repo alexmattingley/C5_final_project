@@ -69,7 +69,15 @@ function noaa_ajax_call() {
 }
 
 var buoy_array = [];
-var buoy_static = {};
+
+/***************************
+ * functionName: cdip_curl_request();
+ * @purpose: calls and then organizes CDIP data into a usable object. There are several functions within this function that handle
+ * individual pieces of data. I will comment those as well.
+ * @params: N/A
+ * @globals: buoy_array
+ * @returns: N/A
+ */
 
 function cdip_curl_request(){
     $.ajax({
@@ -79,34 +87,41 @@ function cdip_curl_request(){
         success: function(response) {
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
-            var buoy_object = function(stationNum, stationNameParam){
+            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swelldirection, swellheight){
                 this.stationNum = stationNum;
                 this.stationName = stationNameParam;
+                this.datePST = stationDOM;
+                this.readTime = stationTime;
+                this.peakPeriod = stationPeriod;
+                this.swelldirection = swelldirection;
+                this.swellHeight = swellheight;
             };
+
             for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
-
                 all_buoy_info.push(split_by_line[i]);
-
             }
+
+            /********************
+             * This for loop constructs the buoy object and inserts it into the buoy_array
+             */
 
             for(var i =0; i < all_buoy_info.length; i++){
                 get_station_number(i);
                 get_station_name(i);
-                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i));
+                get_day_of_month(i);
+                get_time_PST(i);
+                get_period(i);
+                get_swell_direction(i);
+                get_swell_height(i);
+                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i));
             }
-            //console.log(all_buoy_info); //so this each line of the table.
-            for(var i = 0; i < all_buoy_info[0].length; i++){ //this loops through the individual
-                var index_indentifier_object = {};
-                index_indentifier_object[i] = all_buoy_info[0][i];
-                //console.log("index_indetifier_object" , index_indentifier_object); //this prints out each indiv character with an assoc number
-                //station #: 0-3
-                //station name: 4-29
-                //DOM PST: 30-31
-                //Time PST: 33-36
-                //Peak Period(TP): 51-52
-                //Peak Direction(DP): 55-56
-                //wave-heigh(Meters)t: 47-49
-            }
+
+            /********************
+             * functionName: get_station_number()
+             * @purpose: pulls the stationNumber from the ajax data
+             * @param index
+             * @returns stationId
+             */
 
             function get_station_number(index){
                 var stationId = '';
@@ -116,28 +131,100 @@ function cdip_curl_request(){
                 return stationId;
             }
 
+            /********************
+             * functionName: get_station_name()
+             * @purpose: pulls the stationName from the ajax data
+             * @param index
+             * @returns stationName
+             */
+
             function get_station_name(index){
                 var stationName = '';
-                for (var i = 4; i < 29; i++){
+                for (var i = 4; i <= 29; i++){
                     stationName = stationName + all_buoy_info[index][i];
                 }
                 return stationName;
             }
 
+            /********************
+             * functionName: get_day_of_month()
+             * @purpose: pulls the day of month from the ajax data
+             * @param index
+             * @returns dayOfMonth
+             */
+
+            function get_day_of_month(index){
+                var dayOfMonth = '';
+                for(var i = 30; i<=31; i++){
+                    dayOfMonth+=all_buoy_info[index][i];
+                }
+                return dayOfMonth;
+            }
+
+            /********************
+             * functionName: get_time_PST()
+             * @purpose: pulls the time from the ajax return data
+             * @param index
+             * @returns time
+             */
+
+            function get_time_PST(index){
+                var time = '';
+                for(var i = 33; i <= 36; i++){
+                    time+=all_buoy_info[index][i];
+                }
+                return time;
+            }
+
+            /********************
+             * functionName: get_period()
+             * @purpose: pulls the peak period data from the ajax data
+             * @param index
+             * @returns period
+             */
+
+            function get_period(index){
+                var period='';
+                for(var i = 51; i<=52; i++){
+                    period+=all_buoy_info[index][i];
+                }
+                return period;
+            }
+
+            /********************
+             * functionName: get_swell_direction()
+             * @purpose: pulls the peak direction from ajax data
+             * @param index
+             * @returns direction
+             */
+
+            function get_swell_direction(index){
+                var direction = '';
+                for(var i = 54; i <=56; i++){
+                    direction+=all_buoy_info[index][i];
+                }
+                return direction;
+            }
+
+            /********************
+             * functionName: get_swell_height
+             * @purpose: pulls the swell height from the ajax data
+             * @param index
+             * @returns height
+             */
+
+            function get_swell_height(index){
+                var height = '';
+                for(var i = 47; i <= 49; i++ ){
+                    height+=all_buoy_info[index][i];
+                }
+                height = (height*0.39370)/12;
+                height = height.toFixed(1);
+                return height;
+            }
+
             console.log(buoy_array);
 
-            //var buoy_guam = new buoy_object(get_station_number(),get_station_name());
-            //console.log(buoy_guam);
-
-
-
-            //for(var i = 0; i <= 234; i++){
-            //    //console.log(response[i]);
-            //    var buoy_object = {};
-            //    buoy_object[i] = response[i];
-            //    console.log(buoy_object);
-            //
-            //}
         }
     });
 }
