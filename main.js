@@ -68,6 +68,7 @@ function noaa_ajax_call() {
     });
 }
 
+var buoy_array = [];
 var buoy_static = {};
 
 function cdip_curl_request(){
@@ -78,8 +79,20 @@ function cdip_curl_request(){
         success: function(response) {
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
+            var buoy_object = function(stationNum, stationNameParam){
+                this.stationNum = stationNum;
+                this.stationName = stationNameParam;
+            };
             for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
+
                 all_buoy_info.push(split_by_line[i]);
+
+            }
+
+            for(var i =0; i < all_buoy_info.length; i++){
+                get_station_number(i);
+                get_station_name(i);
+                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i));
             }
             //console.log(all_buoy_info); //so this each line of the table.
             for(var i = 0; i < all_buoy_info[0].length; i++){ //this loops through the individual
@@ -95,30 +108,26 @@ function cdip_curl_request(){
                 //wave-heigh(Meters)t: 47-49
             }
 
-            function get_station_number(){
+            function get_station_number(index){
                 var stationId = '';
-                for (var i = 0; i < 3; i++){
-                    stationId = stationId + all_buoy_info[0][i];
+                for (var i = 0; i <= 2; i++){
+                    stationId = stationId + all_buoy_info[index][i];
                 }
                 return stationId;
             }
 
-            function get_station_name(){
+            function get_station_name(index){
                 var stationName = '';
                 for (var i = 4; i < 29; i++){
-                    stationName = stationName + all_buoy_info[0][i];
+                    stationName = stationName + all_buoy_info[index][i];
                 }
                 return stationName;
             }
 
+            console.log(buoy_array);
 
-            var buoy_object = function(stationNum, stationNameParam){
-                this.stationNum = stationNum;
-                this.stationName = stationNameParam;
-            };
-
-            var buoy_guam = new buoy_object(get_station_number(),get_station_name());
-            console.log(buoy_guam);
+            //var buoy_guam = new buoy_object(get_station_number(),get_station_name());
+            //console.log(buoy_guam);
 
 
 
