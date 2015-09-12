@@ -3,6 +3,7 @@ $(document).ready(function(){
     toggle_location_sub_menu('.location-indiv-tab');
     cdip_curl_request();
     wunderground_ajax_call('goleta');
+    console.log(get_current_time());
 
 });
 
@@ -238,4 +239,11 @@ function wunderground_ajax_call(location_string){
            console.log(response);
         }
     });
+}
+
+function get_current_time(){
+    var new_date = new Date();
+    var hour = new Date().getHours();
+    var minute = new Date().getMinutes();
+    return (hour + ":" + minute);
 }
