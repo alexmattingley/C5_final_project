@@ -1,8 +1,8 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
-    //noaa_ajax_call();
     cdip_curl_request();
+    wunderground_ajax_call('goleta');
 
 });
 
@@ -225,6 +225,17 @@ function cdip_curl_request(){
 
             console.log(buoy_array);
 
+        }
+    });
+}
+
+
+function wunderground_ajax_call(location_string){
+    $.ajax({
+        url : "http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/" + location_string + ".json",
+        dataType : "json",
+        success : function(response) {
+           console.log(response);
         }
     });
 }
