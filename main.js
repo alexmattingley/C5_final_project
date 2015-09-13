@@ -3,7 +3,7 @@ $(document).ready(function(){
     toggle_location_sub_menu('.location-indiv-tab');
     cdip_curl_request();
     wunderground_ajax_call('goleta');
-    console.log(get_current_time());
+
 
 });
 
@@ -230,6 +230,7 @@ function cdip_curl_request(){
     });
 }
 
+var last_wundground_ajax_call;
 
 function wunderground_ajax_call(location_string){
     $.ajax({
@@ -237,6 +238,13 @@ function wunderground_ajax_call(location_string){
         dataType : "json",
         success : function(response) {
            console.log(response);
+            if(response.response.error){
+                console.log("There is something wrong, check your query string");
+            }else{
+                last_wundground_ajax_call = get_current_time();
+                console.log("You last ran your ajax call at: ",last_wundground_ajax_call);
+            }
+
         }
     });
 }
