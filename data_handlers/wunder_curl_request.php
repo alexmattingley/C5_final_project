@@ -39,7 +39,7 @@ $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
        $api_url = $result['api_url'];
-       print_r($result);
+       print($api_url);
     }
 }
 
@@ -51,24 +51,24 @@ if(mysqli_num_rows($results) > 0){
 *******/
 $json_string = file_get_contents("$api_url");
 $parsed_json = json_decode($json_string);
-$goleta_location = $parsed_json->{'location'}->{'city'};
-$goleta_temp_f = $parsed_json->current_observation->temp_f;
-$goleta_wind_dir = $parsed_json->current_observation->wind_dir;
-$golelta_wind_mph= $parsed_json->current_observation->wind_mph;
-$goleta_wind_gust = $parsed_json->current_observation->wind_gust_mph;
-$goleta_weather = $parsed_json->current_observation->weather;
-$goleta_last_observed = $parsed_json->current_observation->observation_time;
+$location = $parsed_json->{'location'}->{'city'};
+$temp_f = $parsed_json->current_observation->temp_f;
+$wind_dir = $parsed_json->current_observation->wind_dir;
+$wind_mph= $parsed_json->current_observation->wind_mph;
+$wind_gust = $parsed_json->current_observation->wind_gust_mph;
+$weather = $parsed_json->current_observation->weather;
+$last_observed = $parsed_json->current_observation->observation_time;
 
 $line_break = '<br>';
 
 //the print statements below are simply to make sure the request is still working
-print("Located in: $goleta_location $line_break");
-print("Air Temp: $goleta_temp_f $line_break");
-print("Wind direction: $goleta_wind_dir $line_break");
-print("Wind Speed(mph): $golelta_wind_mph $line_break");
-print("Wind Gust(mph): $goleta_wind_gust $line_break");
-print("Weather-description: $goleta_weather $line_break");
-print("Last Reading: $goleta_last_observed $line_break");
+print("Located in: $location $line_break");
+print("Air Temp: $temp_f $line_break");
+print("Wind direction: $wind_dir $line_break");
+print("Wind Speed(mph): $wind_mph $line_break");
+print("Wind Gust(mph): $wind_gust $line_break");
+print("Weather-description: $weather $line_break");
+print("Last Reading: $last_observed $line_break");
 
 
 /************************
