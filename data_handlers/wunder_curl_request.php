@@ -15,6 +15,6 @@ $output = curl_exec($ch);
 // close curl resource to free up system resources
 curl_close($ch);
 
-$json_encoded_output = json_encode($output);
-print_r($json_encoded_output);
+
+print_r($output);
 ?>
