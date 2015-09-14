@@ -35,16 +35,17 @@
 $current_data = array();
 
 require('../mysql_connect.php');
-$query = "SELECT * FROM `wind_data`";
+$query = "select * from `wind_data` where last_updated = (select min(last_updated) from `wind_data`)";
 $results = mysqli_query($conn, $query);
 $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-       array_push($current_data, $result);
+       //array_push($current_data, $result);
+       print_r($result);
     }
 }
 
-print_r($current_data);
+//print_r($current_data);
 
 /********************************************
  * pulling Goleta wind/temp readings.
