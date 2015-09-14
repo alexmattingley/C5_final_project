@@ -48,10 +48,19 @@ print("Wind Gust(mph): $goleta_wind_gust $line_break");
 print("Weather-description: $goleta_weather $line_break");
 print("Last Reading: $goleta_last_observed $line_break");
 
-print_r($parsed_json->current_observation);
 
 /************************
  * Sending Goleta data to database and overwriting older data
  */
 
+
+require('../mysql_connect.php');
+$query = "SELECT * FROM `wind_data`";
+$results = mysqli_query($conn, $query);
+$i = 0;
+if(mysqli_num_rows($results) > 0){
+    while($result = mysqli_fetch_assoc($results)){
+        print_r($result);
+    }
+}
 ?>
