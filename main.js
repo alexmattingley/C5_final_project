@@ -1,7 +1,7 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
-    cdip_curl_request();
+    cdip_get_data();
     wunderground_ajax_call('goleta');
 
 
@@ -80,9 +80,9 @@ var buoy_array = [];
  * @returns: N/A
  */
 
-function cdip_curl_request(){
+function cdip_get_data(){
     $.ajax({
-        url: "data_handlers/cdip_curl_request.php",
+        url: "data_handlers/cdip_get_data.php",
         cache: false,
         dataType: 'text',
         success: function(response) {
@@ -229,8 +229,6 @@ function cdip_curl_request(){
         }
     });
 }
-
-var last_wundground_ajax_call;
 
 function wunderground_ajax_call(location_string){
     $.ajax({
