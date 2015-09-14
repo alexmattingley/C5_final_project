@@ -38,6 +38,8 @@ $goleta_weather = $parsed_json->current_observation->weather;
 $goleta_last_observed = $parsed_json->current_observation->observation_time;
 
 $line_break = '<br>';
+
+//the print statements below are simply to make sure the request is still working
 print("Located in: $goleta_location $line_break");
 print("Air Temp: $goleta_temp_f $line_break");
 print("Wind direction: $goleta_wind_dir $line_break");
@@ -49,7 +51,7 @@ print("Last Reading: $goleta_last_observed $line_break");
 print_r($parsed_json->current_observation);
 
 /************************
- * Sending Goleta data to database.
+ * Sending Goleta data to database and overwriting older data
  */
 
 ?>
