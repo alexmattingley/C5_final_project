@@ -2,6 +2,7 @@ $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
     cdip_curl_request();
+    call_timestamp_data();
     wunderground_ajax_call('goleta');
 
 
@@ -244,6 +245,17 @@ function wunderground_ajax_call(location_string){
                 last_wundground_ajax_call = get_current_time();
                 console.log("You last ran your ajax call at: ",last_wundground_ajax_call);
             }
+
+        }
+    });
+}
+
+function call_timestamp_data(){
+    $.ajax({
+        url : "data_handlers/timestamp_data.php",
+        dataType : "json",
+        success : function(response) {
+            console.log(response);
 
         }
     });
