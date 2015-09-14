@@ -26,9 +26,8 @@
 
 $json_string = file_get_contents("http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
 $parsed_json = json_decode($json_string);
-
 print_r($parsed_json->current_observation->weather);
-//echo "Current temperature in ${location} is: ${temp_f}\n";
+
 
 
 ?>
