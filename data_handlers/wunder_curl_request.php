@@ -1,26 +1,34 @@
 <?php
-$output = array();
+//$output = array();
+//
+//// create curl resource
+//$curl_one = curl_init();
+//
+//// set url
+//curl_setopt($curl_one, CURLOPT_URL, "http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
+//
+////return the transfer as a string
+////curl_setopt($curl_one, CURLOPT_RETURNTRANSFER, 1);
+//
+//
+//// $output contains the output string
+//$curl_response = curl_exec($curl_one);
+//array_push($output, $curl_response);
+//
+//// close curl resource to free up system resources
+//curl_close($curl_one);
+//
+////$json_encode_output = json_code($output[0]);
+////print_r($json_encode_output);
+//
+//$json_decode = json_decode($curl_response);
+//print_r($json_decode);
 
-// create curl resource
-$curl_one = curl_init();
+$json_string = file_get_contents("http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
+$parsed_json = json_decode($json_string);
 
-// set url
-curl_setopt($curl_one, CURLOPT_URL, "http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
-
-//return the transfer as a string
-//curl_setopt($curl_one, CURLOPT_RETURNTRANSFER, 1);
+print_r($parsed_json->current_observation->weather);
+//echo "Current temperature in ${location} is: ${temp_f}\n";
 
 
-// $output contains the output string
-$curl_response = curl_exec($curl_one);
-array_push($output, $curl_response);
-
-// close curl resource to free up system resources
-curl_close($curl_one);
-
-//$json_encode_output = json_code($output[0]);
-//print_r($json_encode_output);
-
-$json_decode = json_decode($curl_response);
-print_r($json_decode);
 ?>
