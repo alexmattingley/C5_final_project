@@ -32,15 +32,13 @@
  * Query which calls data base and determines what the last updated was
  */
 
-$current_data = array();
-
 require('../mysql_connect.php');
 $query = "select * from `wind_data` where last_updated = (select min(last_updated) from `wind_data`)";
 $results = mysqli_query($conn, $query);
 $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-       //array_push($current_data, $result);
+       $api_url = $result['api_url'];
        print_r($result);
     }
 }
@@ -49,8 +47,9 @@ if(mysqli_num_rows($results) > 0){
 
 /********************************************
  * pulling Goleta wind/temp readings.
-*put the closing comment here when you are ready to make the call
-$json_string = file_get_contents("http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
+ *
+*******/
+$json_string = file_get_contents("$api_url");
 $parsed_json = json_decode($json_string);
 $goleta_location = $parsed_json->{'location'}->{'city'};
 $goleta_temp_f = $parsed_json->current_observation->temp_f;
