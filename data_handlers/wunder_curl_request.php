@@ -75,5 +75,6 @@ print("Last Reading: $last_observed $line_break");
  * Sending Goleta data to database and overwriting older data
  */
 
+//query statement = UPDATE `wind_data` SET `last_observed`='2015',`temp_f`='9000',`wind_dir`='wnw',`wind_mph`='100',`wind_gust_mph`='110',`weather`='hell on earth',`location`='Goleta',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `location`='Goleta'
 
 ?>
