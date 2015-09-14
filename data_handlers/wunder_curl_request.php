@@ -46,7 +46,7 @@ if(mysqli_num_rows($results) > 0){
 //print_r($current_data);
 
 /********************************************
- * pulling Goleta wind/temp readings.
+ * pulling readings.
  *
 *******/
 $json_string = file_get_contents("$api_url");
@@ -72,8 +72,15 @@ print("Last Reading: $last_observed $line_break");
 
 
 /************************
- * Sending Goleta data to database and overwriting older data
+ * Sending data to database and overwriting older data
  */
+
+require('../mysql_connect.php');
+$query = "UPDATE `wind_data` SET `last_observed`='$last_observed',`temp_f`='$temp_f',`wind_dir`='$wind_dir',`wind_mph`='$wind_mph',`wind_gust_mph`='$wind_gust',`weather`='$weather',`location`='$location',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `location`='$location'";
+$results = mysqli_query($conn, $query);
+if (mysqli_affected_rows($conn) > 0) {
+    print_r($results);
+}
 
 //query statement = UPDATE `wind_data` SET `last_observed`='2015',`temp_f`='9000',`wind_dir`='wnw',`wind_mph`='100',`wind_gust_mph`='110',`weather`='hell on earth',`location`='Goleta',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `location`='Goleta'
 
