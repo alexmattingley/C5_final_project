@@ -24,9 +24,31 @@
 //$json_decode = json_decode($curl_response);
 //print_r($json_decode);
 
+
+
+//depending on the last updated field in the database, that should be what determines which api to call.
+
+/*********************************
+ * Query which calls data base and determines what the last updated was
+ */
+
+$current_data = array();
+
+require('../mysql_connect.php');
+$query = "SELECT * FROM `wind_data`";
+$results = mysqli_query($conn, $query);
+$i = 0;
+if(mysqli_num_rows($results) > 0){
+    while($result = mysqli_fetch_assoc($results)){
+       array_push($current_data, $result);
+    }
+}
+
+print_r($current_data);
+
 /********************************************
  * pulling Goleta wind/temp readings.
- */
+*put the closing comment here when you are ready to make the call
 $json_string = file_get_contents("http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/goleta.json");
 $parsed_json = json_decode($json_string);
 $goleta_location = $parsed_json->{'location'}->{'city'};
@@ -54,13 +76,4 @@ print("Last Reading: $goleta_last_observed $line_break");
  */
 
 
-require('../mysql_connect.php');
-$query = "SELECT * FROM `wind_data`";
-$results = mysqli_query($conn, $query);
-$i = 0;
-if(mysqli_num_rows($results) > 0){
-    while($result = mysqli_fetch_assoc($results)){
-        print_r($result);
-    }
-}
 ?>
