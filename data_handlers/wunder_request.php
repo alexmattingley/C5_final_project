@@ -82,6 +82,6 @@ if (mysqli_affected_rows($conn) > 0) {
     print_r($results);
 }
 
-//query statement = UPDATE `wind_data` SET `last_observed`='2015',`temp_f`='9000',`wind_dir`='wnw',`wind_mph`='100',`wind_gust_mph`='110',`weather`='hell on earth',`location`='Goleta',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `location`='Goleta'
+
 
 ?>
