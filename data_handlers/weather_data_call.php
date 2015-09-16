@@ -1,14 +1,14 @@
 <?php
 require('../mysql_connect.php');
-$query = "SELECT * FROM `wundgeround_ajax_time`";
+$query = "SELECT * FROM `wind_data`";
 $results = mysqli_query($conn, $query);
 $i = 0;
-//date_default_timezone_set('America/Los_Angeles');
+$weather_array = array();
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-       $json_string = json_encode($result);
+        array_push($weather_array, $result);
     }
 }
-
+$json_string = json_encode($weather_array);
 print($json_string);
 ?>

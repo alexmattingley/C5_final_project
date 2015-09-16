@@ -1,9 +1,8 @@
 $(document).ready(function(){
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
-    cdip_curl_request();
-    call_timestamp_data();
-    wunderground_ajax_call('goleta');
+    cdip_get_data();
+    wunderground_data_call();
 
 
 });
@@ -81,9 +80,9 @@ var buoy_array = [];
  * @returns: N/A
  */
 
-function cdip_curl_request(){
+function cdip_get_data(){
     $.ajax({
-        url: "data_handlers/cdip_curl_request.php",
+        url: "data_handlers/cdip_get_data.php",
         cache: false,
         dataType: 'text',
         success: function(response) {
@@ -231,35 +230,17 @@ function cdip_curl_request(){
     });
 }
 
-var last_wundground_ajax_call;
-
-function wunderground_ajax_call(location_string){
+function wunderground_data_call(){
     $.ajax({
-        url : "http://api.wunderground.com/api/b249567299fad989/geolookup/conditions/q/CA/" + location_string + ".json",
+        url : "data_handlers/weather_data_call.php",
         dataType : "json",
         success : function(response) {
            console.log(response);
-            if(response.response.error){
-                console.log("There is something wrong, check your query string");
-            }else{
-                last_wundground_ajax_call = get_current_time();
-                console.log("You last ran your ajax call at: ",last_wundground_ajax_call);
-            }
 
         }
     });
 }
 
-function call_timestamp_data(){
-    $.ajax({
-        url : "data_handlers/timestamp_data.php",
-        dataType : "json",
-        success : function(response) {
-            console.log(response);
-
-        }
-    });
-}
 
 function get_current_time(){
     var new_date = new Date();
