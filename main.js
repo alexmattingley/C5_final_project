@@ -214,7 +214,7 @@ function cdip_get_data(){
              * @returns height
              */
 
-            function get_swell_height(index){
+            function get_swell_height(index){git
                 var height = '';
                 for(var i = 47; i <= 49; i++ ){
                     height+=all_buoy_info[index][i];

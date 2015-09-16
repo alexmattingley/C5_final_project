@@ -1,4 +1,4 @@
 .idea
 wp-config.php
 .DS-Store
-mysql_connect.php
+mysql_conn
