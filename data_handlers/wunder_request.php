@@ -32,7 +32,7 @@
  * Query which calls data base and determines what the last updated was
  */
 
-require('../mysql_connect.php');
+require('/Applications/MAMP/htdocs/Sandbox/C5_final_project/mysql_connect.php');
 $query = "select * from `wind_data` where last_updated = (select min(last_updated) from `wind_data`)";
 $results = mysqli_query($conn, $query);
 $i = 0;
@@ -75,11 +75,14 @@ print("Last Reading: $last_observed $line_break");
  * Sending data to database and overwriting older data
  */
 
-require('../mysql_connect.php');
+require('/Applications/MAMP/htdocs/Sandbox/C5_final_project/mysql_connect.php');
 $query = "UPDATE `wind_data` SET `last_observed`='$last_observed',`temp_f`='$temp_f',`wind_dir`='$wind_dir',`wind_mph`='$wind_mph',`wind_gust_mph`='$wind_gust',`weather`='$weather',`location`='$location',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `location`='$location'";
 $results = mysqli_query($conn, $query);
 if (mysqli_affected_rows($conn) > 0) {
     print_r($results);
+}else {
+    print($location);
+    print('something isnt working');
 }
 
 
