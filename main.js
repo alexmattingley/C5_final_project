@@ -214,7 +214,7 @@ function cdip_get_data(){
              * @returns height
              */
 
-            function get_swell_height(index){git
+            function get_swell_height(index){
                 var height = '';
                 for(var i = 47; i <= 49; i++ ){
                     height+=all_buoy_info[index][i];
@@ -240,6 +240,9 @@ function wunderground_data_call(){
         }
     });
 }
+
+
+
 
 
 function get_current_time(){
