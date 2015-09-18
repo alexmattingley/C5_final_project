@@ -2,7 +2,9 @@
 <body>
     <div id="content-container">
         <div class="hero_banner">
-           <?php include "inc/basic_nav.php"; ?>
+           <div class="container-fluid">
+            <?php include "inc/basic_nav.php"; ?>
+           </div>
             <div class="hero-text text-center col-xs-10 col-xs-offset-1">
                 <h1>Goggles' Data</h1>
                 <h3>A no frills tool to help you get barreled.</h3>

@@ -92,6 +92,10 @@ Data Pages/Header/Navigation
         border-color: #80DED9;
     }
 
+    .default-location .navbar-nav a {
+        color: #FFFFF2;
+    }
+
 
 /**************************
 Data Pages/buoy-block
@@ -109,6 +113,26 @@ Data Pages/buoy-block
     .buoy-block .indiv-buoy {
         background: #6D9DC5;
         color: white;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+/**************************
+Data Pages/Wind Block
+************************/
+
+    .wind-data-block {
+        background: #001011;
+        padding: 40px 0px;
+    }
+
+    .wind-data-block h3 {
+        color: white;
+    }
+
+    .wind-data-block .indiv-wind {
+        color: #001011;
+        background: white;
         border-radius: 5px;
         margin-top: 20px;
     }

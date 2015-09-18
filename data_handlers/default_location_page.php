@@ -6,7 +6,8 @@ $results = mysqli_query($conn, $query);
 $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-        //print_r($result);
+        print_r($result);
+
     }
 }
 ?>
@@ -43,8 +44,8 @@ if(mysqli_num_rows($results) > 0){
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
-        <h3>Wind</h3>
-        <div class="indiv-wind">
+        <h3 class="col-xs-10 col-xs-offset-1">Wind</h3>
+        <div class="indiv-wind col-xs-10 col-xs-offset-1">
             <h4>Santa Barabara Airport</h4>
             <p>Air Temperature: 76°F</p>
             <p>Last Reading: Last Updated on September 18, 9:53 AM PDT</p>
@@ -52,7 +53,7 @@ if(mysqli_num_rows($results) > 0){
             <p>Wind: 5 MPH from the SE</p>
             <p>Wind gusts: 0 MPH</p>
         </div>
-        <div class="indiv-wind">
+        <div class="indiv-wind col-xs-10 col-xs-offset-1">
             <h4>Santa Barabara Airport</h4>
             <p>Air Temperature: 76°F</p>
             <p>Last Reading: Last Updated on September 18, 9:53 AM PDT</p>
@@ -60,7 +61,7 @@ if(mysqli_num_rows($results) > 0){
             <p>Wind: 5 MPH from the SE</p>
             <p>Wind gusts: 0 MPH</p>
         </div>
-        <div class="indiv-wind">
+        <div class="indiv-wind col-xs-10 col-xs-offset-1">
             <h4>Santa Barabara Airport</h4>
             <p>Air Temperature: 76°F</p>
             <p>Last Reading: Last Updated on September 18, 9:53 AM PDT</p>
@@ -68,6 +69,7 @@ if(mysqli_num_rows($results) > 0){
             <p>Wind: 5 MPH from the SE</p>
             <p>Wind gusts: 0 MPH</p>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 
