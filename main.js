@@ -3,7 +3,10 @@ $(document).ready(function(){
     toggle_location_sub_menu('.location-indiv-tab');
     cdip_get_data();
     wunderground_data_call();
-
+   $("[loc_id=1]").click(function(){
+       var loc_id = $(this).attr('loc_id');
+       pull_relevant_buoy_by_location(loc_id);
+   });
 
 });
 
@@ -258,6 +261,21 @@ function cycle_and_send_buoy_data() {
             }
         });
     }
+}
+
+function pull_relevant_buoy_by_location(location_id){
+    $.ajax({
+        url: "data_handlers/buoys_location_receive.php",
+        method: "POST",
+        dataType: "text",
+        data: {
+            location_index: location_id
+        },
+        success: function(response){
+            console.log(response);
+        }
+
+    });
 }
 
 
