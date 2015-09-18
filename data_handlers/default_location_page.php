@@ -1,15 +1,23 @@
 <?php
 $location_id = $_POST['location_index'];
+
+$buoy_array = array();
 require('../mysql_connect.php');
 $query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
 $results = mysqli_query($conn, $query);
-$i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-        print_r($result);
-
+        array_push($buoy_array,$result);
     }
 }
+
+print_r($buoy_array[0]['Buoy_name']);
+
+for($i = 0; $i < count($buoy_array); $i++){
+    print_r($buoy_array[$i]);
+}
+
+
 ?>
 <div class="default-location">
     <div class="header-page">
