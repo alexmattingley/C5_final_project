@@ -1,6 +1,6 @@
 <?php
-$location_id = $_POST['location_index'];
 
+$location_id = $_POST['location_index'];
 $buoy_array = array();
 require('../mysql_connect.php');
 $query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
@@ -11,6 +11,28 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
+/**********************
+ * function_name: create_indiv_buoys
+ * @purpose: This function creates each of the individual html code blocks for each buoy
+ * @param: N/A
+ * @globals:$buoy_array
+ */
+
+function create_indiv_buoys(){
+    global $buoy_array;
+    for($i = 0; $i < count($buoy_array); $i++) {
+        $relevant_data_object = json_decode($buoy_array[$i]["relevant_data"]);
+
+        ?>
+        <div class="indiv-buoy col-xs-10 col-xs-offset-1">
+            <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
+            <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
+            <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
+            <p>Swell Direction: <?php print($relevant_data_object->swellDirection); ?>°</p>
+        </div>
+        <?php
+    }
+}
 ?>
 <div class="default-location">
     <div class="header-page">
@@ -21,22 +43,7 @@ if(mysqli_num_rows($results) > 0){
     </div>
     <div class="buoy-block">
         <h3 class="col-xs-10 col-xs-offset-1">Buoys</h3>
-        <?php
-        for($i = 0; $i < count($buoy_array); $i++) {
-            $php_coded_object = json_decode($buoy_array[$i]["relevant_data"]);
-
-        ?>
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1">
-            <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
-            <p>Height: <?php print($php_coded_object->swellHeight); ?></p>
-            <p>Peak Period: 14 seconds</p>
-            <p>Direction: 285° (WNW)</p>
-            <p>Water Temperature: 70°F</p>
-        </div>
-        <?php
-        }
-        ?>
-
+        <?php create_indiv_buoys(); ?>
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
