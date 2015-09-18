@@ -11,13 +11,6 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
-print_r($buoy_array[0]['Buoy_name']);
-
-for($i = 0; $i < count($buoy_array); $i++){
-    print_r($buoy_array[$i]);
-}
-
-
 ?>
 <div class="default-location">
     <div class="header-page">
@@ -28,27 +21,22 @@ for($i = 0; $i < count($buoy_array); $i++){
     </div>
     <div class="buoy-block">
         <h3 class="col-xs-10 col-xs-offset-1">Buoys</h3>
+        <?php
+        for($i = 0; $i < count($buoy_array); $i++) {
+            $php_coded_object = json_decode($buoy_array[$i]["relevant_data"]);
+
+        ?>
         <div class="indiv-buoy col-xs-10 col-xs-offset-1">
-            <h4>Anacapa</h4>
-            <p>Height: 3ft</p>
+            <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
+            <p>Height: <?php print($php_coded_object->swellHeight); ?></p>
             <p>Peak Period: 14 seconds</p>
             <p>Direction: 285° (WNW)</p>
             <p>Water Temperature: 70°F</p>
         </div>
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1">
-            <h4>Anacapa</h4>
-            <p>Height: 3ft</p>
-            <p>Peak Period: 14 seconds</p>
-            <p>Direction: 285° (WNW)</p>
-            <p>Water Temperature: 70°F</p>
-        </div>
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1">
-            <h4>Anacapa</h4>
-            <p>Height: 3ft</p>
-            <p>Peak Period: 14 seconds</p>
-            <p>Direction: 285° (WNW)</p>
-            <p>Water Temperature: 70°F</p>
-        </div>
+        <?php
+        }
+        ?>
+
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
