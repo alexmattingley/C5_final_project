@@ -276,7 +276,7 @@ function pull_relevant_buoy_by_location(location_id){
         success: function(response){
             console.log(response);
             remove_content();
-
+            $content_container.html(response);
         }
 
     });

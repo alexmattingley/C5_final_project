@@ -11,4 +11,5 @@ if(mysqli_num_rows($results) > 0){
 }
 ?>
 <?php include "../inc/basic_nav.php"; ?>
-<h2>This is the sb page</h2>
+
+</div>
