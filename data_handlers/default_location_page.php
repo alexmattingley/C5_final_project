@@ -34,6 +34,8 @@ function create_indiv_buoys(){
     }
 }
 ?>
+
+
 <div class="default-location">
     <div class="header-page">
         <div class="container-fluid">
