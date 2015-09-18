@@ -53,7 +53,7 @@
             <ul class=" list-unstyled">
                 <li id="socal-tab" class="location-indiv-tab">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
                 <ul class="location-sub-menu list-unstyled">
-                    <li><a href="javascript:;">Santa Barbara</a></li>
+                    <li><a href="javascript:;" loc_id="1">Santa Barbara</a></li>
                     <li><a href="javascript:;">Ventura</a></li>
                     <li><a href="javascript:;">Los Angeles</a></li>
                     <li><a href="javascript:;">North Orange County</a></li>

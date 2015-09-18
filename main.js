@@ -4,6 +4,10 @@ $(document).ready(function(){
     cdip_get_data();
     wunderground_data_call();
 
+   $("[loc_id=1]").click(function(){ //this needs to be more scalable
+       var loc_id = $(this).attr('loc_id');
+       pull_relevant_buoy_by_location(loc_id);
+   });
 
 });
 
@@ -88,13 +92,13 @@ function cdip_get_data(){
         success: function(response) {
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
-            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swelldirection, swellheight){
+            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight){
                 this.stationNum = stationNum;
                 this.stationName = stationNameParam;
                 this.datePST = stationDOM;
                 this.readTime = stationTime;
                 this.peakPeriod = stationPeriod;
-                this.swelldirection = swelldirection;
+                this.swellDirection = swellDirection;
                 this.swellHeight = swellheight;
             };
 
@@ -225,7 +229,7 @@ function cdip_get_data(){
             }
 
             console.log(buoy_array);
-
+            cycle_and_send_buoy_data();
         }
     });
 }
@@ -241,7 +245,39 @@ function wunderground_data_call(){
     });
 }
 
+function cycle_and_send_buoy_data() {
+    for(var i = 0; i < buoy_array.length; i++){
+        var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection};
+        $.ajax({
+           url: "data_handlers/buoy_data_send.php",
+            method: "POST",
+            dataType: "text",
+            data: {
+                stationName: buoy_array[i].stationName,
+                stationNum: buoy_array[i].stationNum,
+                buoy_data: important_data, //this is an object with all of the other important information
+            },
+            success: function(response){
+                console.log(response);
+            }
+        });
+    }
+}
 
+function pull_relevant_buoy_by_location(location_id){
+    $.ajax({
+        url: "data_handlers/buoys_location_receive.php",
+        method: "POST",
+        dataType: "text",
+        data: {
+            location_index: location_id
+        },
+        success: function(response){
+            console.log(response);
+        }
+
+    });
+}
 
 
 
