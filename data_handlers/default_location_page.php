@@ -6,7 +6,7 @@ $results = mysqli_query($conn, $query);
 $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
-        print_r($result);
+        //print_r($result);
     }
 }
 ?>
