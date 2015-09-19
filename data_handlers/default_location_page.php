@@ -22,8 +22,6 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
-print_r($weather_array);
-
 /**********************
  * function_name: create_indiv_buoys
  * @purpose: This function creates each of the individual html code blocks for each buoy
