@@ -28,6 +28,18 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
+
+require('../mysql_connect.php');
+$query = "SELECT * FROM `locations` WHERE `id`='$location_id'";
+$results = mysqli_query($conn, $query);
+if(mysqli_num_rows($results) > 0){
+    while($result = mysqli_fetch_assoc($results)){
+        $location_name = $result['location_name'];
+    }
+}
+
+
+
 /**********************
  * function_name: create_indiv_buoys
  * @purpose: This function creates each of the individual html code blocks for each buoy
@@ -84,7 +96,7 @@ function create_indiv_wind(){
     <div class="header-page">
         <div class="container-fluid">
             <?php include "../inc/basic_nav.php"; ?>
-            <h2>Snapshot of Santa Barbara, CA</h2>
+            <h2>Snapshot of <?php print($location_name); ?>, CA</h2>
         </div>
     </div>
     <div class="buoy-block">
