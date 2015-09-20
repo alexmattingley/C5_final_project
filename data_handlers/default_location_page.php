@@ -1,5 +1,9 @@
 <?php
 
+/***************************
+ * This block is the query call for the buoy data
+ */
+
 $location_id = $_POST['location_index'];
 $buoy_array = array();
 require('../mysql_connect.php');
@@ -11,7 +15,9 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
-
+/***************************
+ * This block is the query call for the wind data
+ */
 $weather_array = array();
 require('../mysql_connect.php');
 $query = "SELECT * FROM location_wind_relations LEFT JOIN wind_data on wind_data.id = location_wind_relations.wind_id WHERE location_wind_relations.location_id = '$location_id'";
@@ -44,6 +50,14 @@ function create_indiv_buoys(){
         <?php
     }
 }
+
+
+/**********************
+ * function_name: create_indiv_wind
+ * @purpose: This function creates each of the individual html code blocks for each wind point
+ * @param: N/A
+ * @globals:$weather_array
+ */
 
 
 function create_indiv_wind(){
