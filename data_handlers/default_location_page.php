@@ -53,7 +53,7 @@ function create_indiv_buoys(){
         $relevant_data_object = json_decode($buoy_array[$i]["relevant_data"]);
 
         ?>
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1">
+        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3git">
             <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
             <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
             <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
@@ -100,9 +100,11 @@ function create_indiv_wind(){
         </div>
     </div>
     <div class="buoy-block">
-        <h3 class="col-xs-10 col-xs-offset-1">Buoys</h3>
-        <?php create_indiv_buoys(); ?>
-        <div class="clearfix"></div>
+        <div class="container-fluid">
+            <h3 class="col-xs-10 col-xs-offset-1 col-sm-offset-0">Buoys</h3>
+            <?php create_indiv_buoys(); ?>
+            <div class="clearfix"></div>
+        </div>
     </div>
     <div class="wind-data-block">
         <h3 class="col-xs-10 col-xs-offset-1">Wind</h3>
