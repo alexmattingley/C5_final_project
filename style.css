@@ -70,6 +70,82 @@ footer
 ********************/
 
 footer {
-    background: #99F7AB;
-    color: #60695C;
+    background: #80DED9;
+    color: #FFFFF2;
 }
+
+/***********************
+Data Pages/Header/Navigation
+************************/
+    .header-page {
+        background: #80DED9;
+        padding-bottom: 40px;
+    }
+
+    .header-page button.navbar-toggle.collapsed.pull-left, .header-page h2 {
+        color: #FFFFF2;
+    }
+
+    .header-page .btn-default {
+        background: #FFFFF2;
+        color: #80DED9;
+        border-color: #80DED9;
+    }
+
+    .default-location .navbar-nav a {
+        color: #FFFFF2;
+    }
+
+    .default-location .navbar-toggle {
+        padding-left: 0px;
+    }
+
+    .default-location .navbar-nav li:first-child a {
+        padding-left: 0px;
+    }
+
+    .default-location .navbar-collapse {
+        padding-left: 0px;
+    }
+
+
+/**************************
+Data Pages/buoy-block
+************************/
+
+    .buoy-block h3 {
+        margin-top: 0px;
+        padding-left: 0px;
+        color: #6D9DC5;
+    }
+
+    .buoy-block {
+        padding: 40px 0px;
+    }
+
+    .buoy-block .indiv-buoy {
+        background: #6D9DC5;
+        color: white;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+/**************************
+Data Pages/Wind Block
+************************/
+
+    .wind-data-block {
+        background: #001011;
+        padding: 40px 0px;
+    }
+
+    .wind-data-block h3 {
+        color: white;
+    }
+
+    .wind-data-block .indiv-wind {
+        color: #001011;
+        background: white;
+        border-radius: 5px;
+        margin-top: 20px;
+    }

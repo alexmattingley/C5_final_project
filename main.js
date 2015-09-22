@@ -264,9 +264,10 @@ function cycle_and_send_buoy_data() {
     }
 }
 
+var $content_container = $('#content-container');
 function pull_relevant_buoy_by_location(location_id){
     $.ajax({
-        url: "data_handlers/buoys_location_receive.php",
+        url: "data_handlers/default_location_page.php",
         method: "POST",
         dataType: "text",
         data: {
@@ -274,12 +275,16 @@ function pull_relevant_buoy_by_location(location_id){
         },
         success: function(response){
             console.log(response);
+            remove_content();
+            $content_container.html(response);
         }
 
     });
 }
 
-
+function remove_content() {
+    $content_container.empty();
+}
 
 function get_current_time(){
     var new_date = new Date();
