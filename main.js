@@ -4,7 +4,7 @@ $(document).ready(function(){
     cdip_get_data();
     wunderground_data_call();
 
-   $("[loc_id=1]").click(function(){ //this needs to be more scalable
+   $(".location-sub-menu li a").click(function(){ //this needs to be more scalable
        var loc_id = $(this).attr('loc_id');
        pull_relevant_buoy_by_location(loc_id);
    });
