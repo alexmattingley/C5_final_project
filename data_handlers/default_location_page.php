@@ -52,8 +52,15 @@ function create_indiv_buoys(){
     for($i = 0; $i < count($buoy_array); $i++) {
         $relevant_data_object = json_decode($buoy_array[$i]["relevant_data"]);
 
-        ?>
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3git">
+        if($i == 0 || $i % 3 == 0){; ?>
+
+        <div class="indiv-buoy col-xs-10 col-sm-3">
+
+        <?php } else {; ?>
+
+        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3">
+
+        <?php }; ?>
             <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
             <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
             <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
