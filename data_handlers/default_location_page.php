@@ -108,10 +108,11 @@ function create_indiv_wind(){
 
 <div class="default-location">
     <div class="header-page">
-        <div class="container-fluid">
+        <div class="container-fluid col-lg-10 col-lg-offset-1">
             <?php include "../inc/basic_nav.php"; ?>
             <h2>Snapshot of <?php print($location_name); ?>, CA</h2>
         </div>
+        <div class="clearfix"></div>
     </div>
     <div class="buoy-block">
         <div class="container-fluid col-lg-10 col-lg-offset-1">

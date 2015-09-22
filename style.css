@@ -96,6 +96,18 @@ Data Pages/Header/Navigation
         color: #FFFFF2;
     }
 
+    .default-location .navbar-toggle {
+        padding-left: 0px;
+    }
+
+    .default-location .navbar-nav li:first-child a {
+        padding-left: 0px;
+    }
+
+    .default-location .navbar-collapse {
+        padding-left: 0px;
+    }
+
 
 /**************************
 Data Pages/buoy-block
