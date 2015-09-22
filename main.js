@@ -92,7 +92,7 @@ function cdip_get_data(){
         success: function(response) {
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
-            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight){
+            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight, waterTemp){
                 this.stationNum = stationNum;
                 this.stationName = stationNameParam;
                 this.datePST = stationDOM;
@@ -100,6 +100,7 @@ function cdip_get_data(){
                 this.peakPeriod = stationPeriod;
                 this.swellDirection = swellDirection;
                 this.swellHeight = swellheight;
+                this.waterTemp = waterTemp;
             };
 
             for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
@@ -118,7 +119,8 @@ function cdip_get_data(){
                 get_period(i);
                 get_swell_direction(i);
                 get_swell_height(i);
-                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i));
+                get_water_temp(i);
+                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i), get_water_temp(i));
             }
 
             /********************
@@ -226,6 +228,14 @@ function cdip_get_data(){
                 height = (height*0.39370)/12;
                 height = height.toFixed(1);
                 return height;
+            }
+
+            function get_water_temp(index) {
+                var temp = '';
+                for(var i = 63; i <= 66; i++){
+                    temp+=all_buoy_info[index][i];
+                }
+                return temp;
             }
 
             console.log(buoy_array);
