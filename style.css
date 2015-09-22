@@ -103,6 +103,7 @@ Data Pages/buoy-block
 
     .buoy-block h3 {
         margin-top: 0px;
+        padding-left: 0px;
         color: #6D9DC5;
     }
 

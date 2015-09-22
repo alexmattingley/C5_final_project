@@ -54,11 +54,11 @@ function create_indiv_buoys(){
 
         if($i == 0 || $i % 3 == 0){; ?>
 
-        <div class="indiv-buoy col-xs-10 col-sm-3">
+        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0 col-lg-offset-2 col-lg-2">
 
         <?php } else {; ?>
 
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3">
+        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3 col-lg-2">
 
         <?php }; ?>
             <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
@@ -82,9 +82,16 @@ function create_indiv_buoys(){
 function create_indiv_wind(){
     global $weather_array;
     for($i = 0; $i < count($weather_array); $i++){
-        ?>
+        if($i == 0 || $i % 3 == 0){; ?>
 
-        <div class="indiv-wind col-xs-10 col-xs-offset-1">
+        <div class="indiv-wind col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">
+
+        <?php } else {; ?>
+
+        <div class="indiv-wind col-xs-10 col-xs-offset-1 col-sm-3">
+
+        <?php }; ?>
+
             <h4><?php print($weather_array[$i]['wind_point_name']); ?> </h4>
             <p>Air Temperature: <?php print($weather_array[$i]['temp_f']); ?>°F</p>
             <p><?php print($weather_array[$i]['last_observed']); ?></p>
@@ -108,14 +115,17 @@ function create_indiv_wind(){
     </div>
     <div class="buoy-block">
         <div class="container-fluid">
-            <h3 class="col-xs-10 col-xs-offset-1 col-sm-offset-0">Buoys</h3>
+            <h3 class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-lg-offset-2">Buoys</h3>
             <?php create_indiv_buoys(); ?>
             <div class="clearfix"></div>
         </div>
     </div>
     <div class="wind-data-block">
-        <h3 class="col-xs-10 col-xs-offset-1">Wind</h3>
-        <?php create_indiv_wind(); ?>
+        <div class="container-fluid col-lg-10 col-lg-offset-1">
+            <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Wind</h3>
+            <?php create_indiv_wind(); ?>
+            <div class="clearfix"></div>
+        </div>
         <div class="clearfix"></div>
     </div>
 </div>
