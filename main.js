@@ -230,9 +230,16 @@ function cdip_get_data(){
                 return height;
             }
 
+            /********************
+             * functionName: get_water_temp
+             * @purpose: pulls the water temp from the ajax data
+             * @param index
+             * @returns height
+             */
+
             function get_water_temp(index) {
                 var temp = '';
-                for(var i = 63; i <= 66; i++){
+                for(var i = 64; i <= 67; i++){
                     temp+=all_buoy_info[index][i];
                 }
                 return temp;
