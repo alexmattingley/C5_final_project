@@ -11,7 +11,6 @@ $i = 0;
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
        $api_url = $result['api_url'];
-       //print($api_url);
     }
 }
 

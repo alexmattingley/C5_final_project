@@ -30,12 +30,12 @@
                     <li id="socal-tab" class="location-indiv-tab">Southern California<i class="glyphicon glyphicon-chevron-down"></i></li>
                     <ul class="location-sub-menu list-unstyled">
                         <li><a href="javascript:;" loc_id="1">Santa Barbara</a></li>
-                        <li><a href="javascript:;">Ventura</a></li>
-                        <li><a href="javascript:;">Los Angeles</a></li>
-                        <li><a href="javascript:;">North Orange County</a></li>
-                        <li><a href="javascript:;">South Orange County</a></li>
-                        <li><a href="javascript:;">North San Diego</a></li>
-                        <li><a href="javascript:;">South San Diego</a></li>
+                        <li><a href="javascript:;" loc_id="2">Ventura</a></li>
+                        <li><a href="javascript:;" loc_id="3">Los Angeles</a></li>
+                        <li><a href="javascript:;" loc_id="4">North Orange County</a></li>
+                        <li><a href="javascript:;" loc_id="5">South Orange County</a></li>
+                        <li><a href="javascript:;" loc_id="6">North San Diego</a></li>
+                        <li><a href="javascript:;" loc_id="7">South San Diego</a></li>
                     </ul>
                 </ul>
                 <ul class=" list-unstyled">

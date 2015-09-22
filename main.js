@@ -4,7 +4,7 @@ $(document).ready(function(){
     cdip_get_data();
     wunderground_data_call();
 
-   $("[loc_id=1]").click(function(){ //this needs to be more scalable
+   $(".location-sub-menu li a").click(function(){ //this needs to be more scalable
        var loc_id = $(this).attr('loc_id');
        pull_relevant_buoy_by_location(loc_id);
    });
@@ -92,7 +92,7 @@ function cdip_get_data(){
         success: function(response) {
             var split_by_line = response.split("\n");
             var all_buoy_info = [];
-            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight){
+            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight, waterTemp){
                 this.stationNum = stationNum;
                 this.stationName = stationNameParam;
                 this.datePST = stationDOM;
@@ -100,6 +100,7 @@ function cdip_get_data(){
                 this.peakPeriod = stationPeriod;
                 this.swellDirection = swellDirection;
                 this.swellHeight = swellheight;
+                this.waterTemp = waterTemp;
             };
 
             for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
@@ -118,7 +119,8 @@ function cdip_get_data(){
                 get_period(i);
                 get_swell_direction(i);
                 get_swell_height(i);
-                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i));
+                get_water_temp(i);
+                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i), get_water_temp(i));
             }
 
             /********************
@@ -228,6 +230,21 @@ function cdip_get_data(){
                 return height;
             }
 
+            /********************
+             * functionName: get_water_temp
+             * @purpose: pulls the water temp from the ajax data
+             * @param index
+             * @returns height
+             */
+
+            function get_water_temp(index) {
+                var temp = '';
+                for(var i = 64; i <= 67; i++){
+                    temp+=all_buoy_info[index][i];
+                }
+                return temp;
+            }
+
             console.log(buoy_array);
             cycle_and_send_buoy_data();
         }
@@ -247,7 +264,7 @@ function wunderground_data_call(){
 
 function cycle_and_send_buoy_data() {
     for(var i = 0; i < buoy_array.length; i++){
-        var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection};
+        var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection, waterTemp: buoy_array[i].waterTemp};
         $.ajax({
            url: "data_handlers/buoy_data_send.php",
             method: "POST",

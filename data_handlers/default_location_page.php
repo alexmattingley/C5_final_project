@@ -65,6 +65,7 @@ function create_indiv_buoys(){
             <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
             <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
             <p>Swell Direction: <?php print($relevant_data_object->swellDirection); ?>°</p>
+            <p>Water Temp: <?php print($relevant_data_object->waterTemp); ?>°F</p>
         </div>
         <?php
     }
