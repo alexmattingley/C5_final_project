@@ -128,6 +128,7 @@ function create_indiv_wind(){
         <div class="container-fluid col-lg-10 col-lg-offset-1">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Wind</h3>
             <?php create_indiv_wind(); ?>
+            <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Weather Data provided by <a href="http://www.wunderground.com/">Wunderground</a></p>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>

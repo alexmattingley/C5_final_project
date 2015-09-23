@@ -147,6 +147,10 @@ Data Pages/Wind Block
     .wind-data-block h3 {
         color: white;
     }
+    
+    .wind-data-block .credit, .wind-data-block .credit a {
+        color: grey;
+    }
 
     .wind-data-block .indiv-wind {
         color: #001011;
