@@ -123,11 +123,16 @@ Data Pages/buoy-block
         padding: 40px 0px;
     }
 
+
     .buoy-block .indiv-buoy {
         background: #6D9DC5;
         color: white;
         border-radius: 5px;
         margin-top: 20px;
+    }
+
+    .buoy-block .credit, .buoy-block .credit a {
+        color: lightblue;
     }
 
 /**************************
