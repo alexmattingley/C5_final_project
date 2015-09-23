@@ -134,11 +134,11 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="buoy-predictions">
-        <div class="text-container col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">
+        <div class="text-container col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
             <h3>Buoy Predictions</h3>
             <p>(The image below scrolls right and left.)</p>
         </div>
-        <div class="container-fluid col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">
+        <div class="container-fluid col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
           <img src="http://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=191&stream=p1&pub=public&tz=UTC&units=metric" alt="" />
         </div>
         <div class="clearfix"></div>

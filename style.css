@@ -152,6 +152,10 @@ Data Pages/Wind Block
         color: grey;
     }
 
+    .credit {
+        clear: both;
+    }
+
     .wind-data-block .indiv-wind {
         color: #001011;
         background: white;
@@ -180,4 +184,11 @@ Data Pages/ Buoy Predictions
         max-width: 100%;
         overflow: scroll;
         padding-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+       .buoy-predictions .container-fluid img {
+           max-width: 100%;
+           margin: auto;
+       }
     }
