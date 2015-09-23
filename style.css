@@ -158,3 +158,18 @@ Data Pages/Wind Block
         border-radius: 5px;
         margin-top: 20px;
     }
+
+/***************************
+Data Pages/ Buoy Predictions
+***************************/
+
+    .buoy-predictions {
+        background: #F6F6F6;
+        padding: 40px 0px;
+    }
+
+    .buoy-predictions .container-fluid {
+        max-width: 100%;
+        overflow: scroll;
+        padding-top: 20px;
+    }
