@@ -168,6 +168,14 @@ Data Pages/ Buoy Predictions
         padding: 40px 0px;
     }
 
+    .buoy-predictions h3 {
+        color: #001011;
+    }
+
+    .buoy-predictions p {
+        color: #6D9DC5;
+    }
+
     .buoy-predictions .container-fluid {
         max-width: 100%;
         overflow: scroll;
