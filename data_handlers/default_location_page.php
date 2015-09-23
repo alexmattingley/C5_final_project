@@ -121,6 +121,7 @@ function create_indiv_wind(){
             <?php create_indiv_buoys(); ?>
             <div class="clearfix"></div>
         </div>
+        <p>Buoy Data provided by CDIP</p>
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
