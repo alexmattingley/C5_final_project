@@ -35,6 +35,7 @@ $results = mysqli_query($conn, $query);
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
         $location_name = $result['location_name'];
+        $default_buoy_predictions = $result['default_prediction_graph'];
     }
 }
 
@@ -139,7 +140,7 @@ function create_indiv_wind(){
             <p>(The image below scrolls right and left.)</p>
         </div>
         <div class="container-fluid col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
-          <img src="http://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=191&stream=p1&pub=public&tz=UTC&units=metric" alt="" />
+          <img src="<?php print($default_buoy_predictions); ?>" alt="" />
         </div>
         <div class="clearfix"></div>
     </div>
