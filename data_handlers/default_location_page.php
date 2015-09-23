@@ -133,5 +133,8 @@ function create_indiv_wind(){
         </div>
         <div class="clearfix"></div>
     </div>
+    <div class="buoy-predictions">
+        <img src="http://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=191&stream=p1&pub=public&tz=UTC&units=metric" alt="" />
+    </div>
 </div>
 
