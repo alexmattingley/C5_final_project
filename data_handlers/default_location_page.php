@@ -144,5 +144,8 @@ function create_indiv_wind(){
         </div>
         <div class="clearfix"></div>
     </div>
+    <div class="tidal-predictions">
+
+    </div>
 </div>
 

@@ -9,6 +9,8 @@ $(document).ready(function(){
        pull_relevant_buoy_by_location(loc_id);
    });
 
+   get_tide_data();
+
 });
 
 /**********************
@@ -294,6 +296,19 @@ function pull_relevant_buoy_by_location(location_id){
             console.log(response);
             remove_content();
             $content_container.html(response);
+        }
+
+    });
+}
+
+
+function get_tide_data() {
+    $.ajax({
+        url: "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=20150923&product=predictions&range=48&station=9411406&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json",
+        method: "GET",
+        dataType: "json",
+        success: function(response){
+            console.log(response);
         }
 
     });
