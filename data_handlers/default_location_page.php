@@ -145,7 +145,7 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="tidal-predictions">
-
+         <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 </div>
 
