@@ -304,9 +304,9 @@ function pull_relevant_buoy_by_location(location_id){
 
 function get_tide_data() {
     $.ajax({
-        url: "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=20150923&product=predictions&range=48&station=9411406&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json",
-        method: "GET",
+        url: "data_handlers/noaa_tide_call.php",
         dataType: "json",
+        cache: "false",
         success: function(response){
             console.log(response);
         }
