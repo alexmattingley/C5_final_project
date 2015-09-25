@@ -10,7 +10,6 @@ $(document).ready(function(){
    });
 
    get_tide_data();
-
 });
 
 /**********************
@@ -325,7 +324,8 @@ function remove_content() {
 
 
 // Get context with jQuery - using jQuery's .get() method.
-var ctx = $("#myChart").get(0).getContext("2d"); //$("#myChart").get(0) is undefined, meaning it doesnt exist yet.
+var my_chart_node = $("#myChart").get(0);
+var ctx = my_chart_node.getContext("2d"); //$("#myChart").get(0) is undefined, meaning it doesnt exist yet.
 var myLineChart = new Chart(ctx).Line(data, options);
 
 var data = {
