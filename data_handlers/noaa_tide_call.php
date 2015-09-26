@@ -3,6 +3,7 @@
 /***********************
  * This is a query that calls the default station number for each location
  */
+$current_date = date("Y"."m"."d");
 
 $location_id = $_POST["location_index"];
 require('../mysql_connect.php');
@@ -14,6 +15,8 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
+print($current_date);
+
 /***********************
  * This is the curl request for noaa dataset that will create our tide chart
  */
@@ -21,7 +24,7 @@ if(mysqli_num_rows($results) > 0){
 $ch = curl_init();
 
 // set url
-curl_setopt($ch, CURLOPT_URL, "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=20150923&product=predictions&range=48&station=$tide_query&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json");
+curl_setopt($ch, CURLOPT_URL, "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=$current_date&product=predictions&range=48&station=$tide_query&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json");
 
 //return the transfer as a string
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
