@@ -5,12 +5,11 @@ $(document).ready(function(){
     wunderground_data_call();
 
    $(".location-sub-menu li a").click(function(){
+       console.log('You clicked a location sub-menu item');
        var loc_id = $(this).attr('loc_id');
        pull_relevant_buoy_by_location(loc_id);
-
+       get_tide_data(loc_id);
    });
-
-   get_tide_data();
 });
 
 /**********************
@@ -302,10 +301,14 @@ function pull_relevant_buoy_by_location(location_id){
 }
 
 
-function get_tide_data() {
+function get_tide_data(location_id) {
     $.ajax({
         url: "data_handlers/noaa_tide_call.php",
+        method: "POST",
         dataType: "json",
+        data: {
+          location_index: location_id
+        },
         cache: "false",
         success: function(response){
             console.log(response);
@@ -327,20 +330,9 @@ function remove_content() {
 function build_buoy_chart(){
     var my_chart_node = $("#myChart").get(0);
     var ctx = my_chart_node.getContext("2d");
-    console.log("ctx: ",ctx);
     var data = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
             {
                 label: "My Second dataset",
                 fillColor: "rgba(151,187,205,0.2)",
@@ -349,7 +341,7 @@ function build_buoy_chart(){
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [28, 48, 40, 19, 86, 27, 100]
             }
         ]
     };
