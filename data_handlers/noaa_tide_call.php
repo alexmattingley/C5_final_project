@@ -15,8 +15,6 @@ if(mysqli_num_rows($results) > 0){
     }
 }
 
-print($current_date);
-
 /***********************
  * This is the curl request for noaa dataset that will create our tide chart
  */
