@@ -299,6 +299,9 @@ function pull_relevant_buoy_by_location(location_id){
     });
 }
 
+
+var tidal_levels = [];
+var tidal_times = [];
 function get_tide_data(location_id) {
 
     $.ajax({
@@ -311,8 +314,6 @@ function get_tide_data(location_id) {
         cache: "false",
         success: function(response){
             console.log(response);
-            var tidal_levels = [];
-            var tidal_times = []
             var x = -1;
             for(var i = 0; i < response.predictions.length; i++){
                 tidal_levels[x] = parseFloat(response.predictions[i].v);
@@ -328,7 +329,6 @@ function get_tide_data(location_id) {
             console.log(tidal_times);
             find_highs_lows(tidal_levels);
             //console.log(data.labels);
-            //console.log( data.datasets[0].data);
         }
 
     });
@@ -372,8 +372,15 @@ function find_highs_lows(values) {
             x_count++;
         }
     }
-    console.log(highs_and_lows);
-    console.log(time_indeces);
+
+    for(var i = 0; i < time_indeces.length; i++){
+        data.labels[i] = "";
+        data.labels[i] = tidal_times[time_indeces[i]];
+    }
+
+    data.datasets[0].data = highs_and_lows;
+    console.log(data.datasets[0].data);
+    console.log(data.labels);
 }
 
 function remove_content() {
