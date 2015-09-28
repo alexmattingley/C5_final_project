@@ -324,11 +324,10 @@ function get_tide_data(location_id) {
                 }
 
             }
-            build_buoy_chart();
             console.log(tidal_levels);
             console.log(tidal_times);
             find_highs_lows(tidal_levels);
-            //console.log(data.labels);
+            build_buoy_chart();
         }
 
     });
