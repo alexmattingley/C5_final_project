@@ -301,6 +301,7 @@ function pull_relevant_buoy_by_location(location_id){
 }
 
 
+
 function get_tide_data(location_id) {
     $.ajax({
         url: "data_handlers/noaa_tide_call.php",
@@ -312,6 +313,11 @@ function get_tide_data(location_id) {
         cache: "false",
         success: function(response){
             console.log(response);
+            for(var i = 0; i < response.predictions.length; i++){
+                //console.log(response.predictions[i].t);
+                data.labels[i] = response.predictions[i].t;
+                data.datasets[0].data[i] = response.predictions[i].v;
+            }
         }
 
     });
@@ -327,24 +333,25 @@ function remove_content() {
  */
 
 
+var data = {
+    labels: [],//this creates the x-axis of the graph
+    datasets: [
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [] //this creates the y-axis of the graph
+        }
+    ]
+};
+
 function build_buoy_chart(){
     var my_chart_node = $("#myChart").get(0);
     var ctx = my_chart_node.getContext("2d");
-    var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 100]
-            }
-        ]
-    };
 
     var options = {
         ///Boolean - Whether grid lines are shown across the chart
