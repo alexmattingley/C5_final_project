@@ -294,7 +294,6 @@ function pull_relevant_buoy_by_location(location_id){
         success: function(response){
             remove_content();
             $content_container.html(response);
-            build_buoy_chart();
         }
 
     });
@@ -320,6 +319,7 @@ function get_tide_data(location_id) {
                 }
 
             }
+            build_buoy_chart();
             console.log(data.labels);
             console.log( data.datasets[0].data);
         }
