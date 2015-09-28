@@ -299,7 +299,6 @@ function pull_relevant_buoy_by_location(location_id){
     });
 }
 
-
 function get_tide_data(location_id) {
     $.ajax({
         url: "data_handlers/noaa_tide_call.php",
@@ -312,7 +311,7 @@ function get_tide_data(location_id) {
         success: function(response){
             console.log(response);
             var x = -1;
-            for(var i = 0; i < response.predictions.length; i+=5){
+            for(var i = 0; i < response.predictions.length; i++){
                 data.datasets[0].data[x] = parseFloat(response.predictions[i].v);
                 x++;
                 data.labels[x] = "";
@@ -327,6 +326,45 @@ function get_tide_data(location_id) {
         }
 
     });
+}
+
+function find_highs_lows(values) {
+    var values = [2.341, 1.688, 1.125, 0.689, 0.413, 0.316, 0.404, 0.666, 1.079, 1.614, 2.236, 2.912, 3.601, 4.262, 4.849, 5.326, 5.663, 5.842, 5.854, 5.696, 5.371, 4.894, 4.291, 3.6, 2.868, 2.142, 1.47, 0.893, 0.449, 0.166, 0.063, 0.141, 0.389, 0.783, 1.294, 1.89, 2.539, 3.201, 3.836, 4.401, 4.86, 5.187, 5.364, 5.385, 5.247, 4.955, 4.526, 3.988];
+
+    var next_index = 0;
+    var flag_array = [];
+    for(var i = 0; i < values.length; i++){
+        next_index = i+1;
+//   console.log(values[i]);
+//   console.log(values[next_index]);
+        var direction = values[i]-values[next_index];
+        if(direction > 0) {
+            flag_array[i] = "";
+            flag_array[i] = "decreasing";
+        }
+        else if(direction < 0) {
+            flag_array[i] = "";
+            flag_array[i] = "increasing";
+        }
+
+        if(i == values.length-1){
+            next_index = 0;
+        }
+    }
+
+    var highs_and_lows = [];
+    var x_count = 0;
+
+    for(var i = 0; i < flag_array.length; i++){
+        next_index = i+1;
+        if(flag_array[i] !== flag_array[next_index]){
+            highs_and_lows[x_count] = "";
+            highs_and_lows[x_count] = values[next_index];
+            x_count++;
+        }
+    }
+    console.log(flag_array);
+    console.log(highs_and_lows);
 }
 
 function remove_content() {
