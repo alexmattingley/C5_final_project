@@ -311,11 +311,13 @@ function get_tide_data(location_id) {
         cache: "false",
         success: function(response){
             console.log(response);
-            for(var i = 0; i < 4; i++){
-                data.datasets[0].data[i] = parseFloat(response.predictions[i].v);
-                data.labels[i] = "";
+            var x = -1;
+            for(var i = 0; i < response.predictions.length; i+=5){
+                data.datasets[0].data[x] = parseFloat(response.predictions[i].v);
+                x++;
+                data.labels[x] = "";
                 for(var j = 11; j < 16; j++) {
-                    data.labels[i] += response.predictions[i].t[j];
+                    data.labels[x] += response.predictions[i].t[j];
                 }
 
             }
