@@ -300,6 +300,7 @@ function pull_relevant_buoy_by_location(location_id){
 }
 
 function get_tide_data(location_id) {
+
     $.ajax({
         url: "data_handlers/noaa_tide_call.php",
         method: "POST",
@@ -310,26 +311,32 @@ function get_tide_data(location_id) {
         cache: "false",
         success: function(response){
             console.log(response);
+            var tidal_levels = [];
+            var tidal_times = []
             var x = -1;
             for(var i = 0; i < response.predictions.length; i++){
-                data.datasets[0].data[x] = parseFloat(response.predictions[i].v);
+                tidal_levels[x] = parseFloat(response.predictions[i].v);
                 x++;
-                data.labels[x] = "";
+                tidal_times[x] = "";
                 for(var j = 11; j < 16; j++) {
-                    data.labels[x] += response.predictions[i].t[j];
+                    tidal_times[x] += response.predictions[i].t[j];
                 }
 
             }
             build_buoy_chart();
-            console.log(data.labels);
-            console.log( data.datasets[0].data);
+            console.log(tidal_levels);
+            console.log(tidal_times);
+            find_highs_lows(tidal_levels);
+            //console.log(data.labels);
+            //console.log( data.datasets[0].data);
         }
 
     });
 }
 
+var time_indeces = [];
+
 function find_highs_lows(values) {
-    var values = [2.341, 1.688, 1.125, 0.689, 0.413, 0.316, 0.404, 0.666, 1.079, 1.614, 2.236, 2.912, 3.601, 4.262, 4.849, 5.326, 5.663, 5.842, 5.854, 5.696, 5.371, 4.894, 4.291, 3.6, 2.868, 2.142, 1.47, 0.893, 0.449, 0.166, 0.063, 0.141, 0.389, 0.783, 1.294, 1.89, 2.539, 3.201, 3.836, 4.401, 4.86, 5.187, 5.364, 5.385, 5.247, 4.955, 4.526, 3.988];
 
     var next_index = 0;
     var flag_array = [];
@@ -360,11 +367,13 @@ function find_highs_lows(values) {
         if(flag_array[i] !== flag_array[next_index]){
             highs_and_lows[x_count] = "";
             highs_and_lows[x_count] = values[next_index];
+            console.log(next_index);
+            time_indeces[x_count] = next_index;
             x_count++;
         }
     }
-    console.log(flag_array);
     console.log(highs_and_lows);
+    console.log(time_indeces);
 }
 
 function remove_content() {
