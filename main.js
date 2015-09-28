@@ -312,15 +312,16 @@ function get_tide_data(location_id) {
         cache: "false",
         success: function(response){
             console.log(response);
-            for(var i = 0; i < response.predictions.length; i++){
-                console.log(response.predictions[i].t);
+            for(var i = 0; i < 4; i++){
+                data.datasets[0].data[i] = parseFloat(response.predictions[i].v);
                 data.labels[i] = "";
                 for(var j = 11; j < 16; j++) {
-                    console.log(response.predictions[i].t[j]);
                     data.labels[i] += response.predictions[i].t[j];
                 }
+
             }
             console.log(data.labels);
+            console.log( data.datasets[0].data);
         }
 
     });
@@ -347,7 +348,7 @@ var data = {
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [1.0,2.0,1.0, 1.6, 1.7,1.8] //this creates the y-axis of the graph
+            data: [] //this creates the y-axis of the graph
         }
     ]
 };
