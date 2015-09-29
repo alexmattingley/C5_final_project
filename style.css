@@ -201,6 +201,10 @@ Data Pages/ Buoy Predictions
 Data pages/ Tidal Information
 ***************************/
 
+    .tidal-predictions {
+        padding: 40px 0px;
+    }
+
     .tidal-predictions .container-fluid {
         overflow: scroll;
         max-width: 100%;
@@ -209,4 +213,5 @@ Data pages/ Tidal Information
     .tidal-predictions .container-fluid canvas {
         background: white;
         max-width: 100%;
+        padding: 20px 0px;
     }
