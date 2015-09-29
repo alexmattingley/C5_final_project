@@ -316,16 +316,16 @@ function get_tide_data(location_id) {
             console.log(response);
             var x = -1;
             for(var i = 0; i < response.predictions.length; i++){
-                tidal_levels[x] = parseFloat(response.predictions[i].v);
+                tidal_levels[x] = parseFloat(response.predictions[i].v); //create the tidal levels array
                 x++;
                 tidal_times[x] = "";
                 for(var j = 11; j < 16; j++) {
-                    tidal_times[x] += response.predictions[i].t[j];
+                    tidal_times[x] += response.predictions[i].t[j]; //create the tidal times array
                 }
 
             }
-            console.log(tidal_levels);
-            console.log(tidal_times);
+            console.log("tidal_levels: " ,tidal_levels);
+            console.log("tidal_times: " ,tidal_times);
             find_highs_lows(tidal_levels);
             build_buoy_chart();
         }
@@ -338,11 +338,9 @@ var time_indeces = [];
 function find_highs_lows(values) {
 
     var next_index = 0;
-    var flag_array = [];
-    for(var i = 0; i < values.length; i++){
+    var flag_array = []; //this will store whether the value is an increasing or a decreasing value
+    for(var i = 0; i < values.length; i++){ //setting up the indicator array- this will tell us whether its increasing or decreasing
         next_index = i+1;
-//   console.log(values[i]);
-//   console.log(values[next_index]);
         var direction = values[i]-values[next_index];
         if(direction > 0) {
             flag_array[i] = "";
@@ -353,17 +351,17 @@ function find_highs_lows(values) {
             flag_array[i] = "increasing";
         }
 
-        if(i == values.length-1){
+        if(i == values.length-1){ //resetting next index so it will work for the next for loop
             next_index = 0;
         }
     }
+    var highs_and_lows = [values[0]]; //this variable will store the refined tidal_levels array which will be used for our data for the tidal chart
+    var x_count = 1; //this will serve as the index for the following for loop
 
-    var highs_and_lows = [];
-    var x_count = 0;
-
-    for(var i = 0; i < flag_array.length; i++){
+    time_indeces[0] = 0;
+    for(var i = 1; i < flag_array.length; i++){
         next_index = i+1;
-        if(flag_array[i] !== flag_array[next_index]){
+        if(flag_array[i] !== flag_array[next_index]){ //If the current value in the flag array is not equal to the next value
             highs_and_lows[x_count] = "";
             highs_and_lows[x_count] = values[next_index];
             console.log(next_index);
@@ -372,6 +370,7 @@ function find_highs_lows(values) {
         }
     }
 
+    console.log(time_indeces[0]);
     for(var i = 0; i < time_indeces.length; i++){
         data.labels[i] = "";
         data.labels[i] = tidal_times[time_indeces[i]];
