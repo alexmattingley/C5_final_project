@@ -123,11 +123,16 @@ Data Pages/buoy-block
         padding: 40px 0px;
     }
 
+
     .buoy-block .indiv-buoy {
         background: #6D9DC5;
         color: white;
         border-radius: 5px;
         margin-top: 20px;
+    }
+
+    .buoy-block .credit, .buoy-block .credit a {
+        color: lightblue;
     }
 
 /**************************
@@ -142,10 +147,71 @@ Data Pages/Wind Block
     .wind-data-block h3 {
         color: white;
     }
+    
+    .wind-data-block .credit, .wind-data-block .credit a {
+        color: grey;
+    }
+
+    .credit {
+        clear: both;
+    }
 
     .wind-data-block .indiv-wind {
         color: #001011;
         background: white;
         border-radius: 5px;
         margin-top: 20px;
+    }
+
+/***************************
+Data Pages/ Buoy Predictions
+***************************/
+
+    .buoy-predictions {
+        background: #F6F6F6;
+        padding: 40px 0px;
+    }
+
+    .buoy-predictions h3 {
+        color: #001011;
+    }
+
+    .buoy-predictions p {
+        color: #6D9DC5;
+    }
+
+    .buoy-predictions .container-fluid {
+        max-width: 100%;
+        overflow: scroll;
+        padding-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .buoy-predictions .container-fluid img {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .buoy-predictions .text-container p {
+            display: none;
+        }
+    }
+
+/***************************
+Data pages/ Tidal Information
+***************************/
+
+    .tidal-predictions {
+        padding: 40px 0px;
+    }
+
+    .tidal-predictions .container-fluid {
+        overflow: scroll;
+        max-width: 100%;
+    }
+
+    .tidal-predictions .container-fluid canvas {
+        background: white;
+        max-width: 100%;
+        padding: 20px 0px;
     }

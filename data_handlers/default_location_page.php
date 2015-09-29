@@ -35,6 +35,7 @@ $results = mysqli_query($conn, $query);
 if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
         $location_name = $result['location_name'];
+        $default_buoy_predictions = $result['default_prediction_graph'];
     }
 }
 
@@ -116,19 +117,37 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="buoy-block">
-        <div class="container-fluid col-lg-10 col-lg-offset-1">
+        <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Buoys</h3>
             <?php create_indiv_buoys(); ?>
+            <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Buoy Data provided by <a href="http://cdip.ucsd.edu/">CDIP</a></p>
             <div class="clearfix"></div>
         </div>
-        <p>Buoy Data provided by CDIP</p>
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
-        <div class="container-fluid col-lg-10 col-lg-offset-1">
+        <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Wind</h3>
             <?php create_indiv_wind(); ?>
+            <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Weather Data provided by <a href="http://www.wunderground.com/">Wunderground</a></p>
             <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="buoy-predictions">
+        <div class="text-container col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
+            <h3>Buoy Predictions</h3>
+            <p>(The image below scrolls right and left.)</p>
+        </div>
+        <div class="container-fluid col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
+          <img src="<?php print($default_buoy_predictions); ?>" alt="" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="tidal-predictions">
+        <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <h3>Tides for today and tomorrow</h3>
+            <canvas id="myChart"></canvas>
         </div>
         <div class="clearfix"></div>
     </div>
