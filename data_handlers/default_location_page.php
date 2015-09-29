@@ -117,7 +117,7 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="buoy-block">
-        <div class="container-fluid col-lg-10 col-lg-offset-1">
+        <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Buoys</h3>
             <?php create_indiv_buoys(); ?>
             <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Buoy Data provided by <a href="http://cdip.ucsd.edu/">CDIP</a></p>
@@ -126,7 +126,7 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
-        <div class="container-fluid col-lg-10 col-lg-offset-1">
+        <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Wind</h3>
             <?php create_indiv_wind(); ?>
             <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Weather Data provided by <a href="http://www.wunderground.com/">Wunderground</a></p>
@@ -145,8 +145,8 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="tidal-predictions">
-        <div class="col-xs-10">
-            <canvas id="myChart" width="400" height="auto"></canvas>
+        <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <canvas id="myChart"></canvas>
         </div>
         <div class="clearfix"></div>
     </div>

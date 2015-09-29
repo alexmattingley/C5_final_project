@@ -22,7 +22,7 @@ if(mysqli_num_rows($results) > 0){
 $ch = curl_init();
 
 // set url
-curl_setopt($ch, CURLOPT_URL, "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=$current_date&product=predictions&range=24&station=$tide_query&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json");
+curl_setopt($ch, CURLOPT_URL, "http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=$current_date&product=predictions&range=48&station=$tide_query&datum=MLLW&units=english&time_zone=lst&application=Web_Services&format=json");
 
 //return the transfer as a string
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
