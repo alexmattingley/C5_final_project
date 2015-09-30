@@ -145,13 +145,6 @@ function create_indiv_wind(){
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="tidal-predictions">
-        <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-            <h3>Tides for today and tomorrow</h3>
-            <canvas class="center-block" id="myChart"></canvas>
-        </div>
-        <div class="clearfix"></div>
-    </div>
     <div class="now-cast container-fluid">
         <h3>Pt. Conception Deep Water Swell</h3>
         <img class="center-block" src="http://cdip.ucsd.edu/recent/model_images/socal_now.png" alt="">
@@ -159,6 +152,13 @@ function create_indiv_wind(){
         <img class="center-block" src="<?php print($local_nowcast); ?>" alt="">
         <h3>Offshore Surface Winds</h3>
         <img class="center-block" src="http://www.sccoos.org/data/coamps/analyses/searange/wshr00.png" alt="">
+    </div>
+    <div class="tidal-predictions">
+        <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <h3>Tides for today and tomorrow</h3>
+            <canvas class="center-block" id="myChart"></canvas>
+        </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 

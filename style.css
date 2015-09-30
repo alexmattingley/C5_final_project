@@ -205,6 +205,7 @@ Data pages/ Tidal Information
 
     .tidal-predictions {
         padding: 40px 0px;
+        color: #6D9DC5;
     }
 
     .tidal-predictions .container-fluid {
@@ -226,14 +227,29 @@ Data pages/ Nowcast info
     .now-cast {
         padding-top: 40px;
         padding-bottom: 40px;
+        background: #001011;
+        color: white;
     }
 
     .now-cast img {
         max-width: 100%;
-        padding: 40px 0px;
+        padding: 20px 0px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background: white;
     }
 
     .now-cast h3 {
         max-width: 700px;
         margin: auto;
+    }
+
+    @media (min-width: 768px) {
+        .now-cast img {
+            max-width: 700px;
+        }
+        .now-cast h3 {
+            max-width: 700px;
+            margin: auto;
+        }
     }
