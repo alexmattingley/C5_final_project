@@ -36,6 +36,7 @@ if(mysqli_num_rows($results) > 0){
     while($result = mysqli_fetch_assoc($results)){
         $location_name = $result['location_name'];
         $default_buoy_predictions = $result['default_prediction_graph'];
+        $local_nowcast = $result['nowcast_url'];
     }
 }
 
@@ -140,16 +141,24 @@ function create_indiv_wind(){
             <p>(The image below scrolls right and left.)</p>
         </div>
         <div class="container-fluid col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
-          <img src="<?php print($default_buoy_predictions); ?>" alt="" />
+          <img class="center-block" src="<?php print($default_buoy_predictions); ?>" alt="" />
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="tidal-predictions">
         <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <h3>Tides for today and tomorrow</h3>
-            <canvas id="myChart"></canvas>
+            <canvas class="center-block" id="myChart"></canvas>
         </div>
         <div class="clearfix"></div>
+    </div>
+    <div class="now-cast container-fluid">
+        <h3>Pt. Conception Deep Water Swell</h3>
+        <img class="center-block" src="http://cdip.ucsd.edu/recent/model_images/socal_now.png" alt="">
+        <h3><?php print($location_name); ?> deep water swell model</h3>
+        <img class="center-block" src="<?php print($local_nowcast); ?>" alt="">
+        <h3>Offshore Surface Winds</h3>
+        <img class="center-block" src="http://www.sccoos.org/data/coamps/analyses/searange/wshr00.png" alt="">
     </div>
 </div>
 
