@@ -288,7 +288,7 @@ function cycle_and_send_buoy_data() {
             data: {
                 stationName: buoy_array[i].stationName,
                 stationNum: buoy_array[i].stationNum,
-                buoy_data: important_data, //this is an object with all of the other important information
+                buoy_data: important_data //this is an object with all of the other important information
             },
             success: function(response){
                 console.log(response);
@@ -326,10 +326,21 @@ function pull_relevant_page_location(location_id){
  *
  */
 
+
+    //Globals related to the tidal functions
     var tidal_levels = [];
     var tidal_times = [];
     var time_indeces = [];
 
+
+    /*************************
+     * functionName: get_tide_data
+     * purpose: this function handles the noaa tidal data that is received by the noaa curl call. It organizes the data into a useable format for chart generation. Is called in doc ready
+     * @param: location_id
+     * @globals: tidal_levels, tidal_times
+     * @return: N/A
+     *
+     */
 
     function get_tide_data(location_id) {
 
@@ -361,6 +372,13 @@ function pull_relevant_page_location(location_id){
 
         });
     }
+
+    /**************************
+     * functionName: find_highs_lows
+     * @purpose: this function finds the high and low values that are returned by the NOAA tide data and therefore the high and low tides of each day. It also creates the data for the tidal chart
+     * @param: values
+     * @globals: time_indices
+     */
 
     function find_highs_lows(values) {
 
@@ -409,13 +427,13 @@ function pull_relevant_page_location(location_id){
     }
 
     /************************
-     * chart stuff
+     * This is the data that will be used to build the buoy chart
      *
      */
 
 
     var data = {
-        labels: [],//this creates the x-axis of the graph
+        labels: [],//this will create the x-axis of the graph
         datasets: [
             {
                 label: "My Second dataset",
@@ -425,10 +443,16 @@ function pull_relevant_page_location(location_id){
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [] //this creates the y-axis of the graph
+                data: [] //this will create the y-axis of the graph
             }
         ]
     };
+
+
+    /*************************
+    *functionName: build_buoy_chart
+     *@purpose: this function builds the buoy chart using the data above.
+    */
 
     function build_buoy_chart(){
         var my_chart_node = $("#myChart").get(0);
@@ -616,16 +640,7 @@ function pull_relevant_page_location(location_id){
         var myLineChart = new Chart(ctx).Line(data, options);
     }
 
-
-
-    /**************
-     *
-     *End chart stuff
-     */
-
-function get_current_time(){
-    var new_date = new Date();
-    var hour = new Date().getHours();
-    var minute = new Date().getMinutes();
-    return (hour + ":" + minute);
-}
+/**************
+ *
+ *End tidal stuff
+ */
