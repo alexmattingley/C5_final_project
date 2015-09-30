@@ -7,7 +7,7 @@ $(document).ready(function(){
    $(".location-sub-menu li a").click(function(){
        console.log('You clicked a location sub-menu item');
        var loc_id = $(this).attr('loc_id');
-       pull_relevant_buoy_by_location(loc_id);
+       pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
    });
 });
@@ -252,6 +252,14 @@ function cdip_get_data(){
     });
 }
 
+
+/*****************
+ * functionName: wunderground_data_call
+ * @purpose: This function calls the wind/weather database
+ * @param: N/A
+ * @returns: N/A
+ */
+
 function wunderground_data_call(){
     $.ajax({
         url : "data_handlers/weather_data_call.php",
@@ -262,6 +270,13 @@ function wunderground_data_call(){
         }
     });
 }
+
+/*****************
+ * functionName: cycle_and_send_buoy_data
+ * @purpose: This function takes the data that is received from CDIP and sends it a php file which then sends that information to db for storage and later use.
+ * @param: N/A
+ * @returns: N/A
+ */
 
 function cycle_and_send_buoy_data() {
     for(var i = 0; i < buoy_array.length-1; i++){
@@ -282,8 +297,15 @@ function cycle_and_send_buoy_data() {
     }
 }
 
+/*****************
+ * functionName: pull_relevant_page_location
+ * @purpose: This function pulls the relevant html page for each location and then appends that page to the content-container. Location_id is set on the home page.
+ * @param: location_id
+ * @returns: N/A
+ */
+
 var $content_container = $('#content-container');
-function pull_relevant_buoy_by_location(location_id){
+function pull_relevant_page_location(location_id){
     $.ajax({
         url: "data_handlers/default_location_page.php",
         method: "POST",
@@ -292,313 +314,314 @@ function pull_relevant_buoy_by_location(location_id){
             location_index: location_id
         },
         success: function(response){
-            remove_content();
+            $content_container.empty();
             $content_container.html(response);
         }
 
     });
 }
 
+/********************
+ * Tide related functions and variables.
+ *
+ */
 
-var tidal_levels = [];
-var tidal_times = [];
-function get_tide_data(location_id) {
+    var tidal_levels = [];
+    var tidal_times = [];
+    var time_indeces = [];
 
-    $.ajax({
-        url: "data_handlers/noaa_tide_call.php",
-        method: "POST",
-        dataType: "json",
-        data: {
-          location_index: location_id
-        },
-        cache: "false",
-        success: function(response){
-            console.log(response);
-            var x = -1;
-            for(var i = 0; i < response.predictions.length; i++){
-                tidal_levels[x] = parseFloat(response.predictions[i].v); //create the tidal levels array
-                x++;
-                tidal_times[x] = "";
-                for(var j = 11; j < 16; j++) {
-                    tidal_times[x] += response.predictions[i].t[j]; //create the tidal times array
+
+    function get_tide_data(location_id) {
+
+        $.ajax({
+            url: "data_handlers/noaa_tide_call.php",
+            method: "POST",
+            dataType: "json",
+            data: {
+              location_index: location_id
+            },
+            cache: "false",
+            success: function(response){
+                console.log(response);
+                var x = -1;
+                for(var i = 0; i < response.predictions.length; i++){
+                    tidal_levels[x] = parseFloat(response.predictions[i].v); //create the tidal levels array
+                    x++;
+                    tidal_times[x] = "";
+                    for(var j = 11; j < 16; j++) {
+                        tidal_times[x] += response.predictions[i].t[j]; //create the tidal times array
+                    }
+
                 }
-
+                console.log("tidal_levels: " ,tidal_levels);
+                console.log("tidal_times: " ,tidal_times);
+                find_highs_lows(tidal_levels);
+                build_buoy_chart();
             }
-            console.log("tidal_levels: " ,tidal_levels);
-            console.log("tidal_times: " ,tidal_times);
-            find_highs_lows(tidal_levels);
-            build_buoy_chart();
-        }
 
-    });
-}
-
-var time_indeces = [];
-
-function find_highs_lows(values) {
-
-    var next_index = 0;
-    var flag_array = []; //this will store whether the value is an increasing or a decreasing value
-    for(var i = 0; i < values.length; i++){ //setting up the indicator array- this will tell us whether its increasing or decreasing
-        next_index = i+1;
-        var direction = values[i]-values[next_index];
-        if(direction > 0) {
-            flag_array[i] = "";
-            flag_array[i] = "decreasing";
-        }
-        else if(direction < 0) {
-            flag_array[i] = "";
-            flag_array[i] = "increasing";
-        }
-
-        if(i == values.length-1){ //resetting next index so it will work for the next for loop
-            next_index = 0;
-        }
-    }
-    var highs_and_lows = [values[0]]; //this variable will store the refined tidal_levels array which will be used for our data for the tidal chart
-    var x_count = 1; //this will serve as the index for the following for loop
-
-    time_indeces[0] = 0;
-    for(var i = 1; i < flag_array.length; i++){
-        next_index = i+1;
-        if(flag_array[i] !== flag_array[next_index]){ //If the current value in the flag array is not equal to the next value
-            highs_and_lows[x_count] = "";
-            highs_and_lows[x_count] = values[next_index];
-            console.log(next_index);
-            time_indeces[x_count] = next_index;
-            x_count++;
-        }
+        });
     }
 
-    console.log(time_indeces[0]);
-    for(var i = 0; i < time_indeces.length; i++){
-        data.labels[i] = "";
-        data.labels[i] = tidal_times[time_indeces[i]];
+    function find_highs_lows(values) {
+
+        var next_index = 0;
+        var flag_array = []; //this will store whether the value is an increasing or a decreasing value
+        for(var i = 0; i < values.length; i++){ //setting up the indicator array- this will tell us whether its increasing or decreasing
+            next_index = i+1;
+            var direction = values[i]-values[next_index];
+            if(direction > 0) {
+                flag_array[i] = "";
+                flag_array[i] = "decreasing";
+            }
+            else if(direction < 0) {
+                flag_array[i] = "";
+                flag_array[i] = "increasing";
+            }
+
+            if(i == values.length-1){ //resetting next index so it will work for the next for loop
+                next_index = 0;
+            }
+        }
+        var highs_and_lows = [values[0]]; //this variable will store the refined tidal_levels array which will be used for our data for the tidal chart
+        var x_count = 1; //this will serve as the index for the following for loop
+
+        time_indeces[0] = 0;
+        for(var i = 1; i < flag_array.length; i++){
+            next_index = i+1;
+            if(flag_array[i] !== flag_array[next_index]){ //If the current value in the flag array is not equal to the next value
+                highs_and_lows[x_count] = "";
+                highs_and_lows[x_count] = values[next_index];
+                console.log(next_index);
+                time_indeces[x_count] = next_index;
+                x_count++;
+            }
+        }
+
+        console.log(time_indeces[0]);
+        for(var i = 0; i < time_indeces.length; i++){
+            data.labels[i] = "";
+            data.labels[i] = tidal_times[time_indeces[i]];
+        }
+
+        data.datasets[0].data = highs_and_lows;
+        console.log(data.datasets[0].data);
+        console.log(data.labels);
     }
 
-    data.datasets[0].data = highs_and_lows;
-    console.log(data.datasets[0].data);
-    console.log(data.labels);
-}
-
-function remove_content() {
-    $content_container.empty();
-}
-
-/************************
- * chart stuff
- *
- */
+    /************************
+     * chart stuff
+     *
+     */
 
 
-var data = {
-    labels: [],//this creates the x-axis of the graph
-    datasets: [
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(109, 157, 197, .5)",
-            strokeColor: "#001011",
-            pointColor: "#001011",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [] //this creates the y-axis of the graph
-        }
-    ]
-};
-
-function build_buoy_chart(){
-    var my_chart_node = $("#myChart").get(0);
-    var ctx = my_chart_node.getContext("2d");
-
-    var options = {
-        ///Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines : true,
-
-        //String - Colour of the grid lines
-        scaleGridLineColor : "rgba(0,0,0,.05)",
-
-        //Number - Width of the grid lines
-        scaleGridLineWidth : 1,
-
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-
-        //Boolean - Whether the line is curved between points
-        bezierCurve : true,
-
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension : 0.4,
-
-        //Boolean - Whether to show a dot for each point
-        pointDot : true,
-
-        //Number - Radius of each point dot in pixels
-        pointDotRadius : 4,
-
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth : 1,
-
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius : 20,
-
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke : true,
-
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth : 2,
-
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill : true,
-
-        //String - A legend template
-        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
+    var data = {
+        labels: [],//this creates the x-axis of the graph
+        datasets: [
+            {
+                label: "My Second dataset",
+                fillColor: "rgba(109, 157, 197, .5)",
+                strokeColor: "#001011",
+                pointColor: "#001011",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [] //this creates the y-axis of the graph
+            }
+        ]
     };
-    Chart.defaults.global = {
-        // Boolean - Whether to animate the chart
-        animation: true,
 
-        // Number - Number of animation steps
-        animationSteps: 60,
+    function build_buoy_chart(){
+        var my_chart_node = $("#myChart").get(0);
+        var ctx = my_chart_node.getContext("2d");
 
-        // String - Animation easing effect
-        // Possible effects are:
-        // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
-        //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
-        //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
-        //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
-        //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
-        //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
-        //  easeOutElastic, easeInCubic]
-        animationEasing: "easeOutQuart",
+        var options = {
+            ///Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines : true,
 
-        // Boolean - If we should show the scale at all
-        showScale: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor : "rgba(0,0,0,.05)",
 
-        // Boolean - If we want to override with a hard coded scale
-        scaleOverride: false,
+            //Number - Width of the grid lines
+            scaleGridLineWidth : 1,
 
-        // ** Required if scaleOverride is true **
-        // Number - The number of steps in a hard coded scale
-        scaleSteps: null,
-        // Number - The value jump in the hard coded scale
-        scaleStepWidth: null,
-        // Number - The scale starting value
-        scaleStartValue: null,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
 
-        // String - Colour of the scale line
-        scaleLineColor: "rgba(0,0,0,.1)",
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
 
-        // Number - Pixel width of the scale line
-        scaleLineWidth: 1,
+            //Boolean - Whether the line is curved between points
+            bezierCurve : true,
 
-        // Boolean - Whether to show labels on the scale
-        scaleShowLabels: true,
+            //Number - Tension of the bezier curve between points
+            bezierCurveTension : 0.4,
 
-        // Interpolated JS string - can access value
-        scaleLabel: "<%=value%>",
+            //Boolean - Whether to show a dot for each point
+            pointDot : true,
 
-        // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
-        scaleIntegersOnly: true,
+            //Number - Radius of each point dot in pixels
+            pointDotRadius : 4,
 
-        // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-        scaleBeginAtZero: false,
+            //Number - Pixel width of point dot stroke
+            pointDotStrokeWidth : 1,
 
-        // String - Scale label font declaration for the scale label
-        scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+            pointHitDetectionRadius : 20,
 
-        // Number - Scale label font size in pixels
-        scaleFontSize: 12,
+            //Boolean - Whether to show a stroke for datasets
+            datasetStroke : true,
 
-        // String - Scale label font weight style
-        scaleFontStyle: "normal",
+            //Number - Pixel width of dataset stroke
+            datasetStrokeWidth : 2,
 
-        // String - Scale label font colour
-        scaleFontColor: "#666",
+            //Boolean - Whether to fill the dataset with a colour
+            datasetFill : true,
 
-        // Boolean - whether or not the chart should be responsive and resize when the browser does.
-        responsive: false,
+            //String - A legend template
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
-        // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-        maintainAspectRatio: true,
+        };
+        Chart.defaults.global = {
+            // Boolean - Whether to animate the chart
+            animation: true,
 
-        // Boolean - Determines whether to draw tooltips on the canvas or not
-        showTooltips: true,
+            // Number - Number of animation steps
+            animationSteps: 60,
 
-        // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
-        customTooltips: false,
+            // String - Animation easing effect
+            // Possible effects are:
+            // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
+            //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
+            //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
+            //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
+            //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
+            //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
+            //  easeOutElastic, easeInCubic]
+            animationEasing: "easeOutQuart",
 
-        // Array - Array of string names to attach tooltip events
-        tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+            // Boolean - If we should show the scale at all
+            showScale: true,
 
-        // String - Tooltip background colour
-        tooltipFillColor: "rgba(0,0,0,0.8)",
+            // Boolean - If we want to override with a hard coded scale
+            scaleOverride: false,
 
-        // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            // ** Required if scaleOverride is true **
+            // Number - The number of steps in a hard coded scale
+            scaleSteps: null,
+            // Number - The value jump in the hard coded scale
+            scaleStepWidth: null,
+            // Number - The scale starting value
+            scaleStartValue: null,
 
-        // Number - Tooltip label font size in pixels
-        tooltipFontSize: 14,
+            // String - Colour of the scale line
+            scaleLineColor: "rgba(0,0,0,.1)",
 
-        // String - Tooltip font weight style
-        tooltipFontStyle: "normal",
+            // Number - Pixel width of the scale line
+            scaleLineWidth: 1,
 
-        // String - Tooltip label font colour
-        tooltipFontColor: "#fff",
+            // Boolean - Whether to show labels on the scale
+            scaleShowLabels: true,
 
-        // String - Tooltip title font declaration for the scale label
-        tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            // Interpolated JS string - can access value
+            scaleLabel: "<%=value%>",
 
-        // Number - Tooltip title font size in pixels
-        tooltipTitleFontSize: 14,
+            // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+            scaleIntegersOnly: true,
 
-        // String - Tooltip title font weight style
-        tooltipTitleFontStyle: "bold",
+            // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: false,
 
-        // String - Tooltip title font colour
-        tooltipTitleFontColor: "#fff",
+            // String - Scale label font declaration for the scale label
+            scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 
-        // Number - pixel width of padding around tooltip text
-        tooltipYPadding: 6,
+            // Number - Scale label font size in pixels
+            scaleFontSize: 12,
 
-        // Number - pixel width of padding around tooltip text
-        tooltipXPadding: 6,
+            // String - Scale label font weight style
+            scaleFontStyle: "normal",
 
-        // Number - Size of the caret on the tooltip
-        tooltipCaretSize: 8,
+            // String - Scale label font colour
+            scaleFontColor: "#666",
 
-        // Number - Pixel radius of the tooltip border
-        tooltipCornerRadius: 6,
+            // Boolean - whether or not the chart should be responsive and resize when the browser does.
+            responsive: false,
 
-        // Number - Pixel offset from point x to tooltip edge
-        tooltipXOffset: 10,
+            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+            maintainAspectRatio: true,
 
-        // String - Template string for single tooltips
-        tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+            // Boolean - Determines whether to draw tooltips on the canvas or not
+            showTooltips: true,
 
-        // String - Template string for multiple tooltips
-        multiTooltipTemplate: "<%= value %>",
+            // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
+            customTooltips: false,
 
-        // Function - Will fire on animation progression.
-        onAnimationProgress: function(){},
+            // Array - Array of string names to attach tooltip events
+            tooltipEvents: ["mousemove", "touchstart", "touchmove"],
 
-        // Function - Will fire on animation completion.
-        onAnimationComplete: function(){}
-    };
-    Chart.defaults.global.responsive = true;
-    var myLineChart = new Chart(ctx).Line(data, options);
-}
+            // String - Tooltip background colour
+            tooltipFillColor: "rgba(0,0,0,0.8)",
+
+            // String - Tooltip label font declaration for the scale label
+            tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+            // Number - Tooltip label font size in pixels
+            tooltipFontSize: 14,
+
+            // String - Tooltip font weight style
+            tooltipFontStyle: "normal",
+
+            // String - Tooltip label font colour
+            tooltipFontColor: "#fff",
+
+            // String - Tooltip title font declaration for the scale label
+            tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+            // Number - Tooltip title font size in pixels
+            tooltipTitleFontSize: 14,
+
+            // String - Tooltip title font weight style
+            tooltipTitleFontStyle: "bold",
+
+            // String - Tooltip title font colour
+            tooltipTitleFontColor: "#fff",
+
+            // Number - pixel width of padding around tooltip text
+            tooltipYPadding: 6,
+
+            // Number - pixel width of padding around tooltip text
+            tooltipXPadding: 6,
+
+            // Number - Size of the caret on the tooltip
+            tooltipCaretSize: 8,
+
+            // Number - Pixel radius of the tooltip border
+            tooltipCornerRadius: 6,
+
+            // Number - Pixel offset from point x to tooltip edge
+            tooltipXOffset: 10,
+
+            // String - Template string for single tooltips
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+            // String - Template string for multiple tooltips
+            multiTooltipTemplate: "<%= value %>",
+
+            // Function - Will fire on animation progression.
+            onAnimationProgress: function(){},
+
+            // Function - Will fire on animation completion.
+            onAnimationComplete: function(){}
+        };
+        Chart.defaults.global.responsive = true;
+        var myLineChart = new Chart(ctx).Line(data, options);
+    }
 
 
 
-/**************
- *
- *End chart stuff
- */
+    /**************
+     *
+     *End chart stuff
+     */
 
 function get_current_time(){
     var new_date = new Date();
