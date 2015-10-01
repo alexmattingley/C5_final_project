@@ -420,11 +420,25 @@ function pull_relevant_page_location(location_id){
             data.labels[i] = tidal_times[time_indeces[i]];
         }
 
+        remove_duplicate_data(highs_and_lows,data.labels);
         data.datasets[0].data = highs_and_lows;
         console.log(data.datasets[0].data);
         console.log(data.labels);
     }
 
+
+    function remove_duplicate_data(levels,times) {
+        for(var i = 0; i < levels.length; i++){
+            if(levels[i]-levels[(i+1)] == 0){
+                levels.splice(i,1);
+                times.splice(i,1)
+            }
+        }
+    }
+
+
+//[4.453, 1.673, 5.874, 0.117, 4.042, 2.188, 5.566, 0.358, 3.016]
+//["00:00", "05:00", "11:18", "18:12", "00:48", "05:48", "12:06", "19:24", "23:54"]
     /************************
      * This is the data that will be used to build the buoy chart
      *
