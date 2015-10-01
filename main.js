@@ -368,6 +368,7 @@ function pull_relevant_page_location(location_id){
                 console.log("tidal_times: " ,tidal_times);
                 find_highs_lows(tidal_levels);
                 build_buoy_chart();
+                create_mobile_tide_table();
             }
 
         });
@@ -420,9 +421,43 @@ function pull_relevant_page_location(location_id){
             data.labels[i] = tidal_times[time_indeces[i]];
         }
 
+        remove_duplicate_data(highs_and_lows,data.labels);
         data.datasets[0].data = highs_and_lows;
         console.log(data.datasets[0].data);
         console.log(data.labels);
+    }
+
+
+    /************************
+     * functionName: remove_duplicate_data
+     * @purpose: removes duplicate data from our relevant tidal arrays so the chart actually looks correct.
+     * @param levels
+     * @param times
+     */
+    function remove_duplicate_data(levels,times) {
+        for(var i = 0; i < levels.length; i++){
+            if(levels[i]-levels[(i+1)] == 0){
+                levels.splice(i,1);
+                times.splice(i,1)
+            }
+        }
+    }
+
+
+    function create_mobile_tide_table() {
+        var table_body = $(".tide-table tbody")
+        for(var i = 1; i < data.labels.length-1; i++){
+            //create tr for each value in the array
+            var table_row = $("<tr>");
+            //create td for each value of relevance
+            var td_1 = $("<td>").text(data.labels[i]);
+            var td_2 = $("<td>").text(data.datasets[0].data[i]);
+            //append td to tr
+            table_row.append(td_1);
+            table_row.append(td_2);
+            //append tr to tbody
+            table_body.append(table_row);
+        }
     }
 
     /************************
