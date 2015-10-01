@@ -427,6 +427,12 @@ function pull_relevant_page_location(location_id){
     }
 
 
+    /************************
+     * functionName: remove_duplicate_data
+     * @purpose: removes duplicate data from our relevant tidal arrays so the chart actually looks correct.
+     * @param levels
+     * @param times
+     */
     function remove_duplicate_data(levels,times) {
         for(var i = 0; i < levels.length; i++){
             if(levels[i]-levels[(i+1)] == 0){
@@ -436,9 +442,6 @@ function pull_relevant_page_location(location_id){
         }
     }
 
-
-//[4.453, 1.673, 5.874, 0.117, 4.042, 2.188, 5.566, 0.358, 3.016]
-//["00:00", "05:00", "11:18", "18:12", "00:48", "05:48", "12:06", "19:24", "23:54"]
     /************************
      * This is the data that will be used to build the buoy chart
      *
