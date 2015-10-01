@@ -87,7 +87,7 @@ function create_indiv_wind(){
     for($i = 0; $i < count($weather_array); $i++){
         if($i == 0 || $i % 3 == 0){; ?>
 
-        <div class="indiv-wind col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">
+        <div class="indiv-wind first-fourth col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">
 
         <?php } else {; ?>
 

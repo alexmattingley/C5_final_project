@@ -163,6 +163,10 @@ Data Pages/Wind Block
         margin-top: 20px;
     }
 
+    .wind-data-block .container-fluid .first-fourth {
+        clear: both;
+    }
+
 /***************************
 Data Pages/ Buoy Predictions
 ***************************/
