@@ -154,9 +154,23 @@ function create_indiv_wind(){
         <img class="center-block" src="http://www.sccoos.org/data/coamps/analyses/searange/wshr00.png" alt="">
     </div>
     <div class="tidal-predictions">
-        <div class="container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="tide-chart hidden-xs container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <h3>Tides for today and tomorrow</h3>
             <canvas class="center-block" id="myChart"></canvas>
+        </div>
+        <div class="tide-text-chart hidden-sm hidden-lg container-fluid">
+            <h3>Tides for today and tomorrow</h3>
+            <table class="table table-striped tide-table">
+                <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Tide (ft)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--Insert mobile tide chart data here-->
+                </tbody>
+            </table>
         </div>
         <div class="clearfix"></div>
     </div>
