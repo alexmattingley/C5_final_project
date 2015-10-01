@@ -415,7 +415,6 @@ function pull_relevant_page_location(location_id){
             }
         }
 
-        console.log(time_indeces[0]);
         for(var i = 0; i < time_indeces.length; i++){
             data.labels[i] = "";
             data.labels[i] = tidal_times[time_indeces[i]];
