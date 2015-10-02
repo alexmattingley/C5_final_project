@@ -282,7 +282,7 @@ function cycle_and_send_buoy_data() {
     for(var i = 0; i < buoy_array.length-1; i++){
         var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection, waterTemp: buoy_array[i].waterTemp};
         $.ajax({
-           url: "data_handlers/buoy_data_send.php",
+           url: "data_handlers/send_buoy_data.php",
             method: "POST",
             dataType: "text",
             data: {
