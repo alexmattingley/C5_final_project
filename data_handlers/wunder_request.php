@@ -50,7 +50,7 @@ print("Last Reading: $last_observed $line_break");
  * Sending data to database and overwriting older data
  */
 
-require('/Applications/MAMP/htdocs/Sandbox/C5_final_project/mysql_connect.php');
+require('/var/www/html/C5_final_project/mysql_connect.php/');
 $query = "UPDATE `wind_data` SET `last_observed`='$last_observed',`temp_f`='$temp_f',`wind_dir`='$wind_dir',`wind_mph`='$wind_mph',`wind_gust_mph`='$wind_gust',`weather`='$weather',`last_updated`= UNIX_TIMESTAMP(now()) WHERE `station_id`='$station_id'";
 $results = mysqli_query($conn, $query);
 if (mysqli_affected_rows($conn) > 0) {
