@@ -11,6 +11,12 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 // $output contains the output string
 $output = curl_exec($ch);
 
+if (curl_exec($ch) === FALSE) {
+    die("Curl Failed: " . curl_error($ch));
+} else {
+    $output = curl_exec($ch);
+}
+
 // close curl resource to free up system resources
 curl_close($ch);
 
