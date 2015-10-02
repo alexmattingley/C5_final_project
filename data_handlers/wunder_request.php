@@ -4,7 +4,7 @@
  * Query which calls data base and determines what the last updated was
  */
 
-require('../mysql_connect.php');
+require('/Applications/MAMP/htdocs/Sandbox/C5_final_project/mysql_connect.php');
 $query = "select * from `wind_data` where last_updated = (select min(last_updated) from `wind_data`)";
 $results = mysqli_query($conn, $query);
 $i = 0;
