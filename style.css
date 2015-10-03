@@ -45,7 +45,6 @@ Home Page // Locations block
 
 
 .location-tabs ul li {
-    position: relative;
     height: 300px;
     margin-top: 20px;
 }
@@ -53,12 +52,10 @@ Home Page // Locations block
 .location-tabs ul li a {
     display: block;
     font-size: 22px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -75px;
-    margin-top: -15px;
-
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-top: 125px;
  }
 
 
