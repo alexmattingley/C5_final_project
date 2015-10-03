@@ -3,7 +3,7 @@ Home Page // Header Styles
 ****************/
 
 /*Color scheme
-https://coolors.co/app/d6f9dd-99f7ab-abdf75-60695c-c5d6d8
+https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
 */
 
 .right-side-nav {
@@ -30,22 +30,21 @@ https://coolors.co/app/d6f9dd-99f7ab-abdf75-60695c-c5d6d8
     }
 }
 
-/***************
-Home Page // Create account block
-****************/
-
-.create-account-block {
-    background: #D6F9DD;
-}
 
 /****************
 Home Page // Locations block
 ******************/
 
 .location-tabs {
-    background: #60695C;
+    background: #001011;
     padding-top: 40px;
     padding-bottom: 40px;
+    color: white;
+}
+
+.location-tabs ul li {
+    background: url('images/sandspit.jpg');
+
 }
 
 .location-tabs h3 {
@@ -53,16 +52,8 @@ Home Page // Locations block
     color: white;
 }
 
-.col-xs-10 > ul > li {
-    background: #5bc0de;
+.location-tabs a {
     color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-}
-.location-sub-menu {
-    background: #C5D6D8;
-    padding: 6px 12px;
-    display: none;
 }
 
 /*******************
