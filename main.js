@@ -10,6 +10,7 @@ $(document).ready(function(){
        pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
    });
+
 });
 
 /**********************
@@ -678,3 +679,5 @@ function pull_relevant_page_location(location_id){
  *
  *End tidal stuff
  */
+
+

@@ -55,7 +55,7 @@ Home Page // Locations block
     height: 100%;
     width: 100%;
     text-align: center;
-    padding-top: 125px;
+    padding-top: 135px;
  }
 
 
@@ -68,7 +68,7 @@ Home Page // Locations block
 .location-tabs ul .ventura {
     background: url('images/little_rincon.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
 }
 
 .location-tabs ul .los-ang {
