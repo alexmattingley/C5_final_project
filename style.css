@@ -42,11 +42,68 @@ Home Page // Locations block
     color: white;
 }
 
-.location-tabs ul li {
-    background: url('images/sandspit.jpg');
 
+
+.location-tabs ul li {
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
 }
 
+.location-tabs ul li a {
+    display: block;
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -75px;
+    margin-top: -15px;
+
+ }
+
+
+.location-tabs ul .santa-barbara {
+    background: url('images/sandspit.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .ventura {
+    background: url('images/little_rincon.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .los-ang {
+    background: url("images/zuma.jpg");
+    background-size: cover;
+}
+
+.location-tabs ul .n-oc {
+    background: url("images/wedge.JPG");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .s-oc {
+    background: url("images/lowers.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .n-sd {
+    background: url("images/blacks.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .s-sd {
+    background: url("images/sunset_cliffs.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul
 .location-tabs h3 {
     margin-top: 0px;
     color: white;
