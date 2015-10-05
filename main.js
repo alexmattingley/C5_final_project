@@ -4,7 +4,7 @@ $(document).ready(function(){
     cdip_get_data();
     wunderground_data_call();
 
-   $(".location-sub-menu li a").click(function(){
+   $(".location-tabs li a").click(function(){
        console.log('You clicked a location sub-menu item');
        var loc_id = $(this).attr('loc_id');
        pull_relevant_page_location(loc_id);

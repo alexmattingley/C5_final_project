@@ -46,7 +46,7 @@ Home Page // Locations block
 
 .location-tabs ul li {
     height: 300px;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .location-tabs ul li a {
@@ -100,14 +100,20 @@ Home Page // Locations block
     background-position: center;
 }
 
-.location-tabs ul
 .location-tabs h3 {
-    margin-top: 0px;
+    margin-top: 20px;
+    margin-bottom: 60px;
     color: white;
 }
 
 .location-tabs a {
     color: white;
+}
+
+@media (min-width: 768px) {
+    .location-tabs ul li {
+        margin-top: 0px;
+    }
 }
 
 /*******************

@@ -12,16 +12,16 @@
             </div>
         </div>
         <div class="location-tabs">
-            <div class="col-xs-10 col-xs-offset-1">
-                <h3>Select your location:</h3>
+            <div class="col-xs-12">
+                <h3>Where are you surfing today?</h3>
                 <ul class="list-unstyled">
-                    <li class="santa-barbara"><a href="#" loc_id="1">Santa Barbara</a></li>
-                    <li class="ventura"><a href="#" loc_id="2">Ventura</a></li>
-                    <li class="los-ang"><a href="#" loc_id="3">Los Angeles</a></li>
-                    <li class="n-oc"><a href="javascript:;" loc_id="4">N. Orange County</a></li>
-                    <li class="s-oc"><a href="javascript:;" loc_id="5">S. Orange County</a></li>
-                    <li class="n-sd"><a href="javascript:;" loc_id="5">N. San Diego</a></li>
-                    <li class="s-sd"><a href="javascript:;" loc_id="5">S. San Diego</a></li>
+                    <li class="santa-barbara col-sm-6 col-md-4"><a href="javascript:;" loc_id="1">Santa Barbara</a></li>
+                    <li class="ventura col-sm-6 col-md-4"><a href="javscript:;" loc_id="2">Ventura</a></li>
+                    <li class="los-ang col-sm-6 col-md-4"><a href="javascript:;" loc_id="3">Los Angeles</a></li>
+                    <li class="n-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="4">N. Orange County</a></li>
+                    <li class="s-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. Orange County</a></li>
+                    <li class="n-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">N. San Diego</a></li>
+                    <li class="s-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. San Diego</a></li>
                 </ul>
 
 
