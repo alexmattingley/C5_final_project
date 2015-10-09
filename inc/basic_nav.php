@@ -5,7 +5,7 @@
             <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
     </div>
-    <div class="collapse navbar-collapse left-side-nav" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse left-side-nav pull-right" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
             <li><a href="#">About</a></li>

@@ -6,6 +6,8 @@ Home Page // Header Styles
 https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
 */
 
+
+
 .right-side-nav {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -17,17 +19,17 @@ https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
     height: 100vh;
     background-size: cover;
     background-attachment: fixed;
+    padding: 40px 0px;
+    box-sizing: border-box;
     /*99F7AB*/
+}
+
+.mobile-logo {
+    max-width: 100%;
 }
 
 .hero_banner a {
     color: white;
-}
-
-@media(min-width: 768px) {
-    .navbar-header {
-        float: right;
-    }
 }
 
 
@@ -143,21 +145,6 @@ Data Pages/Header/Navigation
         border-color: #80DED9;
     }
 
-    .default-location .navbar-nav a {
-        color: #FFFFF2;
-    }
-
-    .default-location .navbar-toggle {
-        padding-left: 0px;
-    }
-
-    .default-location .navbar-nav li:first-child a {
-        padding-left: 0px;
-    }
-
-    .default-location .navbar-collapse {
-        padding-left: 0px;
-    }
 
 
 /**************************
