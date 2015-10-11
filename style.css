@@ -3,8 +3,10 @@ Home Page // Header Styles
 ****************/
 
 /*Color scheme
-https://coolors.co/app/d6f9dd-99f7ab-abdf75-60695c-c5d6d8
+https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
 */
+
+
 
 .right-side-nav {
     margin-top: 10px;
@@ -17,52 +19,103 @@ https://coolors.co/app/d6f9dd-99f7ab-abdf75-60695c-c5d6d8
     height: 100vh;
     background-size: cover;
     background-attachment: fixed;
+    padding: 40px 0px;
+    box-sizing: border-box;
     /*99F7AB*/
+}
+
+.mobile-logo {
+    max-width: 100%;
 }
 
 .hero_banner a {
     color: white;
 }
 
-@media(min-width: 768px) {
-    .navbar-header {
-        float: right;
-    }
-}
-
-/***************
-Home Page // Create account block
-****************/
-
-.create-account-block {
-    background: #D6F9DD;
-}
 
 /****************
 Home Page // Locations block
 ******************/
 
 .location-tabs {
-    background: #60695C;
+    background: #001011;
     padding-top: 40px;
     padding-bottom: 40px;
+    color: white;
+}
+
+
+
+.location-tabs ul li {
+    height: 300px;
+    margin-top: 40px;
+}
+
+.location-tabs ul li a {
+    display: block;
+    font-size: 22px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-top: 135px;
+ }
+
+
+.location-tabs ul .santa-barbara {
+    background: url('images/sandspit.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .ventura {
+    background: url('images/little_rincon.jpg');
+    background-size: cover;
+    background-position: bottom;
+}
+
+.location-tabs ul .los-ang {
+    background: url("images/zuma.jpg");
+    background-size: cover;
+}
+
+.location-tabs ul .n-oc {
+    background: url("images/wedge.JPG");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .s-oc {
+    background: url("images/lowers.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .n-sd {
+    background: url("images/blacks.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.location-tabs ul .s-sd {
+    background: url("images/sunset_cliffs.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .location-tabs h3 {
-    margin-top: 0px;
+    margin-top: 20px;
+    margin-bottom: 60px;
     color: white;
 }
 
-.col-xs-10 > ul > li {
-    background: #5bc0de;
+.location-tabs a {
     color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
 }
-.location-sub-menu {
-    background: #C5D6D8;
-    padding: 6px 12px;
-    display: none;
+
+@media (min-width: 768px) {
+    .location-tabs ul li {
+        margin-top: 0px;
+    }
 }
 
 /*******************
@@ -92,21 +145,6 @@ Data Pages/Header/Navigation
         border-color: #80DED9;
     }
 
-    .default-location .navbar-nav a {
-        color: #FFFFF2;
-    }
-
-    .default-location .navbar-toggle {
-        padding-left: 0px;
-    }
-
-    .default-location .navbar-nav li:first-child a {
-        padding-left: 0px;
-    }
-
-    .default-location .navbar-collapse {
-        padding-left: 0px;
-    }
 
 
 /**************************
