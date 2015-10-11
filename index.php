@@ -20,8 +20,8 @@
                     <li class="los-ang col-sm-6 col-md-4"><a href="javascript:;" loc_id="3">Los Angeles</a></li>
                     <li class="n-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="4">N. Orange County</a></li>
                     <li class="s-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. Orange County</a></li>
-                    <li class="n-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">N. San Diego</a></li>
-                    <li class="s-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. San Diego</a></li>
+                    <li class="n-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="6">N. San Diego</a></li>
+                    <li class="s-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="7">S. San Diego</a></li>
                 </ul>
             </div>
             <div class="clearfix"></div>

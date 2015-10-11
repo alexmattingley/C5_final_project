@@ -1,8 +1,15 @@
 $(document).ready(function(){
+    var current_page = window.location.href;
+    var url_index = current_page.length-1;
+    console.log(url_index);
+    var location_id = current_page[url_index];
     add_contact_info();
     toggle_location_sub_menu('.location-indiv-tab');
     cdip_get_data();
     wunderground_data_call();
+    if(current_page != "http://localhost:8888/Sandbox/C5_final_project/index.php") {
+        pull_relevant_page_location(location_id);
+    }
 
    $(".location-tabs li a").click(function(){
        console.log('You clicked a location sub-menu item');
@@ -317,6 +324,7 @@ function pull_relevant_page_location(location_id){
         success: function(response){
             $content_container.empty();
             $content_container.html(response);
+            window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
         }
 
     });
