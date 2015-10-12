@@ -1,24 +1,40 @@
 $(document).ready(function(){
     var current_page = window.location.href;
     var url_index = current_page.length-1;
-    console.log(url_index);
     var location_id = current_page[url_index];
+    set_top_padding('.hero_banner');
     add_contact_info();
-    toggle_location_sub_menu('.location-indiv-tab');
     cdip_get_data();
     wunderground_data_call();
-    if(current_page != "http://localhost:8888/Sandbox/C5_final_project/index.php") {
+    //find a better solution to the below line
+    if(current_page != "http://localhost:8888/Sandbox/C5_final_project/index.php" && current_page != "http://localhost:8888/Sandbox/C5_final_project/") {
         pull_relevant_page_location(location_id);
     }
 
    $(".location-tabs li a").click(function(){
-       console.log('You clicked a location sub-menu item');
        var loc_id = $(this).attr('loc_id');
        pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
    });
 
 });
+
+
+/**********************
+ * functionname: topPaddingBanners();
+ *
+ */
+
+
+function topPaddingBanners() {
+    var navigation_height = $('.header-container').height();
+    var topPadding = navigation_height + 40;
+    return topPadding;
+}
+
+function set_top_padding(element) {
+    $(element).css("padding-top", (topPaddingBanners() + "px"));
+}
 
 /**********************
  * functionName: add_contact_info();
@@ -38,21 +54,6 @@ function add_contact_info() {
     var pNum = ' (949) 280-6557';
     email_add.html(e_icon + e_name + server_name);
     phe_class.html(phe_icon + pNum);
-}
-
-/***************************
- * functionName: toggle_location_sub_menu();
- * @purpose: toggles the sub_menus from visible to invisible on click of the locations tab.
- * @param: location_tab
- * @globals: N/A
- * @return: N/A
- */
-function toggle_location_sub_menu(location_tab){
-    $(location_tab).click(function(){
-        var toggle_parent = "#"+this.getAttribute("id");
-        var sub_menu = $(toggle_parent + "+ul");
-        sub_menu.slideToggle("slow");
-    });
 }
 
 /***************************
@@ -325,6 +326,7 @@ function pull_relevant_page_location(location_id){
             $content_container.empty();
             $content_container.html(response);
             window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
+            set_top_padding('.header-page');
         }
 
     });
