@@ -1,5 +1,4 @@
 <?php include "inc/header.php"; ?>
-<body>
     <div id="content-container">
         <?php include "inc/basic_nav.php"; ?>
         <div class="hero_banner">
