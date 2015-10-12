@@ -1,10 +1,7 @@
 <?php include "inc/header.php"; ?>
 <body>
     <div id="content-container">
-        <div class="container-fluid col-sm-10 col-sm-offset-1">
-            <?php include "inc/basic_nav.php"; ?>
-        </div>
-        <div class="clearfix"></div>
+        <?php include "inc/basic_nav.php"; ?>
         <div class="hero_banner">
             <div class="hero-text text-center col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
                 <img class = "mobile-logo " src="images/logo.png" alt="">
