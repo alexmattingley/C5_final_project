@@ -9,6 +9,7 @@ $(document).ready(function(){
     //find a better solution to the below line
     if(current_page != "http://localhost:8888/Sandbox/C5_final_project/index.php" && current_page != "http://localhost:8888/Sandbox/C5_final_project/") {
         pull_relevant_page_location(location_id);
+        get_tide_data(location_id);
     }
 
    $(".location-tabs li a").click(function(){
@@ -327,6 +328,7 @@ function pull_relevant_page_location(location_id){
             $content_container.html(response);
             window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
             set_top_padding('.header-page');
+            $('body').scrollTop(0);
         }
 
     });
