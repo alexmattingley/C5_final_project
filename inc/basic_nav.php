@@ -8,9 +8,9 @@
         </div>
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="">Contact Us</a></li>
+                <li><a page="index.php" href="index.php">Home</a></li>
+                <li><a page="about.php" id="about-page">About</a></li>
+                <li><a page="contact.php">Contact Us</a></li>
         </div>
     </nav>
 </div>

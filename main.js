@@ -1,15 +1,15 @@
 $(document).ready(function(){
     var current_page = window.location.href;
     var url_index = current_page.length-1;
-    var location_id = current_page[url_index];
+    var last_value = current_page[url_index];
     set_top_padding('.hero_banner');
     add_contact_info();
     cdip_get_data();
     wunderground_data_call();
     //if location_id is a number then pull a locations page.
-    if(!isNaN(location_id)) {
-        pull_relevant_page_location(location_id);
-        get_tide_data(location_id);
+    if(!isNaN(last_value)) {
+        pull_relevant_page_location(last_value);
+        get_tide_data(last_value);
     }
 
    $(".location-tabs li a").click(function(){
@@ -18,7 +18,30 @@ $(document).ready(function(){
        get_tide_data(loc_id);
    });
 
+   $("#about-page").click(function () {
+       var current_page = $(this).attr('page');
+        get_non_location_pages(current_page);
+   });
+
 });
+
+
+
+function get_non_location_pages(current_page) {
+    $.ajax({
+        url: current_page,
+        method: "POST",
+        dataType: "html",
+        success: function(response){
+            $content_container.empty();
+            $content_container.html(response);
+            window.history.pushState('test', 'test', 'index.php?current_page=' + current_page);
+            set_top_padding('.header-page');
+            $('body').scrollTop(0);
+        }
+
+    });
+}
 
 
 /**********************
@@ -334,6 +357,11 @@ function pull_relevant_page_location(location_id){
     });
 }
 
+
+
+/**************************
+ * funcitonName:
+ */
 /********************
  * Tide related functions and variables.
  *

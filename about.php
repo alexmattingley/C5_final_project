@@ -1,6 +1,4 @@
-<?php include "inc/header.php"; ?>
 <?php include "inc/basic_nav.php"; ?>
-
     <div class="container-fluid">
         <div class="intro">
             <h2>About Green Room Hunter</h2>
@@ -63,5 +61,3 @@
         </div>
             <h4>I hope this application will be useful to you, and that you can use it to help you get barreled!</h4>
     </div>
-
-<?php include "inc/footer.php"; ?>
