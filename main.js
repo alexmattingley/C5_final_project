@@ -6,8 +6,8 @@ $(document).ready(function(){
     add_contact_info();
     cdip_get_data();
     wunderground_data_call();
-    //find a better solution to the below line
-    if(current_page != "http://localhost:8888/Sandbox/C5_final_project/index.php" && current_page != "http://localhost:8888/Sandbox/C5_final_project/") {
+    //if location_id is a number then pull a locations page.
+    if(!isNaN(location_id)) {
         pull_relevant_page_location(location_id);
         get_tide_data(location_id);
     }
