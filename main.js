@@ -1,7 +1,7 @@
 $(document).ready(function(){
-    var current_page = window.location.href;
-    var url_index = current_page.length-1;
-    var last_value = current_page[url_index];
+    var current_url = window.location.href;
+    var url_index = current_url.length-1;
+    var last_value = current_url[url_index];
     set_top_padding('.hero_banner');
     add_contact_info();
     cdip_get_data();
@@ -10,6 +10,9 @@ $(document).ready(function(){
     if(!isNaN(last_value)) {
         pull_relevant_page_location(last_value);
         get_tide_data(last_value);
+    }else if(!getQueryVariable('current_page') == false) {
+       var non_location_page = getQueryVariable('current_page');
+        get_non_location_pages(non_location_page);
     }
 
    $(".location-tabs li a").click(function(){
@@ -46,6 +49,22 @@ function get_non_location_pages(current_page) {
     });
 }
 
+/**************************
+ *
+ * @param variable
+ * @returns {*}
+ */
+
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
 
 /**********************
  * functionname: topPaddingBanners();
