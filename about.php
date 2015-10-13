@@ -1,7 +1,12 @@
-<?php include "inc/basic_nav.php"; ?>
+    <div class="header-page">
+        <div class="container-fluid col-lg-8 col-lg-offset-2">
+            <?php include "inc/basic_nav.php"; ?>
+            <h2>About Green Room hunter</h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
     <div class="container-fluid">
         <div class="intro">
-            <h2>About Green Room Hunter</h2>
             <p>Many years ago, long before I was ever a web developer, I fell in love surf forecasting and data. I have always lived and thrived in places with fickle waves, so it was in these places that I learned how valuable live weather data is for surfers and how often surf forecasters were wrong despite their best intentions.
             </p>
             <p>This application compiles the most important buoy and wind information into one, easy to use site. I am not here to tell you what to think, or tell you how big or how good it will be at your spot. Each surf spot is different and unique and it takes years of careful observation to learn what each unique swell will be doing at a beach near you. In fact one of the most beautiful things about the ocean is that it will never be the same two days in a row. It will continue to confound day after day, and there is something magical about that.

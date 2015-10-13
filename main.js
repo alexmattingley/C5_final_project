@@ -25,7 +25,10 @@ $(document).ready(function(){
 
 });
 
-
+/********************
+ * Move this a better spot
+ * @param current_page
+ */
 
 function get_non_location_pages(current_page) {
     $.ajax({
