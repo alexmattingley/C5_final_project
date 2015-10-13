@@ -6,6 +6,7 @@ $(document).ready(function(){
     add_contact_info();
     cdip_get_data();
     wunderground_data_call();
+
     //if location_id is a number then pull a locations page.
     if(!isNaN(last_value)) {
         pull_relevant_page_location(last_value);
@@ -14,6 +15,7 @@ $(document).ready(function(){
        var non_location_page = getQueryVariable('current_page');
         get_non_location_pages(non_location_page);
     }
+
 
    $(".location-tabs li a").click(function(){
        var loc_id = $(this).attr('loc_id');
@@ -27,6 +29,9 @@ $(document).ready(function(){
    });
 
 });
+
+
+
 
 /********************
  * Move this a better spot
