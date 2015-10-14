@@ -30,6 +30,28 @@ $(document).ready(function(){
 
 });
 
+document.onmouseover = function() {
+    window.innerDocClick = true;
+}
+
+document.onmouseleave = function() {
+    window.innerDocClick = false;
+}
+
+window.onhashchange = function() {
+    console.log("on hash");
+    if (window.innerDocClick) {
+        console.log("you never left the window");
+    } else {
+        //Browser back button was clicked
+        console.log("back button!");
+    }
+}
+
+function cool_shit() {
+    console.log('radness!');
+}
+
 
 
 
