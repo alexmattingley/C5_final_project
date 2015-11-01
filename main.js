@@ -135,7 +135,6 @@ function noaa_ajax_call() {
     });
 }
 
-var buoy_array = [];
 
 /***************************
  * functionName: cdip_curl_request();
@@ -145,6 +144,8 @@ var buoy_array = [];
  * @globals: buoy_array
  * @returns: N/A
  */
+
+var buoy_array = [];
 
 function cdip_get_data(){
     $.ajax({
