@@ -773,14 +773,14 @@ window.onhashchange = test_message;
 
 
 var counter = 0;
+var current_url = [];
 
 function get_current_url() {
-    counter++;
-    var current_url = [];
     current_url[counter] = location.search;
-    if(current_url[counter] != current_url[counter-1]){
+    if(counter > 0 && current_url[counter] !== current_url[counter-1]){
         console.log("your hashchanged");
     }
+    counter++;
 }
 
 window.setInterval(get_current_url, 500);
