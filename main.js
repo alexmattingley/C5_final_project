@@ -779,6 +779,7 @@ function get_current_url() {
     current_url[counter] = location.search;
     if(counter > 0 && current_url[counter] !== current_url[counter-1]){
         console.log("your hashchanged");
+        location.reload(true);
     }
     counter++;
 }
