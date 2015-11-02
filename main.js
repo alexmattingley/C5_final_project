@@ -751,7 +751,7 @@ function pull_relevant_page_location(location_id){
 /****************
  *
  * Single Page Fuctionality
- * The following block of code handles single page functionality. There maybe a better solution to this,
+ * The following block of code handles single page functionality and the back/forward buttons. There maybe a better solution to this,
  * but for now this was the best solution I could come up with.
  */
 
