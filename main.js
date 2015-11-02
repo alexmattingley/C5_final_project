@@ -24,7 +24,7 @@ $(document).ready(function(){
        get_tide_data(loc_id);
    });
 
-   $("#about-page").click(function () {
+   $(".navbar-nav a").click(function () {
        var current_page = $(this).attr('page');
         get_non_location_pages(current_page);
    });
