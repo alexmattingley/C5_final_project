@@ -748,28 +748,22 @@ function pull_relevant_page_location(location_id){
  *End tidal stuff
  */
 
+/****************
+ *
+ * Single Page Fuctionality
+ * The following block of code handles single page functionality. There maybe a better solution to this,
+ * but for now this was the best solution I could come up with.
+ */
+
+var doc_switch = true;
 
 document.onmouseover = function() {
-    window.innerDocClick = true;
+    doc_switch = true;
 };
 
 document.onmouseleave = function() {
-    window.innerDocClick = false;
+    doc_switch = false;
 };
-
-function test_message() {
-    var test_message = console.log("test message");
-    return test_message;
-    //console.log("the value of window.innerDocClick is ", window.innerDocClick);
-    //if (window.innerDocClick) {
-    //    console.log("you never left the window");
-    //} else {
-    //    //Browser back button was clicked
-    //    console.log("back button!");
-    //}
-}
-
-window.onhashchange = test_message;
 
 
 var counter = 0;
@@ -779,10 +773,17 @@ function get_current_url() {
     current_url[counter] = location.search;
     if(counter > 0 && current_url[counter] !== current_url[counter-1]){
         console.log("your hashchanged");
-        location.reload(true);
+        if(doc_switch == false) {
+            location.reload(true);
+        }
     }
     counter++;
 }
 
-window.setInterval(get_current_url, 500);
+window.setInterval(get_current_url, 100);
+
+/******
+ * End Single page functionality
+ */
+
 
