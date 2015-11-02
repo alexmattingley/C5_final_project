@@ -1,23 +1,25 @@
     <div class="header-page">
         <div class="container-fluid">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class=" col-sm-10 col-sm-offset-1 ">
                 <?php include "inc/basic_nav.php"; ?>
                 <h2>About Green Room hunter</h2>
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid about-text">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="intro">
+                <h4>Note: If you are looking for information about how this site was built, checkout the <a
+                        href="https://github.com/alexmattingley/C5_final_project">github repo</a></h4>
                 <p>Many years ago, long before I was ever a web developer, I fell in love surf forecasting and data. I have always lived and thrived in places with fickle waves, so it was in these places that I learned how valuable live weather data is for surfers and how often surf forecasters were wrong despite their best intentions.
                 </p>
                 <p>This application compiles the most important buoy and wind information into one, easy to use site. I am not here to tell you what to think, or tell you how big or how good it will be at your spot. Each surf spot is different and unique and it takes years of careful observation to learn what each unique swell will be doing at a beach near you. In fact one of the most beautiful things about the ocean is that it will never be the same two days in a row. It will continue to confound day after day, and there is something magical about that.
                 </p>
                 <p>The purpose of this application is to help you get barreled.
                 </p>
-                <h4>A little bit of information about the different pieces of the puzzle:</h4>
             </div>
+            <h2>A little bit of information about the different pieces of the puzzle:</h2>
             <div class="block">
                 <h3>Buoys and wave height readings</h3>
                 <p>Buoys measure raw swell at a variety of points throughout the ocean. Buoy height and period combine to create wave heights at your local beach. Depending on what spot you call home, you can get a wide variety of different sizes and shapes from a given swell height, period, direction combination.
@@ -54,7 +56,7 @@
             </div>
             <div class="block">
                 <h3>CDIP color models</h3>
-                <p>These models are good for getting a general overview of what is going on out at sea. They are models, so they are not as accurate as the buoys, but I find them useful for figuring out if swell is reaching into the certain sections of the coast.
+                <p>These models are good for getting a general overview of what is going on out at sea. They are models, so they are not as accurate as the buoys, but I find them useful for figuring out if swell is reaching into certain sections of the coast.
                 </p>
             </div>
             <div class="block">
