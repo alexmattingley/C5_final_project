@@ -1,5 +1,5 @@
 <div class="header-container container-fluid navbar-fixed-top">
-    <nav class="navbar">
+    <nav class="navbar col-xs-12">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>

@@ -15,6 +15,24 @@ https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
     margin-bottom: 10px;
 }
 
+a {
+    color: #80DED9;
+}
+
+.header-container {
+    background: black;
+    border-bottom: 2px solid white;
+}
+
+nav a {
+    color: white;
+}
+
+button.navbar-toggle {
+    background: black;
+    color: white;
+}
+
 .hero_banner {
     background: url("images/calafia.jpg");
     color: white;
@@ -131,15 +149,6 @@ About Pages
     padding-bottom: 40px;
 }
 
-
-/*******************
-footer
-********************/
-
-footer {
-    background: #80DED9;
-    color: #FFFFF2;
-}
 
 /***********************
 Data Pages/Header/Navigation
@@ -309,3 +318,15 @@ Data pages/ Nowcast info
             margin: auto;
         }
     }
+
+/*******************
+footer
+********************/
+
+footer {
+    background: #80DED9;
+    color: #FFFFF2;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+

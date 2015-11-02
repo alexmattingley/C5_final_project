@@ -782,7 +782,6 @@ function get_current_url() {
         counter = 0;
     }
     counter++;
-    console.log(counter);
 }
 
 window.setInterval(get_current_url, 100);
