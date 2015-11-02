@@ -53,6 +53,12 @@ function create_indiv_buoys(){
     global $buoy_array;
     for($i = 0; $i < count($buoy_array); $i++) {
         $relevant_data_object = json_decode($buoy_array[$i]["relevant_data"]);
+        $time = "$relevant_data_object->readTime";
+        if ($time > 1200){
+            $am_or_pm = "PM";
+        }else {
+            $am_or_pm = "AM";
+        }
 
         if($i == 0 || $i % 3 == 0){; ?>
 
@@ -64,6 +70,7 @@ function create_indiv_buoys(){
 
         <?php }; ?>
             <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
+            <p>Last Updated: <?php print(date('M') . " $relevant_data_object->datePST, " . date('Y') . " at " . $time . " $am_or_pm"); ?> </p>
             <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
             <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
             <p>Swell Direction: <?php print($relevant_data_object->swellDirection); ?>°</p>

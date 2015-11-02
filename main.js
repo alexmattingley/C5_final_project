@@ -1,17 +1,91 @@
 $(document).ready(function(){
+    var current_url = window.location.href;
+    var url_index = current_url.length-1;
+    var last_value = current_url[url_index];
+    set_top_padding('.hero_banner');
     add_contact_info();
-    toggle_location_sub_menu('.location-indiv-tab');
     cdip_get_data();
     wunderground_data_call();
 
+
+    //if location_id is a number then pull a locations page.
+    if(!isNaN(last_value)) {
+        pull_relevant_page_location(last_value);
+        get_tide_data(last_value);
+    }else if(!getQueryVariable('current_page') == false) {
+       var non_location_page = getQueryVariable('current_page');
+        get_non_location_pages(non_location_page);
+    }
+
+
    $(".location-tabs li a").click(function(){
-       console.log('You clicked a location sub-menu item');
        var loc_id = $(this).attr('loc_id');
        pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
    });
 
+   $("#about-page").click(function () {
+       var current_page = $(this).attr('page');
+        get_non_location_pages(current_page);
+   });
+
 });
+
+
+
+/********************
+ * Move this a better spot
+ * @param current_page
+ */
+
+function get_non_location_pages(current_page) {
+    $.ajax({
+        url: current_page,
+        method: "POST",
+        dataType: "html",
+        success: function(response){
+            $content_container.empty();
+            $content_container.html(response);
+            window.history.pushState('test', 'test', 'index.php?current_page=' + current_page);
+            set_top_padding('.header-page');
+            $('body').scrollTop(0);
+        }
+
+    });
+}
+
+/**************************
+ *
+ * @param variable
+ * @returns {*}
+ */
+
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
+/**********************
+ * functionname: topPaddingBanners();
+ *
+ */
+
+
+function topPaddingBanners() {
+    var navigation_height = $('.header-container').height();
+    var topPadding = navigation_height + 40;
+    return topPadding;
+}
+
+function set_top_padding(element) {
+    $(element).css("padding-top", (topPaddingBanners() + "px"));
+}
 
 /**********************
  * functionName: add_contact_info();
@@ -31,21 +105,6 @@ function add_contact_info() {
     var pNum = ' (949) 280-6557';
     email_add.html(e_icon + e_name + server_name);
     phe_class.html(phe_icon + pNum);
-}
-
-/***************************
- * functionName: toggle_location_sub_menu();
- * @purpose: toggles the sub_menus from visible to invisible on click of the locations tab.
- * @param: location_tab
- * @globals: N/A
- * @return: N/A
- */
-function toggle_location_sub_menu(location_tab){
-    $(location_tab).click(function(){
-        var toggle_parent = "#"+this.getAttribute("id");
-        var sub_menu = $(toggle_parent + "+ul");
-        sub_menu.slideToggle("slow");
-    });
 }
 
 /***************************
@@ -75,7 +134,6 @@ function noaa_ajax_call() {
     });
 }
 
-var buoy_array = [];
 
 /***************************
  * functionName: cdip_curl_request();
@@ -85,6 +143,8 @@ var buoy_array = [];
  * @globals: buoy_array
  * @returns: N/A
  */
+
+var buoy_array = [];
 
 function cdip_get_data(){
     $.ajax({
@@ -292,7 +352,7 @@ function cycle_and_send_buoy_data() {
                 buoy_data: important_data //this is an object with all of the other important information
             },
             success: function(response){
-                console.log(response);
+                //console.log(response);
             }
         });
     }
@@ -317,11 +377,19 @@ function pull_relevant_page_location(location_id){
         success: function(response){
             $content_container.empty();
             $content_container.html(response);
+            window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
+            set_top_padding('.header-page');
+            $('body').scrollTop(0);
         }
 
     });
 }
 
+
+
+/**************************
+ * funcitonName:
+ */
 /********************
  * Tide related functions and variables.
  *
@@ -678,6 +746,44 @@ function pull_relevant_page_location(location_id){
 /**************
  *
  *End tidal stuff
+ */
+
+/****************
+ *
+ * Single Page Fuctionality
+ * The following block of code handles single page functionality and the back/forward buttons. There maybe a better solution to this,
+ * but for now this was the best solution I could come up with.
+ */
+
+var doc_switch = true;
+
+document.onmouseover = function() {
+    doc_switch = true;
+};
+
+document.onmouseleave = function() {
+    doc_switch = false;
+};
+
+
+var counter = 0;
+var current_url = [];
+
+function get_current_url() {
+    current_url[counter] = location.search;
+    if(counter > 0 && current_url[counter] !== current_url[counter-1]){
+        console.log("your hashchanged");
+        if(doc_switch == false) {
+            location.reload(true);
+        }
+    }
+    counter++;
+}
+
+window.setInterval(get_current_url, 100);
+
+/******
+ * End Single page functionality
  */
 
 

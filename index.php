@@ -1,10 +1,6 @@
 <?php include "inc/header.php"; ?>
-<body>
     <div id="content-container">
-        <div class="container-fluid col-sm-10 col-sm-offset-1">
-            <?php include "inc/basic_nav.php"; ?>
-        </div>
-        <div class="clearfix"></div>
+        <?php include "inc/basic_nav.php"; ?>
         <div class="hero_banner">
             <div class="hero-text text-center col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
                 <img class = "mobile-logo " src="images/logo.png" alt="">
@@ -20,8 +16,8 @@
                     <li class="los-ang col-sm-6 col-md-4"><a href="javascript:;" loc_id="3">Los Angeles</a></li>
                     <li class="n-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="4">N. Orange County</a></li>
                     <li class="s-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. Orange County</a></li>
-                    <li class="n-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">N. San Diego</a></li>
-                    <li class="s-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. San Diego</a></li>
+                    <li class="n-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="6">N. San Diego</a></li>
+                    <li class="s-sd col-sm-6 col-md-4"><a href="javascript:;" loc_id="7">S. San Diego</a></li>
                 </ul>
             </div>
             <div class="clearfix"></div>

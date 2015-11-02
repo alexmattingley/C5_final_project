@@ -6,7 +6,9 @@ Home Page // Header Styles
 https://coolors.co/app/068d9d-001011-6d9dc5-80ded9-aeecef + #FFFFF2(baige)
 */
 
-
+.header-container {
+    background: white;
+}
 
 .right-side-nav {
     margin-top: 10px;
