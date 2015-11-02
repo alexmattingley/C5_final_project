@@ -7,27 +7,6 @@ $(document).ready(function(){
     cdip_get_data();
     wunderground_data_call();
 
-    document.onmouseover = function() {
-        window.innerDocClick = true;
-    };
-
-    document.onmouseleave = function() {
-        window.innerDocClick = false;
-    };
-
-    function test_message() {
-        var test_message = console.log("test message");
-        return test_message;
-        //console.log("the value of window.innerDocClick is ", window.innerDocClick);
-        //if (window.innerDocClick) {
-        //    console.log("you never left the window");
-        //} else {
-        //    //Browser back button was clicked
-        //    console.log("back button!");
-        //}
-    }
-
-    window.onhashchange = test_message;
 
     //if location_id is a number then pull a locations page.
     if(!isNaN(last_value)) {
@@ -51,8 +30,6 @@ $(document).ready(function(){
    });
 
 });
-
-
 
 
 
@@ -771,4 +748,40 @@ function pull_relevant_page_location(location_id){
  *End tidal stuff
  */
 
+
+document.onmouseover = function() {
+    window.innerDocClick = true;
+};
+
+document.onmouseleave = function() {
+    window.innerDocClick = false;
+};
+
+function test_message() {
+    var test_message = console.log("test message");
+    return test_message;
+    //console.log("the value of window.innerDocClick is ", window.innerDocClick);
+    //if (window.innerDocClick) {
+    //    console.log("you never left the window");
+    //} else {
+    //    //Browser back button was clicked
+    //    console.log("back button!");
+    //}
+}
+
+window.onhashchange = test_message;
+
+
+var counter = 0;
+
+function get_current_url() {
+    counter++;
+    var current_url = [];
+    current_url[counter] = location.search;
+    if(current_url[counter] != current_url[counter-1]){
+        console.log("your hashchanged");
+    }
+}
+
+window.setInterval(get_current_url, 500);
 
