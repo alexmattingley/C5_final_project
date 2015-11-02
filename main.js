@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    window.onhashchange = ;
     var current_url = window.location.href;
     var url_index = current_url.length-1;
     var last_value = current_url[url_index];
@@ -751,18 +752,24 @@ function pull_relevant_page_location(location_id){
 
 document.onmouseover = function() {
     window.innerDocClick = true;
-}
+};
 
 document.onmouseleave = function() {
     window.innerDocClick = false;
 }
 
-window.onhashchange = function() {
-    console.log("on hash");
-    if (window.innerDocClick) {
-        console.log("you never left the window");
-    } else {
-        //Browser back button was clicked
-        console.log("back button!");
-    }
-};
+//window.onhashchange = function() {
+//    console.log("on hash");
+//    if (window.innerDocClick) {
+//        console.log("you never left the window");
+//    } else {
+//        //Browser back button was clicked
+//        console.log("back button!");
+//    }
+//};
+
+function console_something() {
+    console.log('hello');
+}
+
+
