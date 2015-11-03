@@ -1,4 +1,4 @@
-# C5_final_project
+# C5_final_project // Green Room Hunter
 As a surfer I am always looking at raw data about wind and waves in order to make an informed decision about where I will surf on any given day. If you take a look at the websites that are out there now that cater to surfers, the focus is really on the analysis of raw data and telling people what they should or shouldn’t think with only a little bit of access to raw data and information. This ultimately leads to inaccuracies in forecasting which create all sorts of problems.
 
 The purpose of this site is to bring pertinent raw data for surfers all into a single application. A given person will be able to log into the site and see a set of data that is relevant to the location that they live in, and then they will eventually be able to customize that data to be relevant to their interests. This will allow surfers to make better decisions about where and when to surf.
