@@ -2,8 +2,9 @@
     <div id="content-container">
         <?php include "inc/basic_nav.php"; ?>
         <div class="hero_banner">
-            <div class="hero-text text-center col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-                <img class = "mobile-logo " src="images/logo.png" alt="">
+            <div class="hero-text text-center col-xs-12 col-sm-8 col-sm-offset-2 col-lg-4 col-lg-offset-4">
+                <img class = "mobile-logo" src="images/logo.png" alt="">
+                <div class="clearfix"></div>
                 <h3 class="">A no frills tool to help you get barreled.</h3>
             </div>
         </div>

@@ -59,7 +59,8 @@ button.navbar-toggle {
 }
 
 .mobile-logo {
-    max-width: 100%;
+    width: 80%;
+    max-width: 350px;
 }
 
 .hero_banner a {

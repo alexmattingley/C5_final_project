@@ -1,7 +1,38 @@
-# C5_final_project
+# C5_final_project // Green Room Hunter
 As a surfer I am always looking at raw data about wind and waves in order to make an informed decision about where I will surf on any given day. If you take a look at the websites that are out there now that cater to surfers, the focus is really on the analysis of raw data and telling people what they should or shouldn’t think with only a little bit of access to raw data and information. This ultimately leads to inaccuracies in forecasting which create all sorts of problems.
 
 The purpose of this site is to bring pertinent raw data for surfers all into a single application. A given person will be able to log into the site and see a set of data that is relevant to the location that they live in, and then they will eventually be able to customize that data to be relevant to their interests. This will allow surfers to make better decisions about where and when to surf.
+
+##Site Challenges and fun problems
+
+Although simple, creating this website presented a number of challenges and fun problems that needed to be worked through, most of which had to do with data handling.
+
+As you can imagine, most of the data that is being used for this site is coming from websites outside of this one. I do not have the capital, nor do I have the desire to set up dozens
+of data points throughout the state of California. This means that I need to pull data from external sources and I often needed to work with data limits or data which was formatted for other
+uses. I think one of my favorite moments from the project was learning about how to work with the buoy data. In its rawest form, the data from CDIP was simply a text file which was organized
+into a table with only pre tags to delineate the table structure. This meant that I needed to figure out how effectively parse the data into usable pieces. I really enjoyed writing the
+cdip_get_data function, which organized all of the data into an object which then can be easily parsed and used on different pages.
+
+Pulling weather data from Wunderground was challenging as well, namely because Wunderground has ajax call limits. It was here that I learned about cron jobs, which allow you to activate a
+file periodically in order to perform a certain task. Every 2-3 minutes the cron job calls a file which then makes a call for one data point in California. The data point which is called
+is determined by which data point was last updated. It was really cool learning all about managing databases as well as about data handling.
+
+Lastly, the creation of the tide chart was a fun challenge as well. I had never worked with a plugin like chartjs before, so it was fun getting to work with a plugin built by someone else.
+The data that was being returned to me by NOAA was also very very dense and difficult to work with. The find_highs_low as well as the remove_duplicate_data function are responsible for
+simplifying the tidal data into just high and low tide points. I also realized quickly that although the tide chart looks very pretty in mobile, it doesn't really work properly at the
+smallest screen sizes, hence the tide table in mobile.
+
+
+##Site Languages and Skills Used
+
+HTML & CSS
+
+Javascript, Jquery, AJAX, SOAP, OOP(CDIP_get_data)
+
+PHP, Curl requests, MySQL, PhpMyAdmin, MAMP, AWS(server), Ubuntu, Cron Job
+
+Git & Github
+
 
 ##Scope
 
