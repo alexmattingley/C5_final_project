@@ -164,6 +164,15 @@ About Pages
 }
 
 
+/******************
+Contact Page
+*******************/
+
+.contact-text p.icon {
+    display: inline-block;
+    margin-right: 15px;
+}
+
 /***********************
 Data Pages/Header/Navigation
 ************************/
