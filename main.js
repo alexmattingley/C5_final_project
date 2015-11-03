@@ -24,9 +24,9 @@ $(document).ready(function(){
        get_tide_data(loc_id);
    });
 
-   $("#about-page").click(function () {
+   $('body').on('click', '.navbar-nav a', function(){
        var current_page = $(this).attr('page');
-        get_non_location_pages(current_page);
+       get_non_location_pages(current_page);
    });
 
 });
@@ -771,11 +771,15 @@ var current_url = [];
 
 function get_current_url() {
     current_url[counter] = location.search;
-    if(counter > 0 && current_url[counter] !== current_url[counter-1]){
+    if(counter > 1 && current_url[counter] !== current_url[counter-1]){
         console.log("your hashchanged");
         if(doc_switch == false) {
             location.reload(true);
         }
+    }
+    if(counter > 100) {
+        current_url = [];
+        counter = 0;
     }
     counter++;
 }
