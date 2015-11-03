@@ -13,8 +13,8 @@
         <p>The best way to reach me is by email, I do my best to respond within 24 hours:</p>
         <p><a href="mailto:alexmattingley@gmail.com">alexmattingley@gmail.com</a></p>
         <h3>Interested in finding out more about the work that I do?</h3>
-        <p class="icon"><a href="https://github.com/alexmattingley"><i class="fa fa-github fa-4x"></i></a></p>
-        <p class="icon"><a href="https://www.linkedin.com/pub/alex-mattingley/22/27a/8b6"><i class="fa fa-linkedin fa-4x"></i></a></p>
+        <p class="icon"><a href="https://github.com/alexmattingley"><i class="fa fa-github fa-3x"></i></a></p>
+        <p class="icon"><a href="https://www.linkedin.com/pub/alex-mattingley/22/27a/8b6"><i class="fa fa-linkedin fa-3x"></i></a></p>
     </div>
 </div>
 
