@@ -5,12 +5,12 @@
             <div class="hero-text text-center col-xs-12 col-sm-8 col-sm-offset-2 col-lg-4 col-lg-offset-4">
                 <img class = "mobile-logo" src="images/logo.png" alt="">
                 <div class="clearfix"></div>
-                <h3 class="">A no frills tool to help you get barreled.</h3>
+                <h2>A no frills tool to help you get barreled.</h2>
             </div>
         </div>
         <div class="location-tabs">
             <div class="col-xs-12">
-                <h3>Where are you surfing today?</h3>
+                <h2>Where are you surfing today?</h2>
                 <ul class="list-unstyled">
                     <li class="santa-barbara col-sm-6 col-md-4"><a href="javascript:;" loc_id="1">Santa Barbara</a></li>
                     <li class="ventura col-sm-6 col-md-4"><a href="javscript:;" loc_id="2">Ventura</a></li>

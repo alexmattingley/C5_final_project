@@ -6,6 +6,38 @@ body {
     position: relative;
     height: auto;
     min-height: 100vh;
+    font-family: 'Neuton', serif;
+    font-size: 20px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+h1,
+.h1 {
+    font-size: 43.2px;
+}
+h2,
+.h2 {
+    font-size: 36px;
+}
+h3,
+.h3 {
+    font-size: 28.8px;
+}
+h4,
+.h4 {
+    font-size: 21.6px;
+}
+h5,
+.h5 {
+    font-size: 16.8px;
+}
+h6,
+.h6 {
+    font-size: 14.4px;
 }
 
 #content-container {
@@ -67,6 +99,11 @@ button.navbar-toggle {
     color: white;
 }
 
+.hero_banner h2 {
+    font-family: 'Neuton', serif;
+    font-weight: 700;
+}
+
 
 /****************
 Home Page // Locations block
@@ -88,7 +125,9 @@ Home Page // Locations block
 
 .location-tabs ul li a {
     display: block;
-    font-size: 22px;
+    font-size: 21.6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -137,10 +176,12 @@ Home Page // Locations block
     background-position: center;
 }
 
-.location-tabs h3 {
+.location-tabs h2 {
     margin-top: 20px;
     margin-bottom: 60px;
     color: white;
+    font-family: 'Neuton', serif;
+    font-weight: 700;
 }
 
 .location-tabs a {

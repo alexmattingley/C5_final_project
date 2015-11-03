@@ -10,7 +10,7 @@
             <ul class="nav navbar-nav">
                 <li><a page="index.php" href="index.php">Home</a></li>
                 <li><a page="about.php" id="about-page">About</a></li>
-                <li><a page="contact.php" id="contact-page">Contact Us</a></li>
+                <li><a page="contact.php" id="contact-page">Contact</a></li>
             </ul>
         </div>
     </nav>
