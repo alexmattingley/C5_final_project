@@ -8,6 +8,10 @@ body {
     min-height: 100vh;
 }
 
+#content-container {
+    padding-bottom: 70px;
+}
+
 /***************
 Home Page // Header Styles
 ****************/
