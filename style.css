@@ -217,6 +217,12 @@ Home Page // Locations block
     }
 }
 
+@media (min-width: 1025px) {
+    .hero_banner {
+        background-attachment: fixed;
+    }
+}
+
 
 /******************
 About Pages
