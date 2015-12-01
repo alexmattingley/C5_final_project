@@ -84,7 +84,6 @@ button.navbar-toggle {
     color: white;
     height: 100vh;
     background-size: cover;
-    background-attachment: fixed;
     padding: 40px 0px;
     box-sizing: border-box;
     /*99F7AB*/
