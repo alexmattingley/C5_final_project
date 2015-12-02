@@ -748,7 +748,6 @@ function get_current_url() {
 }
 
 window.setInterval(get_current_url, 100);
-console.log(doc_switch);
 
 /******
  * End Single page functionality
