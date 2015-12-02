@@ -57,3 +57,5 @@ Allow a user to set up a text message or email alert if certain conditions are m
 ###V2.5
 
 Increase accuracy of buoy information to include swell breakdowns. Increase the number of locations to encompass Central and Northern California.
+
+######See Issues for known issues and future revisions on this project
