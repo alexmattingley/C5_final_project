@@ -32,32 +32,12 @@ $(document).ready(function(){
 });
 
 
-
-/********************
- * Move this a better spot
- * @param current_page
- */
-
-function get_non_location_pages(current_page) {
-    $.ajax({
-        url: current_page,
-        method: "POST",
-        dataType: "html",
-        success: function(response){
-            $content_container.empty();
-            $content_container.html(response);
-            window.history.pushState('test', 'test', 'index.php?current_page=' + current_page);
-            set_top_padding('.header-page');
-            $('body').scrollTop(0);
-        }
-
-    });
-}
-
 /**************************
- *
+ * functionName: getQueryVariable();
+ * @purpose: Searches through the url finds the query variables
  * @param variable
  * @returns {*}
+ * @globals: N/A
  */
 
     function getQueryVariable(variable)
@@ -66,26 +46,13 @@ function get_non_location_pages(current_page) {
         var vars = query.split("&");
         for (var i=0;i<vars.length;i++) {
             var pair = vars[i].split("=");
-            if(pair[0] == variable){return pair[1];}
+            if(pair[0] == variable){
+                return pair[1];
+            }
         }
         return(false);
     }
 
-/**********************
- * functionname: topPaddingBanners();
- *
- */
-
-
-function topPaddingBanners() {
-    var navigation_height = $('.header-container').height();
-    var topPadding = navigation_height + 40;
-    return topPadding;
-}
-
-function set_top_padding(element) {
-    $(element).css("padding-top", (topPaddingBanners() + "px"));
-}
 
 /**********************
  * functionName: add_contact_info();
@@ -105,33 +72,6 @@ function add_contact_info() {
     var pNum = ' (949) 280-6557';
     email_add.html(e_icon + e_name + server_name);
     phe_class.html(phe_icon + pNum);
-}
-
-/***************************
- * functionName: noaa_ajax_call();
- * @purpose: Calls noaa api to obtain buoy data
- * @param:
- * @globals:
- * @return:
- */
-
-function noaa_ajax_call() {
-    $.ajax({
-        url: "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets",
-        headers:{
-          token: "OcJDgFIwRvIxJoMBOrBzoWELwwTrTjzp"
-        },
-        data:{
-            stationid:"COOP:010957"
-        },
-        method: "GET",
-        cache: false,
-        dataType: 'json',
-        success: function(response) {
-           console.log(response);
-
-        }
-    });
 }
 
 
@@ -385,11 +325,30 @@ function pull_relevant_page_location(location_id){
     });
 }
 
-
-
-/**************************
- * funcitonName:
+/********************
+ * functionName: get_non_location_pages
+ * @purpose: Pulls relevant html pages for non locational pages.
+ * @param current_page
+ * @returns: N/A
+ * @globals: N/A
  */
+
+function get_non_location_pages(current_page) {
+    $.ajax({
+        url: current_page,
+        method: "POST",
+        dataType: "html",
+        success: function(response){
+            $content_container.empty();
+            $content_container.html(response);
+            window.history.pushState('test', 'test', 'index.php?current_page=' + current_page);
+            set_top_padding('.header-page');
+            $('body').scrollTop(0);
+        }
+
+    });
+}
+
 /********************
  * Tide related functions and variables.
  *
@@ -553,9 +512,13 @@ function pull_relevant_page_location(location_id){
 
 
     /*************************
-    *functionName: build_buoy_chart
-     *@purpose: this function builds the buoy chart using the data above.
+     * functionName: build_buoy_chart
+     * @purpose: this function builds the buoy chart using the data above.
+     * @params: N/A
+     * @globals: chart
+     * @returns: N/A
     */
+
 
     function build_buoy_chart(){
         var my_chart_node = $("#myChart").get(0);
@@ -772,7 +735,7 @@ var current_url = [];
 function get_current_url() {
     current_url[counter] = location.search;
     if(counter > 1 && current_url[counter] !== current_url[counter-1]){
-        console.log("your hashchanged");
+        console.log(current_url);
         if(doc_switch == false) {
             location.reload(true);
         }
@@ -785,9 +748,30 @@ function get_current_url() {
 }
 
 window.setInterval(get_current_url, 100);
+console.log(doc_switch);
 
 /******
  * End Single page functionality
+ */
+
+/**********************
+ * design related functions.
+ *
+ */
+
+
+function topPaddingBanners() {
+    var navigation_height = $('.header-container').height();
+    var topPadding = navigation_height + 40;
+    return topPadding;
+}
+
+function set_top_padding(element) {
+    $(element).css("padding-top", (topPaddingBanners() + "px"));
+}
+
+/***************************
+ * End design related functions
  */
 
 

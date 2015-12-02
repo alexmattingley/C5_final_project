@@ -84,7 +84,9 @@ button.navbar-toggle {
     color: white;
     height: 100vh;
     background-size: cover;
-    background-attachment: fixed;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     padding: 40px 0px;
     box-sizing: border-box;
     /*99F7AB*/
@@ -138,41 +140,62 @@ Home Page // Locations block
 .location-tabs ul .santa-barbara {
     background: url('images/sandspit.jpg');
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: center;
 }
 
 .location-tabs ul .ventura {
     background: url('images/little_rincon.jpg');
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: bottom;
 }
 
 .location-tabs ul .los-ang {
     background: url("images/zuma.jpg");
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
 }
 
 .location-tabs ul .n-oc {
     background: url("images/wedge.JPG");
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: center;
 }
 
 .location-tabs ul .s-oc {
     background: url("images/lowers.jpg");
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: center;
 }
 
 .location-tabs ul .n-sd {
     background: url("images/blacks.jpg");
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: center;
 }
 
 .location-tabs ul .s-sd {
     background: url("images/sunset_cliffs.jpg");
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     background-position: center;
 }
 
@@ -191,6 +214,12 @@ Home Page // Locations block
 @media (min-width: 768px) {
     .location-tabs ul li {
         margin-top: 0px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .hero_banner {
+        background-attachment: fixed;
     }
 }
 

@@ -13,7 +13,7 @@
                 <h2>Where are you surfing today?</h2>
                 <ul class="list-unstyled">
                     <li class="santa-barbara col-sm-6 col-md-4"><a href="javascript:;" loc_id="1">Santa Barbara</a></li>
-                    <li class="ventura col-sm-6 col-md-4"><a href="javscript:;" loc_id="2">Ventura</a></li>
+                    <li class="ventura col-sm-6 col-md-4"><a href="javascript:;" loc_id="2">Ventura</a></li>
                     <li class="los-ang col-sm-6 col-md-4"><a href="javascript:;" loc_id="3">Los Angeles</a></li>
                     <li class="n-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="4">N. Orange County</a></li>
                     <li class="s-oc col-sm-6 col-md-4"><a href="javascript:;" loc_id="5">S. Orange County</a></li>
