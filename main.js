@@ -292,7 +292,7 @@ function cycle_and_send_buoy_data() {
                 buoy_data: important_data //this is an object with all of the other important information
             },
             success: function(response){
-                //console.log(response);
+                console.log(response);
             }
         });
     }
