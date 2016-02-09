@@ -93,6 +93,7 @@ function cdip_get_data(){
         dataType: 'text',
         success: function(response) {
             var split_by_line = response.split("\n");
+            console.log(split_by_line.length);
             var all_buoy_info = [];
             var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight, waterTemp){
                 this.stationNum = stationNum;
@@ -273,7 +274,7 @@ function cycle_and_send_buoy_data() {
                 buoy_data: important_data //this is an object with all of the other important information
             },
             success: function(response){
-                console.log(response);
+                //console.log(response);
             }
         });
     }
