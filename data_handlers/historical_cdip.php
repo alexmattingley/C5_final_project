@@ -20,19 +20,4 @@ print($buoy_array[3] . "<br>");
 
 print(strlen($buoy_array[3]) . "<br>");
 
-class buoyobject {
-	public function __construct($stationId){
-		$this->stationId = $stationId;
-	}
-}
-
-	for($i = 0; $i <= 2; $i++){
-		$stationId = $stationId + $buoy_array[3][i];
-	}
-	echo $stationId;
-
-
-//create_station_id();
-// $new_buoy = new buoyobject(create_station_id());
-// print_r($new_buoy);
 ?>
