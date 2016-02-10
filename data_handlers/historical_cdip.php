@@ -26,13 +26,13 @@ class buoyobject {
 	}
 }
 
-function create_station_id(){
 	for($i = 0; $i <= 2; $i++){
 		$stationId = $stationId + $buoy_array[3][i];
 	}
-	return $stationId;
-}
+	echo $stationId;
 
-$new_buoy = new buoyobject(create_station_id());
-print_r($new_buoy);
+
+//create_station_id();
+// $new_buoy = new buoyobject(create_station_id());
+// print_r($new_buoy);
 ?>
