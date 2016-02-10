@@ -16,14 +16,23 @@ curl_close($ch);
 
 $buoy_array = explode("\n", $CDIP_string);
 
-//print_r($buoy_array[3]);
+print($buoy_array[3] . "<br>");
 
-$buoy_object;
+print(strlen($buoy_array[3]) . "<br>");
 
-echo count($buoy_array);
+class buoyobject {
+	public function __construct($stationId){
+		$this->stationId = $stationId;
+	}
+}
 
-// function get_station_number(index){
+function create_station_id(){
+	for($i = 0; $i <= 2; $i++){
+		$stationId = $stationId + $buoy_array[3][i];
+	}
+	return $stationId;
+}
 
-// }
-
+$new_buoy = new buoyobject(create_station_id());
+print_r($new_buoy);
 ?>
