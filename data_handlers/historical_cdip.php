@@ -89,20 +89,6 @@ create_buoy_array();
 
 //print_r($buoy_array[0]);
 
-// for ($i=0; $i < count($buoy_array); $i++) { 
-	
-// 	require('../mysql_connect.php');
-// 	$query = "INSERT INTO `$buoy_array[$i]->station_num`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null,$buoy_array[$i]->station_num,'$buoy_array[$i]->stationName',[value-4],[value-5],[value-6],[value-7],[value-8],[value-9])";
-// 	$results = mysqli_query($conn, $query);
-// 	if (mysqli_affected_rows($conn) > 0) {
-// 	    print_r($stationNum);
-// 	    print_r($relevantData);
-// 	}else {
-// 	    print_r($query);
-// 	}
-
-// }
-
 // require('../mysql_connect.php');
 // $query = "INSERT INTO `$buoy_array[0]->station_num`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null,$buoy_array[0]->station_num,'$buoy_array[0]->stationName','$buoy_array[0]->dayOfMonth','$buoy_array[0]->readTime','$buoy_array[0]->peakPeriod','$buoy_array[0]->swellHeight','$buoy_array[0]->swellDirection','$buoy_array[0]->waterTemp'";
 // $results = mysqli_query($conn, $query);
@@ -112,6 +98,15 @@ create_buoy_array();
 // }else {
 //     print_r($query);
 // }
+
+require('../mysql_connect.php');
+$query = "INSERT INTO `121`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, 121,'guam','dsfasf','asdf','asdf','asdf','asdf','asdf')";
+$results = mysqli_query($conn, $query);
+if (mysqli_affected_rows($conn) > 0) {
+   print('success');
+}else {
+    print_r($query);
+}
 
 
 
