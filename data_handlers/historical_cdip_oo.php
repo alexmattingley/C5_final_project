@@ -21,11 +21,30 @@ unset($buoy_array[0], $buoy_array[1], $buoy_array[2], $buoy_array[63], $buoy_arr
 $buoy_array = array_values($buoy_array);
 
 class buoyObject {
-	public $stationId = 121;
+	public function __construct($stationId, $stationName){
+		$this->stationId = $stationId;
+		$this->stationName = $stationName;
+	}
 }
 
-for ($i=0; $i < count($buoy_array); $i++) { 
-	$buoy_array[$i] = new buoyObject();
+for ($i=0; $i < count($buoy_array); $i++) {
+	$stationId = "";
+	$stationName = "";
+	$dayOfMonth = "";
+	$peakPeriod = "";
+	$swellHeight = "";
+	$swellDirection = "";
+	$waterTemp = "";
+	
+	for ($j=0; $j <= 2; $j++) { 
+	 	$stationId .= $buoy_array[$i][$j];
+	}
+
+	for ($j=4; $j <= 29; $j++) { 
+	 	$stationName .= $buoy_array[$i][$j]; 
+	}
+
+	$buoy_array[$i] = new buoyObject($stationId, $stationName);
 }
 
-var_dump($buoy_array[0]->stationId);
+var_dump($buoy_array); 
