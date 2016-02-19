@@ -87,45 +87,38 @@ function create_buoy_array(){
 
 create_buoy_array();
 
-for ($i=0; $i <= 8; $i++) { 
+function remove_unnecessary_readings(){
+	global $buoy_array;
+	for ($i=0; $i <= 8; $i++) { 
 	unset($buoy_array[$i]);
+	}
+
+	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[23], $buoy_array[26]);
+
+	for($i=37; $i <= 57; $i++){
+		unset($buoy_array[$i]);
+	}
+
+	$buoy_array = array_values($buoy_array);
 }
 
-unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[23], $buoy_array[26]);
-
-for($i=37; $i <= 57; $i++){
-	unset($buoy_array[$i]);
-}
-
-$buoy_array = array_values($buoy_array);
-
-foreach ($buoy_array as $key => $value) {
-	echo $buoy_array[$key]->stationId;
-	echo "<br>";
-}
-
-// require('../mysql_connect.php');
-// $query = "INSERT INTO `$buoy_array[0]->station_num`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null,$buoy_array[0]->station_num,'$buoy_array[0]->stationName','$buoy_array[0]->dayOfMonth','$buoy_array[0]->readTime','$buoy_array[0]->peakPeriod','$buoy_array[0]->swellHeight','$buoy_array[0]->swellDirection','$buoy_array[0]->waterTemp'";
-// $results = mysqli_query($conn, $query);
-// if (mysqli_affected_rows($conn) > 0) {
-//     print_r($stationNum);
-//     print_r($relevantData);
-// }else {
-//     print_r($query);
-// }
+remove_unnecessary_readings();
 
 function send_buoy_info(){
 	global $buoy_array;
-	for ($i=0; $i < count($buoy_array); $i++) { 
-		require('../mysql_connect.php');
-		$query = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
-		$results = mysqli_query($conn, $query);
-		if (mysqli_affected_rows($conn) > 0) {
-		   print('success');
-		}else {
-		    print('query not working');
-		}
-	}
+	require('../mysql_connect.php');
+	$query = "SELECT COUNT(*) FROM `29`";
+	$count_results = mysqli_query($conn, $query);
+	print_r($count_results);
+	// for ($i=0; $i < count($buoy_array); $i++) { 
+	// 	$query = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
+	// 	$results = mysqli_query($conn, $query);
+	// 	if (mysqli_affected_rows($conn) > 0) {
+	// 	   print('success');
+	// 	}else {
+	// 	    print('query not working');
+	// 	}
+	// }
 }
 
 send_buoy_info();
