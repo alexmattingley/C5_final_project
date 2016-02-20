@@ -108,8 +108,10 @@ function send_buoy_info(){
 	global $buoy_array;
 	require('../mysql_connect.php');
 	$query = "SELECT COUNT(*) FROM `29`";
-	$count_results = mysqli_query($conn, $query);
-	print_r($count_results);
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_row($result);
+	$num = $row[0];
+	var_dump($num);
 	// for ($i=0; $i < count($buoy_array); $i++) { 
 	// 	$query = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
 	// 	$results = mysqli_query($conn, $query);
