@@ -150,6 +150,21 @@ function delete_a_row(){
 	}
 }
 
+function delete_all_rows(){
+	global $buoy_array;
+	global $conn;
+
+	for ($i=0; $i < count($buoy_array); $i++) {
+		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
+		$results = mysqli_query($conn, $query_delete);
+		if (mysqli_affected_rows($conn) > 0) {
+		   print('You deleted all rows');
+		}else {
+		    print('you tried and failed to delete all rows');
+		}
+	}
+}
+
 function send_buoy_info(){
 
 	if(check_num_rows() < 12){
