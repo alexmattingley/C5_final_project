@@ -167,7 +167,7 @@ function delete_all_rows(){
 
 function send_buoy_info(){
 
-	if(check_num_rows() < 12){
+	if(check_num_rows() < 5){
 		create_new_row();
 	}else {
 		delete_a_row();
