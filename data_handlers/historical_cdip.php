@@ -134,28 +134,28 @@ function create_new_row(){
 	}
 }
 
-function delete_all_rows(){
+function delete_a_row(){
 
 	global $buoy_array;
 	global $conn;
 
 	for ($i=0; $i < count($buoy_array); $i++) {
-		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`";
+		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue at some point because it can choose to delete the last row or one in the middle depending on DBMS
 		$results = mysqli_query($conn, $query_delete);
 		if (mysqli_affected_rows($conn) > 0) {
-		   print('You deleted all rows');
+		   print('You deleted a row');
 		}else {
-		    print('you tried and failed to delete rows');
+		    print('you tried and failed to delete a row');
 		}
 	}
 }
 
 function send_buoy_info(){
 
-	if(check_num_rows() < 10){
+	if(check_num_rows() < 12){
 		create_new_row();
 	}else {
-		delete_all_rows();
+		delete_a_row();
 		create_new_row();
 	}
 }
