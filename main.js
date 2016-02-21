@@ -93,7 +93,6 @@ function cdip_get_data(){
         dataType: 'text',
         success: function(response) {
             var split_by_line = response.split("\n");
-            console.log(split_by_line.length);
             var all_buoy_info = [];
             var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight, waterTemp){
                 this.stationNum = stationNum;
@@ -254,6 +253,25 @@ function cdip_get_data(){
     });
 }
 
+
+/*****************
+ * functionName: wunderground_data_call
+ * @purpose: This function calls the wind/weather database
+ * @param: N/A
+ * @returns: N/A
+ */
+
+function wunderground_data_call(){
+    $.ajax({
+        url : "data_handlers/weather_data_call.php",
+        dataType : "json",
+        success : function(response) {
+           console.log(response);
+
+        }
+    });
+}
+
 /*****************
  * functionName: cycle_and_send_buoy_data
  * @purpose: This function takes the data that is received from CDIP and sends it a php file which then sends that information to db for storage and later use.
@@ -278,25 +296,6 @@ function cycle_and_send_buoy_data() {
             }
         });
     }
-}
-
-
-/*****************
- * functionName: wunderground_data_call
- * @purpose: This function calls the wind/weather database
- * @param: N/A
- * @returns: N/A
- */
-
-function wunderground_data_call(){
-    $.ajax({
-        url : "data_handlers/weather_data_call.php",
-        dataType : "json",
-        success : function(response) {
-           console.log(response);
-
-        }
-    });
 }
 
 /*****************
