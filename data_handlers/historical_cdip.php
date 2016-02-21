@@ -107,39 +107,57 @@ remove_unnecessary_readings();
 require('../mysql_connect.php');
 
 function check_num_rows(){
-	global $buoy_array;
 	global $conn;
 	$query = "SELECT COUNT(*) FROM `29`";
 	$result = mysqli_query($conn, $query);
 	$row = mysqli_fetch_row($result);
 	$num_row = $row[0];
-	print($num_row);
+	return $num_row;
 }
 
-check_num_rows();
+function create_new_row(){
+
+	global $buoy_array;
+	global $conn;
+
+	for ($i=0; $i < count($buoy_array); $i++) {
+		$query_create_row = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
+		$results = mysqli_query($conn, $query_create_row);
+		if (mysqli_affected_rows($conn) > 0) {
+		   print('you created another row');
+		}else {
+		    print('you failed to create row');
+		}
+	}
+}
+
+function delete_all_rows(){
+
+	global $buoy_array;
+	global $conn;
+
+	for ($i=0; $i < count($buoy_array); $i++) {
+		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`";
+		$results = mysqli_query($conn, $query_delete);
+		if (mysqli_affected_rows($conn) > 0) {
+		   print('You deleted all rows');
+		}else {
+		    print('you tried and failed to delete rows');
+		}
+	}
+}
 
 function send_buoy_info(){
+	
 	global $buoy_array;
 	global $num_row;
 	global $conn;
-	for ($i=0; $i < count($buoy_array); $i++) {
-		if($num_row < 10){
-			$query_create_row = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
-			$results = mysqli_query($conn, $query_create_row);
-			if (mysqli_affected_rows($conn) > 0) {
-			   print('you created another row');
-			}else {
-			    print('you failed to create row');
-			}
-		}else {
-			$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`";
-			$results = mysqli_query($conn, $query_delete);
-			if (mysqli_affected_rows($conn) > 0) {
-			   print('success 2');
-			}else {
-			    print('query not working 2');
-			}
-		} 
+
+	if(check_num_rows() < 10){
+		create_new_row();
+	}else {
+		delete_all_rows();
+		create_new_row();
 	}
 }
 
