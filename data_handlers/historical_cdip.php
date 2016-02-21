@@ -140,7 +140,7 @@ function delete_a_row(){
 	global $conn;
 
 	for ($i=0; $i < count($buoy_array); $i++) {
-		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue at some point because it can choose to delete the last row or one in the middle depending on DBMS
+		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
 		$results = mysqli_query($conn, $query_delete);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('You deleted a row');
