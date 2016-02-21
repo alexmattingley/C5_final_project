@@ -93,13 +93,10 @@ function create_buoy_array(){
 	}
 }
 
-prepare_buoy_array();
-create_buoy_array();
-
 function remove_unnecessary_readings(){
 	global $buoy_array;
 	for ($i=0; $i <= 8; $i++) { 
-	unset($buoy_array[$i]);
+		unset($buoy_array[$i]);
 	}
 
 	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[23], $buoy_array[26]);
@@ -110,10 +107,6 @@ function remove_unnecessary_readings(){
 
 	$buoy_array = array_values($buoy_array);
 }
-
-remove_unnecessary_readings();
-
-require('../mysql_connect.php');
 
 function check_num_rows(){
 	global $conn;
@@ -167,6 +160,10 @@ function send_buoy_info(){
 	}
 }
 
+prepare_buoy_array();
+create_buoy_array();
+remove_unnecessary_readings();
+require('../mysql_connect.php'); //This is so all of the functions that are called in used in the send_buoy_info can work
 send_buoy_info();
 
 
