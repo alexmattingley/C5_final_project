@@ -1,24 +1,32 @@
 <?php
-// create curl resource
-$ch = curl_init();
 
-// set url
-curl_setopt($ch, CURLOPT_URL, "http://cdip.ucsd.edu/data_access/synopsis.cdip");
+function cdip_call(){
+	// create curl resource
+	$ch = curl_init();
 
-//return the transfer as a string
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	// set url
+	curl_setopt($ch, CURLOPT_URL, "http://cdip.ucsd.edu/data_access/synopsis.cdip");
 
-// $output contains the output string
-$CDIP_string = curl_exec($ch);
+	//return the transfer as a string
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-// close curl resource to free up system resources
-curl_close($ch);
+	// $output contains the output string
+	$CDIP_string = curl_exec($ch);
 
-$buoy_array = explode("\n", $CDIP_string);
+	// close curl resource to free up system resources
+	curl_close($ch);
 
-unset($buoy_array[0], $buoy_array[1], $buoy_array[2], $buoy_array[63], $buoy_array[64]);
+	return $CDIP_string;
+}
 
-$buoy_array = array_values($buoy_array);
+function prepare_buoy_array(){
+
+	global $buoy_array;
+
+	$buoy_array = explode("\n", cdip_call());
+	unset($buoy_array[0], $buoy_array[1], $buoy_array[2], $buoy_array[63], $buoy_array[64]);
+	$buoy_array = array_values($buoy_array);
+}
 
 function create_buoy_array(){
 	global $buoy_array;
@@ -85,6 +93,7 @@ function create_buoy_array(){
 	}
 }
 
+prepare_buoy_array();
 create_buoy_array();
 
 function remove_unnecessary_readings(){
@@ -108,8 +117,9 @@ require('../mysql_connect.php');
 
 function check_num_rows(){
 	global $conn;
-	$query = "SELECT COUNT(*) FROM `29`";
-	$result = mysqli_query($conn, $query);
+
+	$query_count = "SELECT COUNT(*) FROM `29`";
+	$result = mysqli_query($conn, $query_count);
 	$row = mysqli_fetch_row($result);
 	$num_row = $row[0];
 	return $num_row;
@@ -148,10 +158,6 @@ function delete_all_rows(){
 }
 
 function send_buoy_info(){
-	
-	global $buoy_array;
-	global $num_row;
-	global $conn;
 
 	if(check_num_rows() < 10){
 		create_new_row();
