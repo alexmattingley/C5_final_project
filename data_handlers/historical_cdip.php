@@ -104,15 +104,24 @@ function remove_unnecessary_readings(){
 
 remove_unnecessary_readings();
 
-function send_buoy_info(){
+require('../mysql_connect.php');
+
+function check_num_rows(){
 	global $buoy_array;
-	require('../mysql_connect.php');
+	global $conn;
 	$query = "SELECT COUNT(*) FROM `29`";
 	$result = mysqli_query($conn, $query);
 	$row = mysqli_fetch_row($result);
 	$num_row = $row[0];
 	print($num_row);
+}
 
+check_num_rows();
+
+function send_buoy_info(){
+	global $buoy_array;
+	global $num_row;
+	global $conn;
 	for ($i=0; $i < count($buoy_array); $i++) {
 		if($num_row < 10){
 			$query_create_row = "INSERT INTO `{$buoy_array[$i]->stationId}`(`id`, `station_num`, `station_name`, `day_of_month`, `read_time`, `peak_period`, `swell_height`, `swell_direction`, `water_temp`) VALUES (null, {$buoy_array[$i]->stationId},'{$buoy_array[$i]->stationName}','{$buoy_array[$i]->dayOfMonth}','{$buoy_array[$i]->readTime}','{$buoy_array[$i]->peakPeriod}','{$buoy_array[$i]->swellHeight}','{$buoy_array[$i]->swellDirection}','{$buoy_array[$i]->waterTemp}')";
