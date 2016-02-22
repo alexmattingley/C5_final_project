@@ -23,7 +23,12 @@ function get_buoy_data_from_db(){
     }else{
         echo "not working";
     }
-   print_r($location_relevant_buoys);
+   //print_r($location_relevant_buoys);
+
+   for($i = 0; $i < count($location_relevant_buoys); $i++){
+    print_r($location_relevant_buoys[$i]['buoy_id']);
+    print "<br>";
+   }
 }
 
 
