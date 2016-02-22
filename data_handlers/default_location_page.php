@@ -4,7 +4,7 @@
  * This block is the query call for the buoy data
  */
 
-$location_id = 1; //For testing purposes only!
+$location_id = $_POST['location_index']; //For testing purposes only!
 $buoy_array = array();
 
 
@@ -26,7 +26,7 @@ function get_buoy_data_from_db(){
    //print_r($location_relevant_buoys);
 
    for($i = 0; $i < count($location_relevant_buoys); $i++){
-    print_r($location_relevant_buoys[$i]['buoy_id']);
+    print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
     print "<br>";
    }
 }
