@@ -93,13 +93,14 @@ function create_buoy_array(){
 	}
 }
 
+//This needs to be improved, if the api changes this will be a problem.
 function remove_unnecessary_readings(){
 	global $buoy_array;
 	for ($i=0; $i <= 8; $i++) { 
 		unset($buoy_array[$i]);
 	}
 
-	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[23], $buoy_array[26]);
+	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[26]);
 
 	for($i=37; $i <= 57; $i++){
 		unset($buoy_array[$i]);
