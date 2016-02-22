@@ -4,16 +4,39 @@
  * This block is the query call for the buoy data
  */
 
-$location_id = $_POST['location_index'];
+$location_id = 1; //For testing purposes only!
 $buoy_array = array();
-require('../mysql_connect.php');
-$query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
-$results = mysqli_query($conn, $query);
-if(mysqli_num_rows($results) > 0){
-    while($result = mysqli_fetch_assoc($results)){
-        array_push($buoy_array,$result);
+
+
+function get_buoy_data_from_db(){
+    global $buoy_array;
+    global $location_id;
+    $location_relevant_buoys = array();
+    require('../mysql_connect.php');
+
+    $get_loc_query = "SELECT * FROM `historical_location_buoy_relations` WHERE historical_location_buoy_relations.location_id = '$location_id'";
+    $results = mysqli_query($conn, $get_loc_query);
+    if(mysqli_num_rows($results) > 0){
+       while ($result = mysqli_fetch_assoc($results)){
+          array_push($location_relevant_buoys, $result);  
+        }
+    }else{
+        echo "not working";
     }
+   print_r($location_relevant_buoys);
 }
+
+
+
+// $query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
+// $results = mysqli_query($conn, $query);
+// if(mysqli_num_rows($results) > 0){
+//     while($result = mysqli_fetch_assoc($results)){
+//         array_push($buoy_array,$result);
+//     }
+// }
+
+get_buoy_data_from_db();
 
 /***************************
  * This block is the query call for the wind data
