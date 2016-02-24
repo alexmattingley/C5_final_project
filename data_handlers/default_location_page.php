@@ -24,10 +24,20 @@ function get_buoy_data_from_db(){
         echo "not working";
     }
    //print_r($location_relevant_buoys);
-
+    $tfh_buoy_data = array();
    for($i = 0; $i < count($location_relevant_buoys); $i++){
-    print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
-    print "<br>";
+    //print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
+    $get_buoy_query = "SELECT * FROM `{$location_relevant_buoys[$i]['buoy_id']}`";
+    $results = mysqli_query($conn, $get_buoy_query);
+    if(mysqli_num_rows($results) > 0){
+       while ($result = mysqli_fetch_assoc($results)){
+          array_push($tfh_buoy_data, $result);  
+        }
+    }else{
+        echo "<div>not working</div>";
+    }
+   print_r($tfh_buoy_data);
+
    }
 }
 
