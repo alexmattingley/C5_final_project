@@ -6,11 +6,12 @@
 
 $location_id = $_POST['location_index']; //For testing purposes only!
 $buoy_array = array();
-
+$tfh_buoy_data;
 
 function get_buoy_data_from_db(){
     global $buoy_array;
     global $location_id;
+    global $tfh_buoy_data;
     $location_relevant_buoys = array();
     require('../mysql_connect.php');
 
@@ -29,29 +30,34 @@ function get_buoy_data_from_db(){
     //print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
     $get_buoy_query = "SELECT * FROM `{$location_relevant_buoys[$i]['buoy_id']}`";
     $results = mysqli_query($conn, $get_buoy_query);
-    if(mysqli_num_rows($results) > 0){
-       while ($result = mysqli_fetch_assoc($results)){
-          array_push($tfh_buoy_data, $result);  
+        if(mysqli_num_rows($results) > 0){
+           while ($result = mysqli_fetch_assoc($results)){
+              array_push($tfh_buoy_data, $result);  
+            }
+        }else{
+            echo "<div>not working</div>";
         }
-    }else{
-        echo "<div>not working</div>";
-    }
-   print_r($tfh_buoy_data);
-
    }
 }
 
-
-
-// $query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
-// $results = mysqli_query($conn, $query);
-// if(mysqli_num_rows($results) > 0){
-//     while($result = mysqli_fetch_assoc($results)){
-//         array_push($buoy_array,$result);
-//     }
-// }
-
 get_buoy_data_from_db();
+
+function organize_buoy_data(){
+    global $tfh_buoy_data;
+    $organize_buoy_data = array();
+    //print_r($tfh_buoy_data[0]['station_num']);
+    for($i = 0; $i < count($tfh_buoy_data); $i++){
+
+        if($i == 0){
+           
+        }
+
+    }
+
+    print_r($organized_buoy_data);
+}
+
+organize_buoy_data();
 
 /***************************
  * This block is the query call for the wind data
