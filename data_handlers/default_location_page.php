@@ -52,7 +52,7 @@ function organize_buoy_data(){
         $station_num = $tfh_buoy_data[$i]['station_num'];
         if($i == 0){
             $buoy_base_array = array(
-                $station_num =>  '171'
+                $station_num =>  array($tfh_buoy_data[0])
             );
         }
 
