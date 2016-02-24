@@ -42,17 +42,23 @@ function get_buoy_data_from_db(){
 
 get_buoy_data_from_db();
 
+//print_r($tfh_buoy_data);
+
 function organize_buoy_data(){
     global $tfh_buoy_data;
     $organize_buoy_data = array();
     //print_r($tfh_buoy_data[0]['station_num']);
     for($i = 0; $i < count($tfh_buoy_data); $i++){
-
+        $station_num = $tfh_buoy_data[$i]['station_num'];
         if($i == 0){
-           
+            $buoy_base_array = array(
+                $station_num =>  '171'
+            );
         }
 
     }
+
+    print_r($buoy_base_array);
 
     print_r($organized_buoy_data);
 }
