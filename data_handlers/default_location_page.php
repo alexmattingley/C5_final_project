@@ -49,16 +49,18 @@ function organize_buoy_data(){
     $organize_buoy_data = array();
     //print_r($tfh_buoy_data[0]['station_num']);
     for($i = 0; $i < count($tfh_buoy_data); $i++){
-        $station_num = $tfh_buoy_data[$i]['station_num'];
         if($i == 0){
+            $station_num = $tfh_buoy_data[$i]['station_num'];
             $buoy_base_array = array(
                 $station_num =>  array($tfh_buoy_data[0])
             );
+        }elseif ($i != 0 && $tfh_buoy_data[$i]['station_num'] != $tfh_buoy_data[$i-1]['station_num']) {
+           
         }
 
     }
 
-    print_r($buoy_base_array);
+    //print_r($buoy_base_array);
 
     print_r($organized_buoy_data);
 }
