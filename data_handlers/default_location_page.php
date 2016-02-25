@@ -56,6 +56,8 @@ function organize_buoy_data(){
             );
         }elseif ($i != 0 && $tfh_buoy_data[$i]['station_num'] != $tfh_buoy_data[$i-1]['station_num']) {
            $buoy_base_array[$tfh_buoy_data[$i]['station_num']] = array($tfh_buoy_data[$i]);
+        }elseif ($i != 0 ) {
+             array_push($buoy_base_array[$tfh_buoy_data[$i]['station_num']], $tfh_buoy_data[$i]);
         }
 
     }
