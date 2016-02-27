@@ -96,11 +96,12 @@ function create_buoy_array(){
 //This needs to be improved, if the api changes this will be a problem.
 function remove_unnecessary_readings(){
 	global $buoy_array;
+	print_r($buoy_array);
 	for ($i=0; $i <= 8; $i++) { 
 		unset($buoy_array[$i]);
 	}
 
-	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[26]);
+	unset($buoy_array[12], $buoy_array[17], $buoy_array[22], $buoy_array[26]);
 
 	for($i=37; $i <= 57; $i++){
 		unset($buoy_array[$i]);
@@ -129,8 +130,9 @@ function create_new_row(){
 		$results = mysqli_query($conn, $query_create_row);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('you created another row');
+		   print("<br>");
 		}else {
-		    print('you failed to create row');
+		   print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
 		}
 	}
 }
@@ -145,8 +147,9 @@ function delete_a_row(){
 		$results = mysqli_query($conn, $query_delete);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('You deleted a row');
+		   print("<br>");
 		}else {
-		    print('you tried and failed to delete a row');
+		    print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
 		}
 	}
 }
@@ -160,6 +163,7 @@ function delete_all_rows(){
 		$results = mysqli_query($conn, $query_delete);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('You deleted all rows');
+		   print("<br>");
 		}else {
 		    print('you tried and failed to delete all rows');
 		}
@@ -171,8 +175,8 @@ function send_buoy_info(){
 	if(check_num_rows() < 5){
 		create_new_row();
 	}else {
-		delete_a_row();
 		create_new_row();
+		delete_a_row();
 	}
 }
 
