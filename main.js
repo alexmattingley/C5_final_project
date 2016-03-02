@@ -176,9 +176,14 @@ var raw_buoy_data;
     
  }
 
- var buoy_object = function(stationName, heightArray){
+ var buoy_object = function(stationName, stationNum, readTimeArray, heightArray, periodArray, dirArray, waterTempArray){
     this.stationName = stationName;
+    this.stationNum = stationNum;
+    this.readTimeArray = readTimeArray;
     this.heightArray = heightArray;
+    this.periodArray = periodArray;
+    this.dirArray = dirArray;
+    this.waterTempArray = waterTempArray;
  }
 
  function create_buoy_arrays(specific_array, property){
@@ -191,10 +196,15 @@ var raw_buoy_data;
 
  function create_buoy_instance(){
     for(var prop in raw_buoy_data){
-        var buoyName = raw_buoy_data[prop][0].station_name;
         var buoyInfoArray = raw_buoy_data[prop];
+        var buoyName = buoyInfoArray[0].station_name;
+        var buoyNum = buoyInfoArray[0].stationNum;
+        var buoyTime = create_buoy_arrays(buoyInfoArray, "read_time");
         var buoyHeightArray = create_buoy_arrays(buoyInfoArray, "swell_height");
-        var buoy = new buoy_object(buoyName, buoyHeightArray);
+        var buoyPeriodArray = create_buoy_arrays(buoyInfoArray, "peak_period");
+        var buoydirArray = create_buoy_arrays(buoyInfoArray, "swell_direction");
+        var buoyWaterTempArray = create_buoy_arrays(buoyInfoArray, "water_temp");
+        var buoy = new buoy_object(buoyName, buoyNum, buoyTime, buoyHeightArray, buoyPeriodArray, buoydirArray, buoyWaterTempArray);
         console.log(buoy);
     }
  }
