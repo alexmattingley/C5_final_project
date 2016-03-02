@@ -343,7 +343,7 @@ function get_non_location_pages(current_page) {
 
 
     function build_buoy_chart(){
-        var my_chart_node = $("#myChart").get(0);
+        var my_chart_node = $("#tideChart").get(0);
         var ctx = my_chart_node.getContext("2d");
 
         var options = {

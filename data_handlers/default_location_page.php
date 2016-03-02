@@ -34,44 +34,6 @@ if(mysqli_num_rows($results) > 0){
 
 
 
-/**********************
- * function_name: create_indiv_buoys
- * @purpose: This function creates each of the individual html code blocks for each buoy
- * @param: N/A
- * @globals:$buoy_array
- */
-
-function create_indiv_buoys(){
-    global $buoy_array;
-    for($i = 0; $i < count($buoy_array); $i++) {
-        $relevant_data_object = json_decode($buoy_array[$i]["relevant_data"]);
-        $time = "$relevant_data_object->readTime";
-        if ($time > 1200){
-            $am_or_pm = "PM";
-        }else {
-            $am_or_pm = "AM";
-        }
-
-        if($i == 0 || $i % 3 == 0){; ?>
-
-        <div class="indiv-buoy col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">
-
-        <?php } else {; ?>
-
-        <div class="indiv-buoy indiv-wind col-xs-10 col-xs-offset-1 col-sm-3">
-
-        <?php }; ?>
-            <h4><?php print($buoy_array[$i]['Buoy_name']); ?></h4>
-            <p>Last Updated: <?php print(date('M') . " $relevant_data_object->datePST, " . date('Y') . " at " . $time . " $am_or_pm"); ?> </p>
-            <p>Height: <?php print($relevant_data_object->swellHeight); ?> ft</p>
-            <p>Peak Period: <?php print($relevant_data_object->peakPeriod); ?> seconds</p>
-            <p>Swell Direction: <?php print($relevant_data_object->swellDirection); ?>°</p>
-            <p>Water Temp: <?php print($relevant_data_object->waterTemp); ?>°F</p>
-        </div>
-        <?php
-    }
-}
-
 
 /**********************
  * function_name: create_indiv_wind
@@ -119,7 +81,7 @@ function create_indiv_wind(){
     <div class="buoy-block">
         <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Buoys</h3>
-            <?php create_indiv_buoys(); ?>
+            <canvas></canvas>
             <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Buoy Data provided by <a href="http://cdip.ucsd.edu/">CDIP</a></p>
             <div class="clearfix"></div>
         </div>
@@ -155,7 +117,7 @@ function create_indiv_wind(){
     <div class="tidal-predictions">
         <div class="tide-chart hidden-xs container-fluid col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <h3>Tides for today and tomorrow</h3>
-            <canvas class="center-block" id="myChart"></canvas>
+            <canvas class="center-block" id="tideChart"></canvas>
         </div>
         <div class="tide-text-chart hidden-sm hidden-lg container-fluid">
             <h3>Tides for today and tomorrow</h3>
