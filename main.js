@@ -176,16 +176,26 @@ var raw_buoy_data;
     
  }
 
+ var buoy_object = function(stationName, heightArray){
+    this.stationName = stationName;
+    this.heightArray = heightArray;
+ }
+
+ function create_buoy_arrays(specific_array){
+    var return_array = [];
+    for(var i = 0; i < specific_array.length; i++){
+        return_array[i] = specific_array[i].swell_height;
+    }
+    return return_array;
+ }
 
  function create_buoy_instance(){
     for(var prop in raw_buoy_data){
-        var buoy = new buoy_object(raw_buoy_data[prop][0].station_name);
+        var buoyName = raw_buoy_data[prop][0].station_name;
+        var buoyHeightArray = create_buoy_arrays(raw_buoy_data[prop]);
+        var buoy = new buoy_object(buoyName, buoyHeightArray);
         console.log(buoy);
     }
- }
-
- var buoy_object = function(stationName){
-    this.stationName = stationName;
  }
 
 
