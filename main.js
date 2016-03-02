@@ -181,10 +181,10 @@ var raw_buoy_data;
     this.heightArray = heightArray;
  }
 
- function create_buoy_arrays(specific_array){
+ function create_buoy_arrays(specific_array, property){
     var return_array = [];
     for(var i = 0; i < specific_array.length; i++){
-        return_array[i] = specific_array[i].swell_height;
+        return_array[i] = specific_array[i][property];
     }
     return return_array;
  }
@@ -192,7 +192,8 @@ var raw_buoy_data;
  function create_buoy_instance(){
     for(var prop in raw_buoy_data){
         var buoyName = raw_buoy_data[prop][0].station_name;
-        var buoyHeightArray = create_buoy_arrays(raw_buoy_data[prop]);
+        var buoyInfoArray = raw_buoy_data[prop];
+        var buoyHeightArray = create_buoy_arrays(buoyInfoArray, "swell_height");
         var buoy = new buoy_object(buoyName, buoyHeightArray);
         console.log(buoy);
     }
