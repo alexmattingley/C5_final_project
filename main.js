@@ -156,6 +156,8 @@ function get_non_location_pages(current_page) {
  * @globals: N/A
  */
 
+var raw_buoy_data;
+
  function get_buoy_array(location_id){
     $.ajax({
         url: "data_handlers/get_historical_buoy_data.php",
@@ -166,9 +168,24 @@ function get_non_location_pages(current_page) {
         },
         cache: "false",
         success: function(response){
-            console.log(response);
+            raw_buoy_data = response;
+            console.log(raw_buoy_data);
+            create_buoy_instance();
         }
     });
+    
+ }
+
+
+ function create_buoy_instance(){
+    for(var prop in raw_buoy_data){
+        var buoy = new buoy_object(raw_buoy_data[prop][0].station_name);
+        console.log(buoy);
+    }
+ }
+
+ var buoy_object = function(stationName){
+    this.stationName = stationName;
  }
 
 
