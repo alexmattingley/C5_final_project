@@ -110,10 +110,10 @@ function remove_unnecessary_readings(){
 	$buoy_array = array_values($buoy_array);
 }
 
-function check_num_rows(){
+function check_num_rows($table_name){
 	global $conn;
 
-	$query_count = "SELECT COUNT(*) FROM `29`";
+	$query_count = "SELECT COUNT(*) FROM `$table_name`";
 	$result = mysqli_query($conn, $query_count);
 	$row = mysqli_fetch_row($result);
 	$num_row = $row[0];
@@ -172,7 +172,7 @@ function delete_all_rows(){
 
 function send_buoy_info(){
 
-	if(check_num_rows() < 5){
+	if(check_num_rows(29) < 5){
 		create_new_row();
 	}else {
 		create_new_row();
