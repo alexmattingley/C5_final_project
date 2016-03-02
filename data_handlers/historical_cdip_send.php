@@ -144,7 +144,7 @@ function delete_a_row(){
 
 	for ($i=0; $i < count($buoy_array); $i++) {
 		
-		if (check_num_rows($buoy_array[$i]->stationId) > 5) {
+		if (check_num_rows($buoy_array[$i]->stationId) > 24) {
 
 			$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
 			$results = mysqli_query($conn, $query_delete);
