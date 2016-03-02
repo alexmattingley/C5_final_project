@@ -249,35 +249,8 @@ function cdip_get_data(){
             }
 
             console.log(buoy_array);
-            cycle_and_send_buoy_data();
         }
     });
-}
-
-/*****************
- * functionName: cycle_and_send_buoy_data
- * @purpose: This function takes the data that is received from CDIP and sends it a php file which then sends that information to db for storage and later use.
- * @param: N/A
- * @returns: N/A
- */
-
-function cycle_and_send_buoy_data() {
-    for(var i = 0; i < buoy_array.length-1; i++){
-        var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection, waterTemp: buoy_array[i].waterTemp};
-        $.ajax({
-           url: "data_handlers/send_buoy_data.php",
-            method: "POST",
-            dataType: "text",
-            data: {
-                stationName: buoy_array[i].stationName,
-                stationNum: buoy_array[i].stationNum,
-                buoy_data: important_data //this is an object with all of the other important information
-            },
-            success: function(response){
-                //console.log(response);
-            }
-        });
-    }
 }
 
 
@@ -349,6 +322,16 @@ function get_non_location_pages(current_page) {
 
     });
 }
+
+
+/********************
+ * functionName: get_buoy_array
+ * @purpose: Pulls relevant html pages for non locational pages.
+ * @param current_page
+ * @returns: N/A
+ * @globals: N/A
+ */
+
 
 /********************
  * Tide related functions and variables.
@@ -439,7 +422,6 @@ function get_non_location_pages(current_page) {
             if(flag_array[i] !== flag_array[next_index]){ //If the current value in the flag array is not equal to the next value
                 highs_and_lows[x_count] = "";
                 highs_and_lows[x_count] = values[next_index];
-                console.log(next_index);
                 time_indeces[x_count] = next_index;
                 x_count++;
             }
