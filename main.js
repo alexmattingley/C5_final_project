@@ -267,14 +267,14 @@ function get_non_location_pages(current_page) {
         }
 
         for(var i = 0; i < time_indeces.length; i++){
-            data.labels[i] = "";
-            data.labels[i] = tidal_times[time_indeces[i]];
+            tide_data.labels[i] = "";
+            tide_data.labels[i] = tidal_times[time_indeces[i]];
         }
 
-        remove_duplicate_data(highs_and_lows,data.labels);
-        data.datasets[0].data = highs_and_lows;
-        console.log(data.datasets[0].data);
-        console.log(data.labels);
+        remove_duplicate_data(highs_and_lows,tide_data.labels);
+        tide_data.datasets[0].data = highs_and_lows;
+        console.log(tide_data.datasets[0].data);
+        console.log(tide_data.labels);
     }
 
 
@@ -296,12 +296,12 @@ function get_non_location_pages(current_page) {
 
     function create_mobile_tide_table() {
         var table_body = $(".tide-table tbody")
-        for(var i = 1; i < data.labels.length-1; i++){
+        for(var i = 1; i < tide_data.labels.length-1; i++){
             //create tr for each value in the array
             var table_row = $("<tr>");
             //create td for each value of relevance
-            var td_1 = $("<td>").text(data.labels[i]);
-            var td_2 = $("<td>").text(data.datasets[0].data[i]);
+            var td_1 = $("<td>").text(tide_data.labels[i]);
+            var td_2 = $("<td>").text(tide_data.datasets[0].data[i]);
             //append td to tr
             table_row.append(td_1);
             table_row.append(td_2);
@@ -316,7 +316,7 @@ function get_non_location_pages(current_page) {
      */
 
 
-    var data = {
+    var tide_data = {
         labels: [],//this will create the x-axis of the graph
         datasets: [
             {
@@ -346,7 +346,7 @@ function get_non_location_pages(current_page) {
         var my_chart_node = $("#tideChart").get(0);
         var ctx = my_chart_node.getContext("2d");
 
-        var options = {
+        var tide_options = {
             ///Boolean - Whether grid lines are shown across the chart
             scaleShowGridLines : true,
 
@@ -525,7 +525,7 @@ function get_non_location_pages(current_page) {
             onAnimationComplete: function(){}
         };
         Chart.defaults.global.responsive = true;
-        var myLineChart = new Chart(ctx).Line(data, options);
+        var myLineChart = new Chart(ctx).Line(tide_data, tide_options);
     }
 
 /**************
