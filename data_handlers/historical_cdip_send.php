@@ -93,13 +93,15 @@ function create_buoy_array(){
 	}
 }
 
+//This needs to be improved, if the api changes this will be a problem.
 function remove_unnecessary_readings(){
 	global $buoy_array;
+	print_r($buoy_array);
 	for ($i=0; $i <= 8; $i++) { 
 		unset($buoy_array[$i]);
 	}
 
-	unset($buoy_array[12], $buoy_array[16], $buoy_array[17], $buoy_array[22], $buoy_array[23], $buoy_array[26]);
+	unset($buoy_array[17]);
 
 	for($i=37; $i <= 57; $i++){
 		unset($buoy_array[$i]);
@@ -108,10 +110,10 @@ function remove_unnecessary_readings(){
 	$buoy_array = array_values($buoy_array);
 }
 
-function check_num_rows(){
+function check_num_rows($table_name){
 	global $conn;
 
-	$query_count = "SELECT COUNT(*) FROM `29`";
+	$query_count = "SELECT COUNT(*) FROM `$table_name`";
 	$result = mysqli_query($conn, $query_count);
 	$row = mysqli_fetch_row($result);
 	$num_row = $row[0];
@@ -128,36 +130,54 @@ function create_new_row(){
 		$results = mysqli_query($conn, $query_create_row);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('you created another row');
+		   print("<br>");
 		}else {
-		    print('you failed to create row');
+		   print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
 		}
 	}
 }
 
-function delete_all_rows(){
+function delete_a_row(){
 
 	global $buoy_array;
 	global $conn;
 
 	for ($i=0; $i < count($buoy_array); $i++) {
-		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`";
+		
+		if (check_num_rows($buoy_array[$i]->stationId) > 5) {
+
+			$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
+			$results = mysqli_query($conn, $query_delete);
+			if (mysqli_affected_rows($conn) > 0) {
+			   print('You deleted a row');
+			   print("<br>");
+			}else {
+			    print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
+			}
+
+		}
+	}
+}
+
+function delete_all_rows(){
+	global $buoy_array;
+	global $conn;
+
+	for ($i=0; $i < count($buoy_array); $i++) {
+		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}`"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
 		$results = mysqli_query($conn, $query_delete);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('You deleted all rows');
+		   print("<br>");
 		}else {
-		    print('you tried and failed to delete rows');
+		    print('you tried and failed to delete all rows');
 		}
 	}
 }
 
 function send_buoy_info(){
-
-	if(check_num_rows() < 10){
-		create_new_row();
-	}else {
-		delete_all_rows();
-		create_new_row();
-	}
+	delete_a_row();
+	create_new_row();
 }
 
 prepare_buoy_array();
