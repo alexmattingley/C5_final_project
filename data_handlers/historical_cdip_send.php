@@ -101,7 +101,7 @@ function remove_unnecessary_readings(){
 		unset($buoy_array[$i]);
 	}
 
-	unset($buoy_array[12], $buoy_array[17], $buoy_array[22], $buoy_array[26]);
+	unset($buoy_array[17]);
 
 	for($i=37; $i <= 57; $i++){
 		unset($buoy_array[$i]);
@@ -143,15 +143,18 @@ function delete_a_row(){
 	global $conn;
 
 	for ($i=0; $i < count($buoy_array); $i++) {
-		print(gettype($buoy_array[$i]->stationId));
+		
+		if (check_num_rows($buoy_array[$i]->stationId) > 5) {
 
-		$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
-		$results = mysqli_query($conn, $query_delete);
-		if (mysqli_affected_rows($conn) > 0) {
-		   print('You deleted a row');
-		   print("<br>");
-		}else {
-		    print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
+			$query_delete = "DELETE FROM `{$buoy_array[$i]->stationId}` LIMIT 1"; //this may be an issue: Documentation: http://stackoverflow.com/questions/733668/delete-the-first-record-from-a-table-in-sql-server-without-a-where-condition
+			$results = mysqli_query($conn, $query_delete);
+			if (mysqli_affected_rows($conn) > 0) {
+			   print('You deleted a row');
+			   print("<br>");
+			}else {
+			    print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
+			}
+
 		}
 	}
 }
@@ -173,8 +176,8 @@ function delete_all_rows(){
 }
 
 function send_buoy_info(){
-	create_new_row();
 	delete_a_row();
+	create_new_row();
 }
 
 prepare_buoy_array();
