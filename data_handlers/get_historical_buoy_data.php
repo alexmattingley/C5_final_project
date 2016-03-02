@@ -58,9 +58,8 @@ function organize_buoy_data(){
 
     }
 
-    print_r($buoy_base_array);
-
-   // print_r($organized_buoy_data);
+    $buoy_base_array = json_encode($buoy_base_array);
+    print($buoy_base_array);
 }
 
 organize_buoy_data();
