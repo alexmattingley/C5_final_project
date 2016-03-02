@@ -11,6 +11,7 @@ $(document).ready(function(){
     if(!isNaN(last_value)) {
         pull_relevant_page_location(last_value);
         get_tide_data(last_value);
+        get_buoy_array(last_value);
     }else if(!getQueryVariable('current_page') == false) {
        var non_location_page = getQueryVariable('current_page');
         get_non_location_pages(non_location_page);
@@ -21,6 +22,7 @@ $(document).ready(function(){
        var loc_id = $(this).attr('loc_id');
        pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
+       get_buoy_array(loc_id);
    });
 
    $('body').on('click', '.navbar-nav a', function(){
@@ -153,6 +155,21 @@ function get_non_location_pages(current_page) {
  * @returns: N/A
  * @globals: N/A
  */
+
+ function get_buoy_array(location_id){
+    $.ajax({
+        url: "data_handlers/get_historical_buoy_data.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+            location_index: location_id
+        },
+        cache: "false",
+        success: function(response){
+            console.log(response);
+        }
+    });
+ }
 
 
 /********************
