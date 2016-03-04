@@ -1,8 +1,5 @@
 <?php
 
-/***************************
- * This block is the query call for the buoy data
- */
 
 $location_id = $_POST['location_index']; //For testing purposes only!
 
@@ -81,7 +78,9 @@ function create_indiv_wind(){
     <div class="buoy-block">
         <div class="container-fluid col-lg-8 col-lg-offset-2">
             <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Buoys</h3>
-            <canvas></canvas>
+            <div class="buoy-charts">
+                
+            </div>
             <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Buoy Data provided by <a href="http://cdip.ucsd.edu/">CDIP</a></p>
             <div class="clearfix"></div>
         </div>
