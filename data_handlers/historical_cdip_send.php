@@ -101,9 +101,7 @@ function remove_unnecessary_readings(){
 		unset($buoy_array[$i]);
 	}
 
-	unset($buoy_array[17]);
-
-	for($i=37; $i <= 57; $i++){
+	for($i=37; $i <= 61; $i++){
 		unset($buoy_array[$i]);
 	}
 

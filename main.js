@@ -198,7 +198,7 @@ var raw_buoy_data;
     for(var prop in raw_buoy_data){
         var buoyInfoArray = raw_buoy_data[prop];
         var buoyName = buoyInfoArray[0].station_name;
-        var buoyNum = buoyInfoArray[0].stationNum;
+        var buoyNum = buoyInfoArray[0].station_num;
         var buoyTime = create_buoy_arrays(buoyInfoArray, "read_time");
         var buoyHeightArray = create_buoy_arrays(buoyInfoArray, "swell_height");
         var buoyPeriodArray = create_buoy_arrays(buoyInfoArray, "peak_period");
