@@ -290,6 +290,10 @@ Data Pages/buoy-block
         color: lightblue;
     }
 
+    .buoy-block {
+        max-width: 100%;
+    }
+
 /**************************
 Data Pages/Wind Block
 ************************/

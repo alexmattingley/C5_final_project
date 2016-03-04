@@ -213,6 +213,55 @@ var raw_buoy_data;
  }
 
  function create_buoy_charts(){
+
+    var options = {
+        ///Boolean - Whether grid lines are shown across the chart
+        scaleShowGridLines : true,
+
+        //String - Colour of the grid lines
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+
+        //Number - Width of the grid lines
+        scaleGridLineWidth : 1,
+
+        //Boolean - Whether to show horizontal lines (except X axis)
+        scaleShowHorizontalLines: true,
+
+        //Boolean - Whether to show vertical lines (except Y axis)
+        scaleShowVerticalLines: true,
+
+        //Boolean - Whether the line is curved between points
+        bezierCurve : true,
+
+        //Number - Tension of the bezier curve between points
+        bezierCurveTension : 0.4,
+
+        //Boolean - Whether to show a dot for each point
+        pointDot : true,
+
+        //Number - Radius of each point dot in pixels
+        pointDotRadius : 4,
+
+        //Number - Pixel width of point dot stroke
+        pointDotStrokeWidth : 1,
+
+        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+        pointHitDetectionRadius : 20,
+
+        //Boolean - Whether to show a stroke for datasets
+        datasetStroke : true,
+
+        //Number - Pixel width of dataset stroke
+        datasetStrokeWidth : 2,
+
+        //Boolean - Whether to fill the dataset with a colour
+        datasetFill : true,
+
+        //String - A legend template
+        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+    };
+
     var data = {
         labels:[],
         datasets:[
@@ -228,7 +277,7 @@ var raw_buoy_data;
         },
         {
             label: "buoy period",
-            fillColor: "rgba(151,187,205,0.2)",
+            fillColor: "rgba(151,187,205,0)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
@@ -240,62 +289,24 @@ var raw_buoy_data;
     };
     console.log(buoy_array);
     for(var i = 0; i < buoy_array.length; i++){
+        data.datasets[0].data = [];
+        data.datasets[1].data = [];
+        data.labels = [];
         create_structure_buoy_graph(buoy_array[i].stationNum);
-        data.datasets[0].data = (buoy_array[i].heightArray);
+        console.log(buoy_array[i].heightArray);
+        data.datasets[0].data = buoy_array[i].heightArray;
+        data.datasets[1].data = buoy_array[i].periodArray;
+
+        for (var j = 0; j < data.datasets[0].data.length; j++) {
+            data.labels.push(j);
+        }
+
+        var chart_class = "." + buoy_array[i].stationNum;
+        var ctx = $(chart_class).get(0).getContext('2d');
+        Chart.defaults.global.responsive = true;
+        var buoyHeightChart = new Chart(ctx).Line(data,options);
+        console.log(data);
     }
-
-
-
-    var options = {
-            ///Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines : true,
-
-            //String - Colour of the grid lines
-            scaleGridLineColor : "rgba(0,0,0,.05)",
-
-            //Number - Width of the grid lines
-            scaleGridLineWidth : 1,
-
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: true,
-
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-
-            //Boolean - Whether the line is curved between points
-            bezierCurve : true,
-
-            //Number - Tension of the bezier curve between points
-            bezierCurveTension : 0.4,
-
-            //Boolean - Whether to show a dot for each point
-            pointDot : true,
-
-            //Number - Radius of each point dot in pixels
-            pointDotRadius : 4,
-
-            //Number - Pixel width of point dot stroke
-            pointDotStrokeWidth : 1,
-
-            //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-            pointHitDetectionRadius : 20,
-
-            //Boolean - Whether to show a stroke for datasets
-            datasetStroke : true,
-
-            //Number - Pixel width of dataset stroke
-            datasetStrokeWidth : 2,
-
-            //Boolean - Whether to fill the dataset with a colour
-            datasetFill : true,
-
-            //String - A legend template
-            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-        };
-
-    //var ctx = $(buoy_array[i].stationNum).get(0).getContext('2d');
-    //var buoyHeightChart = new Chart(ctx).Line();
 
  }
 
