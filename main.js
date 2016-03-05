@@ -311,7 +311,7 @@ var raw_buoy_data;
 
  function create_structure_buoy_row(className, buoyName){
     var row = $('<div>',{
-        class: "row " + className
+        class: "buoy-row " + className
     });
 
     var graph_container = $('<div>',{

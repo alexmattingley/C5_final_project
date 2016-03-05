@@ -69,15 +69,17 @@ function create_indiv_wind(){
 
 <div class="default-location">
     <div class="header-page">
-        <div class="container-fluid col-lg-8 col-lg-offset-2">
-            <?php include "../inc/basic_nav.php"; ?>
-            <h2>Snapshot of <?php print($location_name); ?>, CA</h2>
+        <div class="container">
+            <div class="col-lg-10 col-lg-offset-1">
+                <?php include "../inc/basic_nav.php"; ?>
+                <h2>Snapshot of <?php print($location_name); ?>, CA</h2>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
-    <div class="buoy-block">
-        <div class="container-fluid col-lg-8 col-lg-offset-2">
-            <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Buoys</h3>
+    <div class="buoy-block container">
+        <div class="col-lg-10 col-lg-offset-1">
+            <h3 class="">Buoys</h3>
             <div class="buoy-charts">
                 
             </div>
