@@ -339,19 +339,19 @@ var raw_buoy_data;
  function create_current_buoy_info(readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
 
     var taken_at = $('<p>',{
-        text: "Taken at: "
+        text: "Taken at: " + readTime
     });
     var current_height = $('<p>',{
-        text: "Current Height: " + swellHeight
+        text: "Current Height: " + swellHeight + " ft"
     });
     var current_period = $('<p>',{
-        text: "Current Period: " + swellPeriod
+        text: "Current Period: " + swellPeriod + " seconds"
     });
     var current_swell_direction = $('<p>',{
-        text: "Current Swell Direction: " + swellDirection
+        text: "Current Swell Direction: " + swellDirection + "°"
     });
     var current_water_temp = $('<p>', {
-        text: "Current Water Temp: " + waterTemp
+        text: "Current Water Temp: " + waterTemp + " °F"
     });
 
     $('.buoy-charts .col-sm-5').append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
