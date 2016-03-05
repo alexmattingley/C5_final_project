@@ -292,7 +292,7 @@ var raw_buoy_data;
         data.datasets[0].data = [];
         data.datasets[1].data = [];
         data.labels = [];
-        create_structure_buoy_graph(buoy_array[i].stationNum);
+        create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
         console.log(buoy_array[i].heightArray);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
@@ -310,12 +310,40 @@ var raw_buoy_data;
 
  }
 
- function create_structure_buoy_graph(className){
+ function create_structure_buoy_row(className, buoyName){
+    var row = $('<div>',{
+        class: "row"
+    });
+
+    var graph_container = $('<div>',{
+        class: "col-sm-7"
+    });
+
+    var current_info_container = $('<div>', {
+        class: "col-sm-5"
+    });
+
+    var buoy_title = $('<h4>', {
+        text: buoyName,
+        class: "col-sm-12"
+    });
+
     var canvas = $('<canvas>',{
         class: className
     });
-    $('.buoy-charts').append(canvas);
+    $('.buoy-charts').append(row);
+    row.append(buoy_title, graph_container);
+    graph_container.append(canvas);
 
+ }
+
+ function create_current_buoy_info(readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
+   var current_info_container = $('<div>', {
+        class: "col-sm-5"
+    });
+    var taken_at = $('<p>',{
+        text: "Taken at: " . readTime
+    });
  }
 
 
