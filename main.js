@@ -149,7 +149,7 @@ function get_non_location_pages(current_page) {
 
 
 /********************
- * functionName: get_buoy_array
+ * functionName: get_buoy_array()
  * @purpose: Pulls relevant html pages for non locational pages.
  * @param current_page
  * @returns: N/A
