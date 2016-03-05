@@ -293,7 +293,7 @@ var raw_buoy_data;
         data.datasets[1].data = [];
         data.labels = [];
         create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
-        console.log(buoy_array[i].heightArray);
+        create_current_buoy_info(buoy_array[i].readTimeArray[23], buoy_array[i].heightArray[23], buoy_array[i].periodArray[23], buoy_array[i].dirArray[23], buoy_array[i].waterTempArray[23]);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
 
@@ -332,18 +332,30 @@ var raw_buoy_data;
         class: className
     });
     $('.buoy-charts').append(row);
-    row.append(buoy_title, graph_container);
+    row.append(buoy_title, graph_container, current_info_container);
     graph_container.append(canvas);
-
  }
 
  function create_current_buoy_info(readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
-   var current_info_container = $('<div>', {
-        class: "col-sm-5"
-    });
+
     var taken_at = $('<p>',{
-        text: "Taken at: " . readTime
+        text: "Taken at: "
     });
+    var current_height = $('<p>',{
+        text: "Current Height: " + swellHeight
+    });
+    var current_period = $('<p>',{
+        text: "Current Period: " + swellPeriod
+    });
+    var current_swell_direction = $('<p>',{
+        text: "Current Swell Direction: " + swellDirection
+    });
+    var current_water_temp = $('<p>', {
+        text: "Current Water Temp: " + waterTemp
+    });
+
+    $('.buoy-charts .col-sm-5').append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    //Need to select sibiling
  }
 
 
