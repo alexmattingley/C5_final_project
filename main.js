@@ -293,7 +293,7 @@ var raw_buoy_data;
         data.datasets[1].data = [];
         data.labels = [];
         create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
-        create_current_buoy_info(buoy_array[i].readTimeArray[23], buoy_array[i].heightArray[23], buoy_array[i].periodArray[23], buoy_array[i].dirArray[23], buoy_array[i].waterTempArray[23]);
+        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[23], buoy_array[i].heightArray[23], buoy_array[i].periodArray[23], buoy_array[i].dirArray[23], buoy_array[i].waterTempArray[23]);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
 
@@ -301,18 +301,17 @@ var raw_buoy_data;
             data.labels.push(j);
         }
 
-        var chart_class = "." + buoy_array[i].stationNum;
-        var ctx = $(chart_class).get(0).getContext('2d');
+        var chart_selector = "." + buoy_array[i].stationNum + " canvas";
+        var ctx = $(chart_selector).get(0).getContext('2d');
         Chart.defaults.global.responsive = true;
         var buoyHeightChart = new Chart(ctx).Line(data,options);
-        console.log(data);
     }
 
  }
 
  function create_structure_buoy_row(className, buoyName){
     var row = $('<div>',{
-        class: "row"
+        class: "row " + className
     });
 
     var graph_container = $('<div>',{
@@ -336,7 +335,7 @@ var raw_buoy_data;
     graph_container.append(canvas);
  }
 
- function create_current_buoy_info(readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
+ function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
 
     var taken_at = $('<p>',{
         text: "Taken at: " + readTime
@@ -354,7 +353,8 @@ var raw_buoy_data;
         text: "Current Water Temp: " + waterTemp + " °F"
     });
 
-    $('.buoy-charts .col-sm-5').append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    var second_col_select = "." + className + " .col-sm-5";
+    $(second_col_select).append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
     //Need to select sibiling
  }
 
