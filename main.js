@@ -327,12 +327,17 @@ var raw_buoy_data;
         class: "col-sm-12"
     });
 
+    var clearfix = $('<div>',{
+        class: "clearfix"
+    });
+
     var canvas = $('<canvas>',{
         class: className
     });
     $('.buoy-charts').append(row);
-    row.append(buoy_title, graph_container, current_info_container);
+    row.append(buoy_title, graph_container, current_info_container, clearfix);
     graph_container.append(canvas);
+    $('canvas').css("width", "100%");
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
