@@ -267,9 +267,9 @@ var raw_buoy_data;
         datasets:[
         {
             label:"buoy height",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,.5)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
@@ -277,9 +277,9 @@ var raw_buoy_data;
         },
         {
             label: "buoy period",
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(0,0,0,0)",
+            strokeColor: "rgba(128, 222, 217, 1)",
+            pointColor: "rgba(128, 222, 217, 1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -319,7 +319,7 @@ var raw_buoy_data;
     });
 
     var current_info_container = $('<div>', {
-        class: "col-sm-5"
+        class: "col-sm-5 current-info"
     });
 
     var buoy_title = $('<h4>', {
@@ -341,7 +341,10 @@ var raw_buoy_data;
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
-
+    var block_title = $('<h4>',{
+        text: "Current Reading"
+    });
+    
     var taken_at = $('<p>',{
         text: "Taken at: " + readTime
     });
@@ -359,7 +362,7 @@ var raw_buoy_data;
     });
 
     var second_col_select = "." + className + " .col-sm-5";
-    $(second_col_select).append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    $(second_col_select).append(block_title, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
     //Need to select sibiling
  }
 

@@ -281,13 +281,23 @@ Data Pages/buoy-block
     .buoy-row {
         margin: 60px auto;
     }
-
-
-    .buoy-block .indiv-buoy {
+    
+    .current-info {
+        margin: 15px auto;
+        padding: 15px; 
         background: #6D9DC5;
         color: white;
         border-radius: 5px;
-        margin-top: 20px;
+    }
+
+    .current-info h4 {
+        margin-top: 0px;
+    }
+
+    @media (min-width: 768px) {
+        .current-info {
+            margin: 0px;
+        }
     }
 
     .buoy-block .credit, .buoy-block .credit a {
