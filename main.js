@@ -306,7 +306,7 @@ var raw_buoy_data;
         Chart.defaults.global.responsive = true;
         var buoyHeightChart = new Chart(ctx).Line(data,options);
     }
-
+    $('canvas').css("width", "100%");
  }
 
  function create_structure_buoy_row(className, buoyName){
@@ -337,7 +337,6 @@ var raw_buoy_data;
     $('.buoy-charts').append(row);
     row.append(buoy_title, graph_container, current_info_container, clearfix);
     graph_container.append(canvas);
-    $('canvas').css("width", "100%");
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
