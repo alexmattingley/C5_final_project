@@ -289,9 +289,10 @@ Data Pages/buoy-block
     .current-info {
         margin: 15px auto;
         padding: 15px; 
-        background: #6D9DC5;
-        color: white;
+        background: white;
+        color: #6D9DC5;
         border-radius: 5px;
+        border: 3px solid;
     }
 
     .current-info h4 {
@@ -330,10 +331,11 @@ Data Pages/Wind Block
     }
 
     .wind-data-block .indiv-wind {
-        color: #001011;
-        background: white;
+        color: white;
+        background: #001011;
         border-radius: 5px;
         margin-top: 20px;
+        border: 3px solid;
     }
 
     .wind-data-block .container-fluid .first-fourth {
@@ -366,6 +368,13 @@ Data Pages/ Buoy Predictions
     }
 
     @media (min-width: 768px) {
+        
+        .buoy-predictions .container-fluid {
+            max-width: 100%;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+
         .buoy-predictions .container-fluid img {
             max-width: 100%;
             margin: auto;
@@ -386,7 +395,6 @@ Data pages/ Tidal Information
     }
 
     .tidal-predictions .container-fluid {
-        overflow: scroll;
         max-width: 100%;
     }
 

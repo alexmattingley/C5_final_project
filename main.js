@@ -306,7 +306,10 @@ var raw_buoy_data;
         Chart.defaults.global.responsive = true;
         var buoyHeightChart = new Chart(ctx).Line(data,options);
     }
-    $('canvas').css("width", "100%");
+    $('canvas').css({
+        "width":"100%",
+        "height": "100%"
+        });
  }
 
  function create_structure_buoy_row(className, buoyName){
