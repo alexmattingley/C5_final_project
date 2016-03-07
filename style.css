@@ -338,6 +338,12 @@ Data Pages/Wind Block
         clear: both;
     }
 
+    @media (min-width: 768px) {
+        .custom-space {
+            margin-left: 12.5%;
+        }
+    }
+
 /***************************
 Data Pages/ Buoy Predictions
 ***************************/
