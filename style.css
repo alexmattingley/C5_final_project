@@ -281,10 +281,6 @@ Data Pages/buoy-block
     .buoy-row {
         margin-bottom: 30px;
     }
-
-    .buoy-row > h4 {
-        margin-bottom: 30px;
-    }
     
     .current-info {
         margin: 15px auto;
@@ -301,7 +297,7 @@ Data Pages/buoy-block
 
     @media (min-width: 768px) {
         .current-info {
-            margin: 0px;
+            margin-top: 30px;
         }
     }
 

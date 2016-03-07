@@ -321,6 +321,10 @@ var raw_buoy_data;
         class: "col-sm-7"
     });
 
+    var graph_title = $('<h5>', {
+        text: "Wave period & height in the past 24 hours"
+    });
+
     var current_info_container = $('<div>', {
         class: "col-sm-5 current-info"
     });
@@ -339,12 +343,12 @@ var raw_buoy_data;
     });
     $('.buoy-charts').append(row);
     row.append(buoy_title, graph_container, current_info_container, clearfix);
-    graph_container.append(canvas);
+    graph_container.append(graph_title, canvas);
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
     var block_title = $('<h4>',{
-        text: "Current Reading"
+        text: "Current buoy reading"
     });
     
     var taken_at = $('<p>',{
