@@ -325,6 +325,22 @@ var raw_buoy_data;
         text: "Wave period & height in the past 24 hours"
     });
 
+    var color_square_period = $('<span>', {
+        class: "color_period color-square"
+    });
+
+    var graph_description_period = $('<p>', {
+        text: "wave period = "
+    });
+
+     var color_square_height = $('<span>', {
+        class: "color_height color-square"
+    });
+
+    var graph_description_height = $('<p>', {
+        text: "wave height = "
+    });
+
     var current_info_container = $('<div>', {
         class: "col-sm-5 current-info"
     });
@@ -343,7 +359,9 @@ var raw_buoy_data;
     });
     $('.buoy-charts').append(row);
     row.append(buoy_title, graph_container, current_info_container, clearfix);
-    graph_container.append(graph_title, canvas);
+    graph_container.append(graph_title, graph_description_period, graph_description_height, canvas);
+    graph_description_period.append(color_square_period);
+    graph_description_height.append(color_square_height);
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
