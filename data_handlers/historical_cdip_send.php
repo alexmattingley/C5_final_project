@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *	@FName: cdip_call()
+ *	@purpose Call base file for cdip data
+ *	@param 
+ *	@return $CDIP_string
+ */
 function cdip_call(){
 	// create curl resource
 	$ch = curl_init();
@@ -19,16 +25,56 @@ function cdip_call(){
 	return $CDIP_string;
 }
 
+/**
+ *	@FName: prepare_buoy_array()
+ *	@purpose create array of each line in cdip file.
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function prepare_buoy_array(){
 
 	global $buoy_array;
-
 	$buoy_array = explode("\n", cdip_call());
 	unset($buoy_array[0], $buoy_array[1], $buoy_array[2], $buoy_array[63], $buoy_array[64]);
 	$buoy_array = array_values($buoy_array);
 }
 
+/**
+ *	@FName: remove_unnecessary_readings()
+ *	@purpose: remove any unnecessary buoy readings from the array 
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
+function remove_unnecessary_readings(){
+	
+	global $buoy_array;
+
+	for ($i=0; $i <= 8; $i++) { 
+		unset($buoy_array[$i]);
+	}
+
+	for($i=37; $i <= 61; $i++){
+		unset($buoy_array[$i]);
+	}
+
+	$buoy_array = array_values($buoy_array);
+}
+
+
+/**
+ *	@FName: create_buoy_array()
+ *	@purpose create objects from data and take each object and replaces the unfiltered string in the array with that object 
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function create_buoy_array(){
+	prepare_buoy_array();
 	global $buoy_array;
 	class buoyObject {
 		public function __construct($stationId, $stationName, $dayOfMonth, $readTime, $peakPeriod, $swellHeight, $swellDirection, $waterTemp){
@@ -91,24 +137,19 @@ function create_buoy_array(){
 
 		$buoy_array[$i] = new buoyObject($stationId, $stationName, $dayOfMonth, $readTime, $peakPeriod, $swellHeight, $swellDirection, $waterTemp);
 	}
+	remove_unnecessary_readings();
 }
 
-//This needs to be improved, if the api changes this will be a problem.
-function remove_unnecessary_readings(){
-	global $buoy_array;
-	print_r($buoy_array);
-	for ($i=0; $i <= 8; $i++) { 
-		unset($buoy_array[$i]);
-	}
-
-	for($i=37; $i <= 61; $i++){
-		unset($buoy_array[$i]);
-	}
-
-	$buoy_array = array_values($buoy_array);
-}
+/**
+ *	@FName: check_num_rows()
+ *	@purpose: check the number of rows in a given table
+ *	@global $conn	
+ *	@param $table_name
+ *	@return the number of rows
+ */
 
 function check_num_rows($table_name){
+	
 	global $conn;
 
 	$query_count = "SELECT COUNT(*) FROM `$table_name`";
@@ -117,6 +158,15 @@ function check_num_rows($table_name){
 	$num_row = $row[0];
 	return $num_row;
 }
+
+
+/**
+ *	@FName: create_new_row()
+ *	@purpose creates new row in mysql table of corresponding table
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
 
 function create_new_row(){
 
@@ -130,7 +180,7 @@ function create_new_row(){
 		   print('you created another row');
 		   print("<br>");
 		}else {
-		   print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
+		   print_r($buoy_array[$i]->stationName . " doesnt exist or there is an issue with the create_new_row function.<br>");
 		}
 	}
 }
@@ -178,9 +228,7 @@ function send_buoy_info(){
 	create_new_row();
 }
 
-prepare_buoy_array();
 create_buoy_array();
-remove_unnecessary_readings();
 require('../mysql_connect.php'); //This is so all of the functions that are called in used in the send_buoy_info can work
 send_buoy_info();
 
