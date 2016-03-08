@@ -293,7 +293,8 @@ var raw_buoy_data;
         data.datasets[1].data = [];
         data.labels = [];
         create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
-        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[23], buoy_array[i].heightArray[23], buoy_array[i].periodArray[23], buoy_array[i].dirArray[23], buoy_array[i].waterTempArray[23]);
+        var last_value = buoy_array[i].readTimeArray.length-1;
+        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[last_value], buoy_array[i].heightArray[last_value], buoy_array[i].periodArray[last_value], buoy_array[i].dirArray[last_value], buoy_array[i].waterTempArray[last_value]);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
 
