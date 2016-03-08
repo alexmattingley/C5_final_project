@@ -149,7 +149,7 @@ function get_non_location_pages(current_page) {
 
 
 /********************
- * functionName: get_buoy_array
+ * functionName: get_buoy_array()
  * @purpose: Pulls relevant html pages for non locational pages.
  * @param current_page
  * @returns: N/A
@@ -267,9 +267,9 @@ var raw_buoy_data;
         datasets:[
         {
             label:"buoy height",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,.5)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
@@ -277,9 +277,9 @@ var raw_buoy_data;
         },
         {
             label: "buoy period",
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(0,0,0,0)",
+            strokeColor: "rgba(128, 222, 217, 1)",
+            pointColor: "rgba(128, 222, 217, 1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -293,7 +293,8 @@ var raw_buoy_data;
         data.datasets[1].data = [];
         data.labels = [];
         create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
-        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[23], buoy_array[i].heightArray[23], buoy_array[i].periodArray[23], buoy_array[i].dirArray[23], buoy_array[i].waterTempArray[23]);
+        var last_value = buoy_array[i].readTimeArray.length-1;
+        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[last_value], buoy_array[i].heightArray[last_value], buoy_array[i].periodArray[last_value], buoy_array[i].dirArray[last_value], buoy_array[i].waterTempArray[last_value]);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
 
@@ -306,7 +307,10 @@ var raw_buoy_data;
         Chart.defaults.global.responsive = true;
         var buoyHeightChart = new Chart(ctx).Line(data,options);
     }
-
+    $('canvas').css({
+        "width":"100%",
+        "height": "100%"
+        });
  }
 
  function create_structure_buoy_row(className, buoyName){
@@ -318,8 +322,28 @@ var raw_buoy_data;
         class: "col-sm-7"
     });
 
+    var graph_title = $('<h5>', {
+        text: "Wave period & height in the past 24 hours"
+    });
+
+    var color_square_period = $('<span>', {
+        class: "color_period color-square"
+    });
+
+    var graph_description_period = $('<p>', {
+        text: "wave period = "
+    });
+
+     var color_square_height = $('<span>', {
+        class: "color_height color-square"
+    });
+
+    var graph_description_height = $('<p>', {
+        text: "wave height = "
+    });
+
     var current_info_container = $('<div>', {
-        class: "col-sm-5"
+        class: "col-sm-5 current-info"
     });
 
     var buoy_title = $('<h4>', {
@@ -336,12 +360,16 @@ var raw_buoy_data;
     });
     $('.buoy-charts').append(row);
     row.append(buoy_title, graph_container, current_info_container, clearfix);
-    graph_container.append(canvas);
-    $('canvas').css("width", "100%");
+    graph_container.append(graph_title, graph_description_period, graph_description_height, canvas);
+    graph_description_period.append(color_square_period);
+    graph_description_height.append(color_square_height);
  }
 
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
-
+    var block_title = $('<h4>',{
+        text: "Current buoy reading"
+    });
+    
     var taken_at = $('<p>',{
         text: "Taken at: " + readTime
     });
@@ -359,7 +387,7 @@ var raw_buoy_data;
     });
 
     var second_col_select = "." + className + " .col-sm-5";
-    $(second_col_select).append(taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    $(second_col_select).append(block_title, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
     //Need to select sibiling
  }
 

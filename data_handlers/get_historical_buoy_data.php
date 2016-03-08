@@ -18,27 +18,26 @@ function get_buoy_data_from_db(){
           array_push($location_relevant_buoys, $result);  
         }
     }else{
-        echo "not working";
+        echo "this is not working: <br>";
     }
-   //print_r($location_relevant_buoys);
+
     $tfh_buoy_data = array();
-   for($i = 0; $i < count($location_relevant_buoys); $i++){
-    //print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
-    $get_buoy_query = "SELECT * FROM `{$location_relevant_buoys[$i]['buoy_id']}`";
-    $results = mysqli_query($conn, $get_buoy_query);
+    for($i = 0; $i < count($location_relevant_buoys); $i++){
+    //$location_relevant_buoys[$i] - this is the array value that is returned by the first query in this function. buoy id is the just the station number which is used to identify the table to pull from the db.
+        //print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
+        $get_buoy_query = "SELECT * FROM `{$location_relevant_buoys[$i]['buoy_id']}`";
+        $results = mysqli_query($conn, $get_buoy_query);
         if(mysqli_num_rows($results) > 0){
            while ($result = mysqli_fetch_assoc($results)){
-              array_push($tfh_buoy_data, $result);  
+              array_push($tfh_buoy_data, $result); 
             }
         }else{
-            echo "<div>not working</div>";
+            //nothing here so if it breaks I dont have a complete breakdown
         }
    }
 }
 
 get_buoy_data_from_db();
-
-//print_r($tfh_buoy_data);
 
 function organize_buoy_data(){
     global $tfh_buoy_data;

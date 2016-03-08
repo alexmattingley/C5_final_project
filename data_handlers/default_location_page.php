@@ -45,11 +45,11 @@ function create_indiv_wind(){
     for($i = 0; $i < count($weather_array); $i++){
         if($i == 0 || $i % 3 == 0){; ?>
 
-        <div class="indiv-wind first-fourth col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">
+        <div class="indiv-wind first-fourth col-md-3 col-md-offset-0">
 
         <?php } else {; ?>
 
-        <div class="indiv-wind col-xs-10 col-xs-offset-1 col-sm-3">
+        <div class="indiv-wind custom-space col-md-3 col-md-offset-0">
 
         <?php }; ?>
 
@@ -89,13 +89,15 @@ function create_indiv_wind(){
         <div class="clearfix"></div>
     </div>
     <div class="wind-data-block">
-        <div class="container-fluid col-lg-8 col-lg-offset-2">
-            <h3 class="col-xs-10 col-xs-offset-1 col-lg-12 col-sm-offset-0">Wind</h3>
-            <?php create_indiv_wind(); ?>
-            <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Weather Data provided by <a href="http://www.wunderground.com/">Wunderground</a></p>
+        <div class="container">
+            <div class="col-lg-10 col-lg-offset-1">
+                <h3>Wind</h3>
+                <?php create_indiv_wind(); ?>
+                <p class="credit col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0">Weather Data provided by <a href="http://www.wunderground.com/">Wunderground</a></p>
+                <div class="clearfix"></div>
+            </div>
             <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
     <div class="buoy-predictions">
         <div class="text-container col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">

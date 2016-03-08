@@ -279,15 +279,42 @@ Data Pages/buoy-block
     }
 
     .buoy-row {
-        margin: 60px auto;
+        margin-bottom: 30px;
+    }
+    
+    .buoy-row .col-sm-7 p {
+        display: inline-block;
     }
 
+    .buoy-row .col-sm-7 p:nth-child(3) {
+       margin-left: 15px;
+    }
 
-    .buoy-block .indiv-buoy {
+    .color-square {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        margin-bottom: -5px;
+    }
+
+    .color_height {
         background: #6D9DC5;
-        color: white;
+    }
+    .color_period {
+        background: #80DED9;
+    }
+
+    .current-info {
+        margin: 15px auto;
+        padding: 15px; 
+        background: white;
+        color: #6D9DC5;
         border-radius: 5px;
-        margin-top: 20px;
+        border: 3px solid;
+    }
+
+    .current-info h4 {
+        margin-top: 0px;
     }
 
     .buoy-block .credit, .buoy-block .credit a {
@@ -316,14 +343,21 @@ Data Pages/Wind Block
     }
 
     .wind-data-block .indiv-wind {
-        color: #001011;
-        background: white;
+        color: white;
+        background: #001011;
         border-radius: 5px;
         margin-top: 20px;
+        border: 3px solid;
     }
 
     .wind-data-block .container-fluid .first-fourth {
         clear: both;
+    }
+
+    @media (min-width: 992px) {
+        .custom-space {
+            margin-left: 12.5%;
+        }
     }
 
 /***************************
@@ -352,6 +386,13 @@ Data Pages/ Buoy Predictions
     }
 
     @media (min-width: 768px) {
+        
+        .buoy-predictions .container-fluid {
+            max-width: 100%;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+
         .buoy-predictions .container-fluid img {
             max-width: 100%;
             margin: auto;
@@ -372,7 +413,6 @@ Data pages/ Tidal Information
     }
 
     .tidal-predictions .container-fluid {
-        overflow: scroll;
         max-width: 100%;
     }
 
