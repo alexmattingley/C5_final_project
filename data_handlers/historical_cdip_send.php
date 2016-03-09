@@ -185,6 +185,15 @@ function create_new_row(){
 	}
 }
 
+/**
+ *	@FName: delete_a_row()
+ *	@purpose deletes a row if there are 24 rows or more in the table. This ensures we get 24 hrs worth of data
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
+
 function delete_a_row(){
 
 	global $buoy_array;
@@ -207,6 +216,14 @@ function delete_a_row(){
 	}
 }
 
+/**
+ *	@FName: delete_all_rows()
+ *	@purpose this function is a only used manually to delete all rows, in a normal run of the app it would not be used at all.
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function delete_all_rows(){
 	global $buoy_array;
 	global $conn;
@@ -223,14 +240,24 @@ function delete_all_rows(){
 	}
 }
 
-function send_buoy_info(){
+/**
+ *	@FName: modify_buoy_table()
+ *	@purpose this function calls the delete function and the create function which modify the table
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
+function modify_bouy_table(){
 	delete_a_row();
 	create_new_row();
 }
 
+
+
 create_buoy_array();
-require('../mysql_connect.php'); //This is so all of the functions that are called in used in the send_buoy_info can work
-send_buoy_info();
+require('../mysql_connect.php'); //This is so all of the functions that are called in used in the modify_bouy_table can work
+modify_bouy_table();
 
 
 
