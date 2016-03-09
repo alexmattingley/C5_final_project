@@ -1,6 +1,6 @@
 <?php
 
-$location_id = balls;
+$location_id = $_POST['location_index'];
 $buoy_array = array();
 $tfh_buoy_data;
 $error_message = array();
@@ -15,12 +15,16 @@ function get_buoy_data_from_db(){
 
     $get_loc_query = "SELECT * FROM `historical_location_buoy_relations` WHERE historical_location_buoy_relations.location_id = '$location_id'";
     $results = mysqli_query($conn, $get_loc_query);
-    if(mysqli_num_rows($results) > 0){
-       while ($result = mysqli_fetch_assoc($results)){
-          array_push($location_relevant_buoys, $result);  
+    if(!mysqli_error($conn)){
+        if(mysqli_num_rows($results) > 0){
+           while ($result = mysqli_fetch_assoc($results)){
+              array_push($location_relevant_buoys, $result);  
+            }
+        }else{
+            $error_message['error'] = 'whoops! there are no buoys associated with that location, try refreshing the page';
         }
     }else{
-        $error_message['error'] = 'whoops! there are no buoys associated with that location, try refreshing the page';
+        $error_message['error'] = 'There appears to be a problem with a sql query, if you refresh this page and see this message again, email me';
     }
 
     $tfh_buoy_data = array();
@@ -62,11 +66,16 @@ function organize_buoy_data(){
     print($buoy_base_array);
 }
 
-if($error_message){
-    $error_message = json_encode($error_message);
-    print $error_message;
-}else {
-    organize_buoy_data();
+function create_return_message(){
+    global $error_message;
+    if($error_message){
+        $error_message = json_encode($error_message);
+        print $error_message;
+    }else {
+        organize_buoy_data();
+    }
 }
+
+create_return_message();
 
 ?>
