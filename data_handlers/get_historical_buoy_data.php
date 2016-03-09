@@ -3,6 +3,7 @@
 $location_id = $_POST['location_index'];
 $buoy_array = array();
 $tfh_buoy_data;
+$error_message = array();
 
 function get_buoy_data_from_db(){
     global $buoy_array;
@@ -18,7 +19,7 @@ function get_buoy_data_from_db(){
           array_push($location_relevant_buoys, $result);  
         }
     }else{
-        echo "this is not working: <br>";
+        $error_message['error'] = 'whoops! there are no buoys associated with that location, try refreshing the page';
     }
 
     $tfh_buoy_data = array();
