@@ -1,6 +1,6 @@
 <?php
 
-$location_id = $_POST['location_index'];
+$location_id = balls;
 $buoy_array = array();
 $tfh_buoy_data;
 $error_message = array();
@@ -9,6 +9,7 @@ function get_buoy_data_from_db(){
     global $buoy_array;
     global $location_id;
     global $tfh_buoy_data;
+    global $error_message;
     $location_relevant_buoys = array();
     require('../mysql_connect.php');
 
@@ -40,6 +41,7 @@ get_buoy_data_from_db();
 
 function organize_buoy_data(){
     global $tfh_buoy_data;
+    global $buoy_base_array;
     $organize_buoy_data = array();
     //print_r($tfh_buoy_data[0]['station_num']);
     for($i = 0; $i < count($tfh_buoy_data); $i++){
@@ -60,6 +62,11 @@ function organize_buoy_data(){
     print($buoy_base_array);
 }
 
-organize_buoy_data();
+if($error_message){
+    $error_message = json_encode($error_message);
+    print $error_message;
+}else {
+    organize_buoy_data();
+}
 
 ?>
