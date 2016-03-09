@@ -1,6 +1,6 @@
 <?php
 
-$location_id = $_POST['location_index']; //For testing purposes only!
+$location_id = $_POST['location_index'];
 $buoy_array = array();
 $tfh_buoy_data;
 
@@ -23,8 +23,6 @@ function get_buoy_data_from_db(){
 
     $tfh_buoy_data = array();
     for($i = 0; $i < count($location_relevant_buoys); $i++){
-    //$location_relevant_buoys[$i] - this is the array value that is returned by the first query in this function. buoy id is the just the station number which is used to identify the table to pull from the db.
-        //print("<h1>" . $location_relevant_buoys[$i]['buoy_id'] . "</h1>");
         $get_buoy_query = "SELECT * FROM `{$location_relevant_buoys[$i]['buoy_id']}`";
         $results = mysqli_query($conn, $get_buoy_query);
         if(mysqli_num_rows($results) > 0){
