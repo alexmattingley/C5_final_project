@@ -1,12 +1,13 @@
 <?php
 
+/**
+ * Globals
+ */
 $location_id = $_POST['location_index'];
-$buoy_array = array();
 $tfh_buoy_data;
 $error_message = array();
 
 function get_buoy_data_from_db(){
-    global $buoy_array;
     global $location_id;
     global $tfh_buoy_data;
     global $error_message;
@@ -24,7 +25,7 @@ function get_buoy_data_from_db(){
             $error_message['error'] = 'whoops! there are no buoys associated with that location, try refreshing the page';
         }
     }else{
-        $error_message['error'] = 'There appears to be a problem with a sql query, if you refresh this page and see this message again, email me';
+        $error_message['error'] = 'There appears to be a problem with the sql query $get_loc_query, if you refresh this page and see this message again, email me';
     }
 
     $tfh_buoy_data = array();
