@@ -444,6 +444,7 @@ var buoy_array = [];
  */
 
  function set_canvas_dims(){
+    console.log('set_canvas_dims');
     $('canvas').css({
         "width":"100%",
         "height": "100%"
@@ -746,6 +747,14 @@ function topPaddingBanners() {
 function set_top_padding(element) {
     $(element).css("padding-top", (topPaddingBanners() + "px"));
 }
+
+function detect_resize(){
+    $( window ).resize(function() {
+        set_canvas_dims();
+    });
+}
+
+detect_resize();
 
 /***************************
  * End design related functions
