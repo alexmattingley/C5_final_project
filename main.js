@@ -150,10 +150,10 @@ function get_non_location_pages(current_page) {
 
 /********************
  * functionName: get_buoy_array()
- * @purpose: Pulls relevant html pages for non locational pages.
- * @param current_page
+ * @purpose: communicate with the historical buoy data file, get the up-to-date data for the past 24 hours.
+ * @param location_id
  * @returns: N/A
- * @globals: N/A
+ * @globals: raw_buoy_data
  */
 
 var raw_buoy_data;
@@ -176,6 +176,10 @@ var raw_buoy_data;
     
  }
 
+ /********************
+ * object contstructor: The purpose of this function is construct the buoy_objects
+ */
+
  var buoy_object = function(stationName, stationNum, readTimeArray, heightArray, periodArray, dirArray, waterTempArray){
     this.stationName = stationName;
     this.stationNum = stationNum;
@@ -186,15 +190,17 @@ var raw_buoy_data;
     this.waterTempArray = waterTempArray;
  }
 
- function create_buoy_arrays(specific_array, property){
-    var return_array = [];
-    for(var i = 0; i < specific_array.length; i++){
-        return_array[i] = specific_array[i][property];
-    }
-    return return_array;
- }
 
- var buoy_array = [];
+
+/********************
+ * functionName: create_buoy_instance()
+ * @purpose: Create the buoy object and then put pieces of that object in an array which can be used by the charts
+ * @param
+ * @returns: N/A
+ * @globals: buoy_array
+ */
+
+var buoy_array = [];
 
  function create_buoy_instance(){
     for(var prop in raw_buoy_data){
@@ -211,6 +217,30 @@ var raw_buoy_data;
     }
     create_buoy_charts();
  }
+
+/********************
+ * functionName: create_buoy_arrays
+ * @purpose: Create an array of values from buoy object so it can be used for the charts.
+ * @param specific_array, property
+ * @returns: return_array
+ * @globals: N/A
+ */
+
+ function create_buoy_arrays(specific_array, property){
+    var return_array = [];
+    for(var i = 0; i < specific_array.length; i++){
+        return_array[i] = specific_array[i][property];
+    }
+    return return_array;
+ }
+
+ /********************
+ * functionName: create_buoy_charts
+ * @purpose: Create charts from chart js plugin for each indivdual buoy_object
+ * @param N/A
+ * @returns: N/A
+ * @globals: N/A
+ */
 
  function create_buoy_charts(){
 
@@ -307,13 +337,19 @@ var raw_buoy_data;
         Chart.defaults.global.responsive = true;
         var buoyHeightChart = new Chart(ctx).Line(data,options);
     }
-    $('canvas').css({
-        "width":"100%",
-        "height": "100%"
-        });
+    set_canvas_dims();
  }
 
+/********************
+ * functionName: create_structure_buoy_row
+ * @purpose: creates structure for the current buoy reading box
+ * @param className, buoyName
+ * @returns: N/A
+ * @globals: N/A
+ */ 
+
  function create_structure_buoy_row(className, buoyName){
+    
     var row = $('<div>',{
         class: "buoy-row " + className
     });
@@ -365,6 +401,14 @@ var raw_buoy_data;
     graph_description_height.append(color_square_height);
  }
 
+/********************
+ * functionName: create_current_buoy_info
+ * @purpose: populates the current buoy info boxes with the current data
+ * @param className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp
+ * @returns: N/A
+ * @globals: N/A
+ */
+
  function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
     var block_title = $('<h4>',{
         text: "Current buoy reading"
@@ -389,6 +433,21 @@ var raw_buoy_data;
     var second_col_select = "." + className + " .col-sm-5";
     $(second_col_select).append(block_title, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
     //Need to select sibiling
+ }
+
+/********************
+ * functionName: set_canvas_dims
+ * @purpose: stops the canvas element from overflowing its container
+ * @param: N/A
+ * @returns: N/A
+ * @globals: N/A
+ */
+
+ function set_canvas_dims(){
+    $('canvas').css({
+        "width":"100%",
+        "height": "100%"
+    });
  }
 
 
@@ -513,6 +572,13 @@ var raw_buoy_data;
         }
     }
 
+    /********************
+     * functionName: create_mobile_tide_table
+     * @purpose: creates a tide table
+     * @param N/A
+     * @returns: N/A
+     * @globals: N/A
+     */
 
     function create_mobile_tide_table() {
         var table_body = $(".tide-table tbody")
