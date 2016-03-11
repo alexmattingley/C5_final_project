@@ -683,6 +683,7 @@ var buoy_array = [];
         
         Chart.defaults.global.responsive = true;
         var myLineChart = new Chart(ctx).Line(tide_data, tide_options);
+        console.log(ctx.canvas.width);
     }
 
 /**************
