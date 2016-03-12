@@ -1,5 +1,7 @@
 <?php
 
+$connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php';
+
 /**
  *	@FName: cdip_call()
  *	@purpose Call base file for cdip data
@@ -99,8 +101,10 @@ function create_buoy_array(){
 		$swellDirection = "";
 		$waterTemp = "";
 		
-		for ($j=0; $j <= 2; $j++) { 
-		 	$stationId .= $buoy_array[$i][$j];
+		//these for loops throw an error message but they execute anyway. In order to quell the error message you simply need to wrap the concatenating statement in an if statement which checks is the variable exists, which it does, so there really is no need.
+
+		for ($j=0; $j <= 2; $j++) {
+			$stationId .= $buoy_array[$i][$j];
 		}
 
 		for ($j=4; $j <= 29; $j++) { 
@@ -178,7 +182,6 @@ function create_new_row(){
 		$results = mysqli_query($conn, $query_create_row);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('you created another row');
-		   print("<br>");
 		}else {
 		   print_r($buoy_array[$i]->stationName . " doesnt exist or there is an issue with the create_new_row function.<br>");
 		}
@@ -256,7 +259,7 @@ function modify_bouy_table(){
 
 
 create_buoy_array();
-require('../mysql_connect.php'); //This is so all of the functions that are called in used in the modify_bouy_table can work
+require($connect_path); //This is so all of the functions that are called in used in the modify_bouy_table can work
 modify_bouy_table();
 
 

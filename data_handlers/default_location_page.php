@@ -2,6 +2,7 @@
 
 
 $location_id = $_POST['location_index']; //For testing purposes only!
+$connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php'; //just in case
 
 
 /***************************
