@@ -740,10 +740,23 @@ window.setInterval(get_current_url, 100);
  */
 
  function even_height_cols(){
-    var col_height = $('.even-col').outerHeight();
-    console.log(col_height);
+    var columns = $('.even-col');
+    var column_height_array = [];
+    if(window.innerWidth >= 992){
+        console.log(columns);
+      for(var i = 0; i < columns.length; i++){
+        column_height_array[i] = columns[i].clientHeight;
+      }
+      //This is the fallback in case none of the proceeding elements are higher than the first element in the array
+      var highest_column = column_height_array[0];
+      for(j = 0; j < column_height_array.length; j++){
+        if(highest_column <= column_height_array[j]){
+          highest_column = column_height_array[j];
+        }
+      }
+      columns.height(highest_column);
+    }
  }
-
 
 function topPaddingBanners() {
     var navigation_height = $('.header-container').height();
