@@ -1,5 +1,13 @@
 <?php
 
+$connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php';
+
+/**
+ *	@FName: cdip_call()
+ *	@purpose Call base file for cdip data
+ *	@param 
+ *	@return $CDIP_string
+ */
 function cdip_call(){
 	// create curl resource
 	$ch = curl_init();
@@ -19,16 +27,56 @@ function cdip_call(){
 	return $CDIP_string;
 }
 
+/**
+ *	@FName: prepare_buoy_array()
+ *	@purpose create array of each line in cdip file.
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function prepare_buoy_array(){
 
 	global $buoy_array;
-
 	$buoy_array = explode("\n", cdip_call());
 	unset($buoy_array[0], $buoy_array[1], $buoy_array[2], $buoy_array[63], $buoy_array[64]);
 	$buoy_array = array_values($buoy_array);
 }
 
+/**
+ *	@FName: remove_unnecessary_readings()
+ *	@purpose: remove any unnecessary buoy readings from the array 
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
+function remove_unnecessary_readings(){
+	
+	global $buoy_array;
+
+	for ($i=0; $i <= 8; $i++) { 
+		unset($buoy_array[$i]);
+	}
+
+	for($i=37; $i <= 61; $i++){
+		unset($buoy_array[$i]);
+	}
+
+	$buoy_array = array_values($buoy_array);
+}
+
+
+/**
+ *	@FName: create_buoy_array()
+ *	@purpose create objects from data and take each object and replaces the unfiltered string in the array with that object 
+ *	@global $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function create_buoy_array(){
+	prepare_buoy_array();
 	global $buoy_array;
 	class buoyObject {
 		public function __construct($stationId, $stationName, $dayOfMonth, $readTime, $peakPeriod, $swellHeight, $swellDirection, $waterTemp){
@@ -53,8 +101,10 @@ function create_buoy_array(){
 		$swellDirection = "";
 		$waterTemp = "";
 		
-		for ($j=0; $j <= 2; $j++) { 
-		 	$stationId .= $buoy_array[$i][$j];
+		//these for loops throw an error message but they execute anyway. In order to quell the error message you simply need to wrap the concatenating statement in an if statement which checks is the variable exists, which it does, so there really is no need.
+
+		for ($j=0; $j <= 2; $j++) {
+			$stationId .= $buoy_array[$i][$j];
 		}
 
 		for ($j=4; $j <= 29; $j++) { 
@@ -91,24 +141,19 @@ function create_buoy_array(){
 
 		$buoy_array[$i] = new buoyObject($stationId, $stationName, $dayOfMonth, $readTime, $peakPeriod, $swellHeight, $swellDirection, $waterTemp);
 	}
+	remove_unnecessary_readings();
 }
 
-//This needs to be improved, if the api changes this will be a problem.
-function remove_unnecessary_readings(){
-	global $buoy_array;
-	print_r($buoy_array);
-	for ($i=0; $i <= 8; $i++) { 
-		unset($buoy_array[$i]);
-	}
-
-	for($i=37; $i <= 61; $i++){
-		unset($buoy_array[$i]);
-	}
-
-	$buoy_array = array_values($buoy_array);
-}
+/**
+ *	@FName: check_num_rows()
+ *	@purpose: check the number of rows in a given table
+ *	@global $conn	
+ *	@param $table_name
+ *	@return the number of rows
+ */
 
 function check_num_rows($table_name){
+	
 	global $conn;
 
 	$query_count = "SELECT COUNT(*) FROM `$table_name`";
@@ -117,6 +162,15 @@ function check_num_rows($table_name){
 	$num_row = $row[0];
 	return $num_row;
 }
+
+
+/**
+ *	@FName: create_new_row()
+ *	@purpose creates new row in mysql table of corresponding table
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
 
 function create_new_row(){
 
@@ -128,12 +182,20 @@ function create_new_row(){
 		$results = mysqli_query($conn, $query_create_row);
 		if (mysqli_affected_rows($conn) > 0) {
 		   print('you created another row');
-		   print("<br>");
 		}else {
-		   print_r($buoy_array[$i]->stationName . " doesnt exist<br>");
+		   print_r($buoy_array[$i]->stationName . " doesnt exist or there is an issue with the create_new_row function.<br>");
 		}
 	}
 }
+
+/**
+ *	@FName: delete_a_row()
+ *	@purpose deletes a row if there are 24 rows or more in the table. This ensures we get 24 hrs worth of data
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 
 function delete_a_row(){
 
@@ -157,6 +219,14 @@ function delete_a_row(){
 	}
 }
 
+/**
+ *	@FName: delete_all_rows()
+ *	@purpose this function is a only used manually to delete all rows, in a normal run of the app it would not be used at all.
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
 function delete_all_rows(){
 	global $buoy_array;
 	global $conn;
@@ -173,16 +243,24 @@ function delete_all_rows(){
 	}
 }
 
-function send_buoy_info(){
+/**
+ *	@FName: modify_buoy_table()
+ *	@purpose this function calls the delete function and the create function which modify the table
+ *	@global $conn, $buoy_array	
+ *	@param 
+ *	@return
+ */
+
+function modify_bouy_table(){
 	delete_a_row();
 	create_new_row();
 }
 
-prepare_buoy_array();
+
+
 create_buoy_array();
-remove_unnecessary_readings();
-require('../mysql_connect.php'); //This is so all of the functions that are called in used in the send_buoy_info can work
-send_buoy_info();
+require($connect_path); //This is so all of the functions that are called in used in the modify_bouy_table can work
+modify_bouy_table();
 
 
 
