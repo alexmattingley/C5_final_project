@@ -46,11 +46,11 @@ function create_indiv_wind(){
     for($i = 0; $i < count($weather_array); $i++){
         if($i == 0 || $i % 3 == 0){; ?>
 
-        <div class="indiv-wind first-fourth col-md-3 col-md-offset-0">
+        <div class="indiv-wind first-fourth col-md-3 col-md-offset-0 even-col">
 
         <?php } else {; ?>
 
-        <div class="indiv-wind custom-space col-md-3 col-md-offset-0">
+        <div class="indiv-wind custom-space col-md-3 col-md-offset-0 even-col">
 
         <?php }; ?>
 

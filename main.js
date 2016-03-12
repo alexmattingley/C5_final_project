@@ -118,6 +118,7 @@ function pull_relevant_page_location(location_id){
             window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
             set_top_padding('.header-page');
             $('body').scrollTop(0);
+            even_height_cols();
         }
 
     });
@@ -737,6 +738,11 @@ window.setInterval(get_current_url, 100);
  * design related functions.
  *
  */
+
+ function even_height_cols(){
+    var col_height = $('.even-col').outerHeight();
+    console.log(col_height);
+ }
 
 
 function topPaddingBanners() {
