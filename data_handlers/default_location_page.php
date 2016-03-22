@@ -1,9 +1,22 @@
 <?php
 
 
+<<<<<<< HEAD
 $location_id = $_POST['location_index']; //For testing purposes only!
 $connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php'; //just in case
 
+=======
+$location_id = $_POST['location_index'];
+$buoy_array = array();
+require('../mysql_connect.php');
+$query = "SELECT * FROM location_buoy_relations LEFT JOIN buoy_data on buoy_data.id = location_buoy_relations.buoy_id WHERE location_buoy_relations.location_id = '$location_id'";
+$results = mysqli_query($conn, $query);
+if(mysqli_num_rows($results) > 0){
+    while($result = mysqli_fetch_assoc($results)){
+        array_push($buoy_array,$result);
+    }
+}
+>>>>>>> master
 
 /***************************
  * This block is the query call for the wind data

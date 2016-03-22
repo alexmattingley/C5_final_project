@@ -81,6 +81,185 @@ function add_contact_info() {
 }
 
 
+<<<<<<< HEAD
+=======
+/***************************
+ * functionName: cdip_curl_request();
+ * @purpose: calls and then organizes CDIP data into a usable object. There are several functions within this function that handle
+ * individual pieces of data. I will comment those as well.
+ * @params: N/A
+ * @globals: buoy_array
+ * @returns: N/A
+ */
+
+var buoy_array = [];
+
+function cdip_get_data(){
+    $.ajax({
+        url: "data_handlers/cdip_get_data.php",
+        cache: false,
+        dataType: 'text',
+        success: function(response) {
+            var split_by_line = response.split("\n");
+            var all_buoy_info = [];
+            var buoy_object = function(stationNum, stationNameParam, stationDOM, stationTime, stationPeriod, swellDirection, swellheight, waterTemp){
+                this.stationNum = stationNum;
+                this.stationName = stationNameParam;
+                this.datePST = stationDOM;
+                this.readTime = stationTime;
+                this.peakPeriod = stationPeriod;
+                this.swellDirection = swellDirection;
+                this.swellHeight = swellheight;
+                this.waterTemp = waterTemp;
+            };
+
+            for(var i=3; i < split_by_line.length-4; i++){ //eliminates headers and other unnecessary data
+                all_buoy_info.push(split_by_line[i]);
+            }
+
+            /********************
+             * This for loop constructs the buoy object and inserts it into the buoy_array
+             */
+
+            for(var i =0; i < all_buoy_info.length; i++){
+                get_station_number(i);
+                get_station_name(i);
+                get_day_of_month(i);
+                get_time_PST(i);
+                get_period(i);
+                get_swell_direction(i);
+                get_swell_height(i);
+                get_water_temp(i);
+                buoy_array[i] = new buoy_object(get_station_number(i),get_station_name(i), get_day_of_month(i),get_time_PST(i), get_period(i), get_swell_direction(i), get_swell_height(i), get_water_temp(i));
+            }
+
+            /********************
+             * functionName: get_station_number()
+             * @purpose: pulls the stationNumber from the ajax data
+             * @param index
+             * @returns stationId
+             */
+
+            function get_station_number(index){
+                var stationId = '';
+                for (var i = 0; i <= 2; i++){
+                    stationId = stationId + all_buoy_info[index][i];
+                }
+                return stationId;
+            }
+
+            /********************
+             * functionName: get_station_name()
+             * @purpose: pulls the stationName from the ajax data
+             * @param index
+             * @returns stationName
+             */
+
+            function get_station_name(index){
+                var stationName = '';
+                for (var i = 4; i <= 29; i++){
+                    stationName = stationName + all_buoy_info[index][i];
+                }
+                return stationName;
+            }
+
+            /********************
+             * functionName: get_day_of_month()
+             * @purpose: pulls the day of month from the ajax data
+             * @param index
+             * @returns dayOfMonth
+             */
+
+            function get_day_of_month(index){
+                var dayOfMonth = '';
+                for(var i = 30; i<=31; i++){
+                    dayOfMonth+=all_buoy_info[index][i];
+                }
+                return dayOfMonth;
+            }
+
+            /********************
+             * functionName: get_time_PST()
+             * @purpose: pulls the time from the ajax return data
+             * @param index
+             * @returns time
+             */
+
+            function get_time_PST(index){
+                var time = '';
+                for(var i = 33; i <= 36; i++){
+                    time+=all_buoy_info[index][i];
+                }
+                return time;
+            }
+
+            /********************
+             * functionName: get_period()
+             * @purpose: pulls the peak period data from the ajax data
+             * @param index
+             * @returns period
+             */
+
+            function get_period(index){
+                var period='';
+                for(var i = 51; i<=52; i++){
+                    period+=all_buoy_info[index][i];
+                }
+                return period;
+            }
+
+            /********************
+             * functionName: get_swell_direction()
+             * @purpose: pulls the peak direction from ajax data
+             * @param index
+             * @returns direction
+             */
+
+            function get_swell_direction(index){
+                var direction = '';
+                for(var i = 54; i <=56; i++){
+                    direction+=all_buoy_info[index][i];
+                }
+                return direction;
+            }
+
+            /********************
+             * functionName: get_swell_height
+             * @purpose: pulls the swell height from the ajax data
+             * @param index
+             * @returns height
+             */
+
+            function get_swell_height(index){
+                var height = '';
+                for(var i = 47; i <= 49; i++ ){
+                    height+=all_buoy_info[index][i];
+                }
+                height = (height*0.39370)/12;
+                height = height.toFixed(1);
+                return height;
+            }
+
+            /********************
+             * functionName: get_water_temp
+             * @purpose: pulls the water temp from the ajax data
+             * @param index
+             * @returns height
+             */
+
+            function get_water_temp(index) {
+                var temp = '';
+                for(var i = 64; i <= 67; i++){
+                    temp+=all_buoy_info[index][i];
+                }
+                return temp;
+            }
+
+            console.log(buoy_array);
+            cycle_and_send_buoy_data();
+        }
+    });
+}
 
 
 /*****************
@@ -100,6 +279,33 @@ function wunderground_data_call(){
         }
     });
 }
+
+/*****************
+ * functionName: cycle_and_send_buoy_data
+ * @purpose: This function takes the data that is received from CDIP and sends it a php file which then sends that information to db for storage and later use.
+ * @param: N/A
+ * @returns: N/A
+ */
+
+function cycle_and_send_buoy_data() {
+    for(var i = 0; i < buoy_array.length-1; i++){
+        var important_data = {datePST: buoy_array[i].datePST, peakPeriod: buoy_array[i].peakPeriod, readTime: buoy_array[i].readTime, swellHeight: buoy_array[i].swellHeight, swellDirection: buoy_array[i].swellDirection, waterTemp: buoy_array[i].waterTemp};
+        $.ajax({
+           url: "data_handlers/send_buoy_data.php",
+            method: "POST",
+            dataType: "text",
+            data: {
+                stationName: buoy_array[i].stationName,
+                stationNum: buoy_array[i].stationNum,
+                buoy_data: important_data //this is an object with all of the other important information
+            },
+            success: function(response){
+                //console.log(response);
+            }
+        });
+    }
+}
+>>>>>>> master
 
 /*****************
  * functionName: pull_relevant_page_location
