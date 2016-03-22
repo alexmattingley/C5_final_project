@@ -1,11 +1,9 @@
 <?php
 
 
-<<<<<<< HEAD
 $location_id = $_POST['location_index']; //For testing purposes only!
 $connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php'; //just in case
 
-=======
 $location_id = $_POST['location_index'];
 $buoy_array = array();
 require('../mysql_connect.php');
@@ -16,7 +14,6 @@ if(mysqli_num_rows($results) > 0){
         array_push($buoy_array,$result);
     }
 }
->>>>>>> master
 
 /***************************
  * This block is the query call for the wind data
