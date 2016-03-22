@@ -40,10 +40,6 @@ h6,
     font-size: 14.4px;
 }
 
-#content-container {
-    padding-bottom: 70px;
-}
-
 /***************
 Home Page // Header Styles
 ****************/
@@ -278,12 +274,48 @@ Data Pages/buoy-block
         padding: 40px 0px;
     }
 
+    .buoy-row {
+        margin-bottom: 30px;
+    }
+    
+    .buoy-row .col-sm-7 p {
+        display: inline-block;
+    }
 
-    .buoy-block .indiv-buoy {
+    .buoy-row .col-sm-7 p:nth-child(3) {
+       margin-left: 15px;
+    }
+
+    .color-square {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        margin-bottom: -5px;
+    }
+
+    .color_height {
         background: #6D9DC5;
-        color: white;
+    }
+    .color_period {
+        background: #80DED9;
+    }
+
+    .current-info {
+        margin: 15px auto;
+        padding: 15px; 
+        background: white;
+        color: #6D9DC5;
         border-radius: 5px;
-        margin-top: 20px;
+        border: 3px solid;
+    }
+
+    .current-info .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    .current-info h4 {
+        margin-top: 0px;
     }
 
     .buoy-block .credit, .buoy-block .credit a {
@@ -312,14 +344,21 @@ Data Pages/Wind Block
     }
 
     .wind-data-block .indiv-wind {
-        color: #001011;
-        background: white;
+        color: white;
+        background: #001011;
         border-radius: 5px;
         margin-top: 20px;
+        border: 3px solid;
     }
 
     .wind-data-block .container-fluid .first-fourth {
         clear: both;
+    }
+
+    @media (min-width: 992px) {
+        .custom-space {
+            margin-left: 12.5%;
+        }
     }
 
 /***************************
@@ -348,6 +387,13 @@ Data Pages/ Buoy Predictions
     }
 
     @media (min-width: 768px) {
+        
+        .buoy-predictions .container-fluid {
+            max-width: 100%;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+
         .buoy-predictions .container-fluid img {
             max-width: 100%;
             margin: auto;
@@ -368,7 +414,6 @@ Data pages/ Tidal Information
     }
 
     .tidal-predictions .container-fluid {
-        overflow: scroll;
         max-width: 100%;
     }
 
@@ -418,13 +463,19 @@ footer
 ********************/
 
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background: #80DED9;
     color: #FFFFF2;
     padding-top: 20px;
     padding-bottom: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #FFFFF2;
+}
+
+footer a:hover {
+    color: black;
 }
 

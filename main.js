@@ -4,7 +4,6 @@ $(document).ready(function(){
     var last_value = current_url[url_index];
     set_top_padding('.hero_banner');
     add_contact_info();
-    cdip_get_data();
     wunderground_data_call();
 
 
@@ -12,6 +11,7 @@ $(document).ready(function(){
     if(!isNaN(last_value)) {
         pull_relevant_page_location(last_value);
         get_tide_data(last_value);
+        get_buoy_array(last_value);
     }else if(!getQueryVariable('current_page') == false) {
        var non_location_page = getQueryVariable('current_page');
         get_non_location_pages(non_location_page);
@@ -22,6 +22,7 @@ $(document).ready(function(){
        var loc_id = $(this).attr('loc_id');
        pull_relevant_page_location(loc_id);
        get_tide_data(loc_id);
+       get_buoy_array(loc_id);
    });
 
    $('body').on('click', '.navbar-nav a', function(){
@@ -30,6 +31,11 @@ $(document).ready(function(){
    });
 
 });
+
+$(window).load(function($){
+  set_canvas_dims();
+});
+
 
 
 /**************************
@@ -75,6 +81,8 @@ function add_contact_info() {
 }
 
 
+<<<<<<< HEAD
+=======
 /***************************
  * functionName: cdip_curl_request();
  * @purpose: calls and then organizes CDIP data into a usable object. There are several functions within this function that handle
@@ -297,6 +305,7 @@ function cycle_and_send_buoy_data() {
         });
     }
 }
+>>>>>>> master
 
 /*****************
  * functionName: pull_relevant_page_location
@@ -320,6 +329,7 @@ function pull_relevant_page_location(location_id){
             window.history.pushState('test', 'test', 'index.php?current_page=' + location_id);
             set_top_padding('.header-page');
             $('body').scrollTop(0);
+            even_height_cols();
         }
 
     });
@@ -348,6 +358,328 @@ function get_non_location_pages(current_page) {
 
     });
 }
+
+
+/********************
+ * functionName: get_buoy_array()
+ * @purpose: communicate with the historical buoy data file, get the up-to-date data for the past 24 hours.
+ * @param location_id
+ * @returns: N/A
+ * @globals: raw_buoy_data
+ */
+
+var raw_buoy_data;
+
+ function get_buoy_array(location_id){
+    $.ajax({
+        url: "data_handlers/get_historical_buoy_data.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+            location_index: location_id
+        },
+        cache: "false",
+        success: function(response){
+            raw_buoy_data = response;
+            console.log(raw_buoy_data);
+            create_buoy_instance();
+        }
+    });
+    
+ }
+
+ /********************
+ * object contstructor: The purpose of this function is construct the buoy_objects
+ */
+
+ var buoy_object = function(dayOfMonth, stationName, stationNum, readTimeArray, heightArray, periodArray, dirArray, waterTempArray){
+    this.dayOfMonth = dayOfMonth;
+    this.stationName = stationName;
+    this.stationNum = stationNum;
+    this.readTimeArray = readTimeArray;
+    this.heightArray = heightArray;
+    this.periodArray = periodArray;
+    this.dirArray = dirArray;
+    this.waterTempArray = waterTempArray;
+ }
+
+
+
+/********************
+ * functionName: create_buoy_instance()
+ * @purpose: Create the buoy object and then put pieces of that object in an array which can be used by the charts
+ * @param
+ * @returns: N/A
+ * @globals: buoy_array
+ */
+
+var buoy_array = [];
+
+ function create_buoy_instance(){
+    for(var prop in raw_buoy_data){
+        var buoyInfoArray = raw_buoy_data[prop];
+        var buoyDate = buoyInfoArray[buoyInfoArray.length-1].day_of_month;
+        var buoyName = buoyInfoArray[0].station_name;
+        var buoyNum = buoyInfoArray[0].station_num;
+        var buoyTime = create_buoy_arrays(buoyInfoArray, "read_time");
+        var buoyHeightArray = create_buoy_arrays(buoyInfoArray, "swell_height");
+        var buoyPeriodArray = create_buoy_arrays(buoyInfoArray, "peak_period");
+        var buoydirArray = create_buoy_arrays(buoyInfoArray, "swell_direction");
+        var buoyWaterTempArray = create_buoy_arrays(buoyInfoArray, "water_temp");
+        var buoy = new buoy_object(buoyDate, buoyName, buoyNum, buoyTime, buoyHeightArray, buoyPeriodArray, buoydirArray, buoyWaterTempArray);
+        buoy_array.push(buoy);
+    }
+    console.log(buoy_array);
+    create_buoy_charts();
+ }
+
+/********************
+ * functionName: create_buoy_arrays
+ * @purpose: Create an array of values from buoy object so it can be used for the charts.
+ * @param specific_array, property
+ * @returns: return_array
+ * @globals: N/A
+ */
+
+ function create_buoy_arrays(specific_array, property){
+    var return_array = [];
+    for(var i = 0; i < specific_array.length; i++){
+        return_array[i] = specific_array[i][property];
+    }
+    return return_array;
+ }
+
+ /********************
+ * functionName: create_buoy_charts
+ * @purpose: Create charts from chart js plugin for each indivdual buoy_object
+ * @param N/A
+ * @returns: N/A
+ * @globals: N/A
+ */
+
+ function create_buoy_charts(){
+
+    var options = {
+        ///Boolean - Whether grid lines are shown across the chart
+        scaleShowGridLines : true,
+
+        //String - Colour of the grid lines
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+
+        //Number - Width of the grid lines
+        scaleGridLineWidth : 1,
+
+        //Boolean - Whether to show horizontal lines (except X axis)
+        scaleShowHorizontalLines: true,
+
+        //Boolean - Whether to show vertical lines (except Y axis)
+        scaleShowVerticalLines: true,
+
+        //Boolean - Whether the line is curved between points
+        bezierCurve : true,
+
+        //Number - Tension of the bezier curve between points
+        bezierCurveTension : 0.4,
+
+        //Boolean - Whether to show a dot for each point
+        pointDot : true,
+
+        //Number - Radius of each point dot in pixels
+        pointDotRadius : 4,
+
+        //Number - Pixel width of point dot stroke
+        pointDotStrokeWidth : 1,
+
+        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+        pointHitDetectionRadius : 20,
+
+        //Boolean - Whether to show a stroke for datasets
+        datasetStroke : true,
+
+        //Number - Pixel width of dataset stroke
+        datasetStrokeWidth : 2,
+
+        //Boolean - Whether to fill the dataset with a colour
+        datasetFill : true,
+
+        //String - A legend template
+        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+    };
+
+    var data = {
+        labels:[],
+        datasets:[
+        {
+            label:"buoy height",
+            fillColor: "rgba(151,187,205,.5)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        },
+        {
+            label: "buoy period",
+            fillColor: "rgba(0,0,0,0)",
+            strokeColor: "rgba(128, 222, 217, 1)",
+            pointColor: "rgba(128, 222, 217, 1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: []
+        }
+        ]
+    };
+    console.log(buoy_array);
+    for(var i = 0; i < buoy_array.length; i++){
+        data.datasets[0].data = [];
+        data.datasets[1].data = [];
+        data.labels = [];
+        create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
+        var last_value = buoy_array[i].readTimeArray.length-1;
+        create_current_buoy_info(buoy_array[i].stationNum, buoy_array[i].dayOfMonth, buoy_array[i].readTimeArray[last_value], buoy_array[i].heightArray[last_value], buoy_array[i].periodArray[last_value], buoy_array[i].dirArray[last_value], buoy_array[i].waterTempArray[last_value]);
+        data.datasets[0].data = buoy_array[i].heightArray;
+        data.datasets[1].data = buoy_array[i].periodArray;
+
+        for (var j = 0; j < data.datasets[0].data.length; j++) {
+            data.labels.push(j);
+        }
+
+        var chart_selector = "." + buoy_array[i].stationNum + " canvas";
+        var ctx = $(chart_selector).get(0).getContext('2d');
+        Chart.defaults.global.responsive = true;
+        var buoyHeightChart = new Chart(ctx).Line(data,options);
+    }
+    set_canvas_dims();
+ }
+
+/********************
+ * functionName: create_structure_buoy_row
+ * @purpose: creates structure for the current buoy reading box
+ * @param className, buoyName
+ * @returns: N/A
+ * @globals: N/A
+ */ 
+
+ function create_structure_buoy_row(className, buoyName){
+    
+    var row = $('<div>',{
+        class: "buoy-row " + className
+    });
+
+    var graph_container = $('<div>',{
+        class: "col-sm-7"
+    });
+
+    var graph_title = $('<h5>', {
+        text: "Wave period & height in the past 24 hours"
+    });
+
+    var color_square_period = $('<span>', {
+        class: "color_period color-square"
+    });
+
+    var graph_description_period = $('<p>', {
+        text: "wave period = "
+    });
+
+     var color_square_height = $('<span>', {
+        class: "color_height color-square"
+    });
+
+    var graph_description_height = $('<p>', {
+        text: "wave height = "
+    });
+
+    var current_info_container = $('<div>', {
+        class: "col-sm-5 current-info"
+    });
+
+    var buoy_title = $('<h4>', {
+        text: buoyName,
+        class: "col-sm-12"
+    });
+
+    var clearfix = $('<div>',{
+        class: "clearfix"
+    });
+
+    var canvas = $('<canvas>',{
+        class: className
+    });
+    $('.buoy-charts').append(row);
+    row.append(buoy_title, graph_container, current_info_container, clearfix);
+    graph_container.append(graph_title, graph_description_period, graph_description_height, canvas);
+    graph_description_period.append(color_square_period);
+    graph_description_height.append(color_square_height);
+ }
+
+ function check_if_current(){
+    var current_day_month = new Date().getDate();
+    return current_day_month;
+ }
+
+/********************
+ * functionName: create_current_buoy_info
+ * @purpose: populates the current buoy info boxes with the current data
+ * @param className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp
+ * @returns: N/A
+ * @globals: N/A
+ */
+
+ function create_current_buoy_info(className, buoyDate, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
+
+    var error_message = "";
+
+    if(check_if_current() != buoyDate){
+        var error_message = $('<p>',{
+            text: "It looks like this buoy has not been updated today, disregard it.",
+            class: "error"
+        });
+    }
+    var block_title = $('<h4>',{
+        text: "Current buoy reading"
+    });
+    
+    var taken_at = $('<p>',{
+        text: "Taken at: " + readTime
+    });
+    var current_height = $('<p>',{
+        text: "Current Height: " + swellHeight + " ft"
+    });
+    var current_period = $('<p>',{
+        text: "Current Period: " + swellPeriod + " seconds"
+    });
+    var current_swell_direction = $('<p>',{
+        text: "Current Swell Direction: " + swellDirection + "°"
+    });
+    var current_water_temp = $('<p>', {
+        text: "Current Water Temp: " + waterTemp + " °F"
+    });
+
+    var second_col_select = "." + className + " .col-sm-5";
+    $(second_col_select).append(block_title, error_message, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    //Need to select sibiling
+ }
+
+/********************
+ * functionName: set_canvas_dims
+ * @purpose: stops the canvas element from overflowing its container
+ * @param: N/A
+ * @returns: N/A
+ * @globals: N/A
+ */
+
+ function set_canvas_dims(){
+    console.log('set_canvas_dims');
+    $('canvas').css({
+        "width":"100%",
+        "height": "100%"
+    });
+ }
+
 
 /********************
  * Tide related functions and variables.
@@ -438,21 +770,20 @@ function get_non_location_pages(current_page) {
             if(flag_array[i] !== flag_array[next_index]){ //If the current value in the flag array is not equal to the next value
                 highs_and_lows[x_count] = "";
                 highs_and_lows[x_count] = values[next_index];
-                console.log(next_index);
                 time_indeces[x_count] = next_index;
                 x_count++;
             }
         }
 
         for(var i = 0; i < time_indeces.length; i++){
-            data.labels[i] = "";
-            data.labels[i] = tidal_times[time_indeces[i]];
+            tide_data.labels[i] = "";
+            tide_data.labels[i] = tidal_times[time_indeces[i]];
         }
 
-        remove_duplicate_data(highs_and_lows,data.labels);
-        data.datasets[0].data = highs_and_lows;
-        console.log(data.datasets[0].data);
-        console.log(data.labels);
+        remove_duplicate_data(highs_and_lows,tide_data.labels);
+        tide_data.datasets[0].data = highs_and_lows;
+        console.log(tide_data.datasets[0].data);
+        console.log(tide_data.labels);
     }
 
 
@@ -471,15 +802,22 @@ function get_non_location_pages(current_page) {
         }
     }
 
+    /********************
+     * functionName: create_mobile_tide_table
+     * @purpose: creates a tide table
+     * @param N/A
+     * @returns: N/A
+     * @globals: N/A
+     */
 
     function create_mobile_tide_table() {
         var table_body = $(".tide-table tbody")
-        for(var i = 1; i < data.labels.length-1; i++){
+        for(var i = 1; i < tide_data.labels.length-1; i++){
             //create tr for each value in the array
             var table_row = $("<tr>");
             //create td for each value of relevance
-            var td_1 = $("<td>").text(data.labels[i]);
-            var td_2 = $("<td>").text(data.datasets[0].data[i]);
+            var td_1 = $("<td>").text(tide_data.labels[i]);
+            var td_2 = $("<td>").text(tide_data.datasets[0].data[i]);
             //append td to tr
             table_row.append(td_1);
             table_row.append(td_2);
@@ -494,7 +832,7 @@ function get_non_location_pages(current_page) {
      */
 
 
-    var data = {
+    var tide_data = {
         labels: [],//this will create the x-axis of the graph
         datasets: [
             {
@@ -521,10 +859,10 @@ function get_non_location_pages(current_page) {
 
 
     function build_buoy_chart(){
-        var my_chart_node = $("#myChart").get(0);
+        var my_chart_node = $("#tideChart").get(0);
         var ctx = my_chart_node.getContext("2d");
 
-        var options = {
+        var tide_options = {
             ///Boolean - Whether grid lines are shown across the chart
             scaleShowGridLines : true,
 
@@ -571,139 +909,9 @@ function get_non_location_pages(current_page) {
             legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
         };
-        Chart.defaults.global = {
-            // Boolean - Whether to animate the chart
-            animation: true,
-
-            // Number - Number of animation steps
-            animationSteps: 60,
-
-            // String - Animation easing effect
-            // Possible effects are:
-            // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
-            //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
-            //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
-            //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
-            //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
-            //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
-            //  easeOutElastic, easeInCubic]
-            animationEasing: "easeOutQuart",
-
-            // Boolean - If we should show the scale at all
-            showScale: true,
-
-            // Boolean - If we want to override with a hard coded scale
-            scaleOverride: false,
-
-            // ** Required if scaleOverride is true **
-            // Number - The number of steps in a hard coded scale
-            scaleSteps: null,
-            // Number - The value jump in the hard coded scale
-            scaleStepWidth: null,
-            // Number - The scale starting value
-            scaleStartValue: null,
-
-            // String - Colour of the scale line
-            scaleLineColor: "rgba(0,0,0,.1)",
-
-            // Number - Pixel width of the scale line
-            scaleLineWidth: 1,
-
-            // Boolean - Whether to show labels on the scale
-            scaleShowLabels: true,
-
-            // Interpolated JS string - can access value
-            scaleLabel: "<%=value%>",
-
-            // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
-            scaleIntegersOnly: true,
-
-            // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-            scaleBeginAtZero: false,
-
-            // String - Scale label font declaration for the scale label
-            scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-            // Number - Scale label font size in pixels
-            scaleFontSize: 12,
-
-            // String - Scale label font weight style
-            scaleFontStyle: "normal",
-
-            // String - Scale label font colour
-            scaleFontColor: "#666",
-
-            // Boolean - whether or not the chart should be responsive and resize when the browser does.
-            responsive: false,
-
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true,
-
-            // Boolean - Determines whether to draw tooltips on the canvas or not
-            showTooltips: true,
-
-            // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
-            customTooltips: false,
-
-            // Array - Array of string names to attach tooltip events
-            tooltipEvents: ["mousemove", "touchstart", "touchmove"],
-
-            // String - Tooltip background colour
-            tooltipFillColor: "rgba(0,0,0,0.8)",
-
-            // String - Tooltip label font declaration for the scale label
-            tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-            // Number - Tooltip label font size in pixels
-            tooltipFontSize: 14,
-
-            // String - Tooltip font weight style
-            tooltipFontStyle: "normal",
-
-            // String - Tooltip label font colour
-            tooltipFontColor: "#fff",
-
-            // String - Tooltip title font declaration for the scale label
-            tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-            // Number - Tooltip title font size in pixels
-            tooltipTitleFontSize: 14,
-
-            // String - Tooltip title font weight style
-            tooltipTitleFontStyle: "bold",
-
-            // String - Tooltip title font colour
-            tooltipTitleFontColor: "#fff",
-
-            // Number - pixel width of padding around tooltip text
-            tooltipYPadding: 6,
-
-            // Number - pixel width of padding around tooltip text
-            tooltipXPadding: 6,
-
-            // Number - Size of the caret on the tooltip
-            tooltipCaretSize: 8,
-
-            // Number - Pixel radius of the tooltip border
-            tooltipCornerRadius: 6,
-
-            // Number - Pixel offset from point x to tooltip edge
-            tooltipXOffset: 10,
-
-            // String - Template string for single tooltips
-            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-
-            // String - Template string for multiple tooltips
-            multiTooltipTemplate: "<%= value %>",
-
-            // Function - Will fire on animation progression.
-            onAnimationProgress: function(){},
-
-            // Function - Will fire on animation completion.
-            onAnimationComplete: function(){}
-        };
+        
         Chart.defaults.global.responsive = true;
-        var myLineChart = new Chart(ctx).Line(data, options);
+        var myLineChart = new Chart(ctx).Line(tide_data, tide_options);
     }
 
 /**************
@@ -758,6 +966,23 @@ window.setInterval(get_current_url, 100);
  *
  */
 
+ function even_height_cols(){
+    var columns = $('.even-col');
+    var column_height_array = [];
+    if(window.innerWidth >= 992){
+      for(var i = 0; i < columns.length; i++){
+        column_height_array[i] = columns[i].clientHeight;
+      }
+      //This is the fallback in case none of the proceeding elements are higher than the first element in the array
+      var highest_column = column_height_array[0];
+      for(j = 0; j < column_height_array.length; j++){
+        if(highest_column <= column_height_array[j]){
+          highest_column = column_height_array[j];
+        }
+      }
+      columns.height(highest_column);
+    }
+ }
 
 function topPaddingBanners() {
     var navigation_height = $('.header-container').height();
@@ -768,6 +993,18 @@ function topPaddingBanners() {
 function set_top_padding(element) {
     $(element).css("padding-top", (topPaddingBanners() + "px"));
 }
+
+    /**************************
+    onresize of window, wait 50 ms and then set the canvas dimensions.
+    **************************/
+
+    window.onresize = function() {
+        var doit;
+        clearTimeout(doit);
+        doit = setTimeout(function() {
+            set_canvas_dims();
+        }, 50);
+    };
 
 /***************************
  * End design related functions
