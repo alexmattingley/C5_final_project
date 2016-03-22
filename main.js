@@ -32,6 +32,11 @@ $(document).ready(function(){
 
 });
 
+$(window).load(function($){
+  set_canvas_dims();
+});
+
+
 
 /**************************
  * functionName: getQueryVariable();
@@ -181,7 +186,8 @@ var raw_buoy_data;
  * object contstructor: The purpose of this function is construct the buoy_objects
  */
 
- var buoy_object = function(stationName, stationNum, readTimeArray, heightArray, periodArray, dirArray, waterTempArray){
+ var buoy_object = function(dayOfMonth, stationName, stationNum, readTimeArray, heightArray, periodArray, dirArray, waterTempArray){
+    this.dayOfMonth = dayOfMonth;
     this.stationName = stationName;
     this.stationNum = stationNum;
     this.readTimeArray = readTimeArray;
@@ -206,6 +212,7 @@ var buoy_array = [];
  function create_buoy_instance(){
     for(var prop in raw_buoy_data){
         var buoyInfoArray = raw_buoy_data[prop];
+        var buoyDate = buoyInfoArray[buoyInfoArray.length-1].day_of_month;
         var buoyName = buoyInfoArray[0].station_name;
         var buoyNum = buoyInfoArray[0].station_num;
         var buoyTime = create_buoy_arrays(buoyInfoArray, "read_time");
@@ -213,9 +220,10 @@ var buoy_array = [];
         var buoyPeriodArray = create_buoy_arrays(buoyInfoArray, "peak_period");
         var buoydirArray = create_buoy_arrays(buoyInfoArray, "swell_direction");
         var buoyWaterTempArray = create_buoy_arrays(buoyInfoArray, "water_temp");
-        var buoy = new buoy_object(buoyName, buoyNum, buoyTime, buoyHeightArray, buoyPeriodArray, buoydirArray, buoyWaterTempArray);
+        var buoy = new buoy_object(buoyDate, buoyName, buoyNum, buoyTime, buoyHeightArray, buoyPeriodArray, buoydirArray, buoyWaterTempArray);
         buoy_array.push(buoy);
     }
+    console.log(buoy_array);
     create_buoy_charts();
  }
 
@@ -325,7 +333,7 @@ var buoy_array = [];
         data.labels = [];
         create_structure_buoy_row(buoy_array[i].stationNum, buoy_array[i].stationName);
         var last_value = buoy_array[i].readTimeArray.length-1;
-        create_current_buoy_info(buoy_array[i].stationNum,buoy_array[i].readTimeArray[last_value], buoy_array[i].heightArray[last_value], buoy_array[i].periodArray[last_value], buoy_array[i].dirArray[last_value], buoy_array[i].waterTempArray[last_value]);
+        create_current_buoy_info(buoy_array[i].stationNum, buoy_array[i].dayOfMonth, buoy_array[i].readTimeArray[last_value], buoy_array[i].heightArray[last_value], buoy_array[i].periodArray[last_value], buoy_array[i].dirArray[last_value], buoy_array[i].waterTempArray[last_value]);
         data.datasets[0].data = buoy_array[i].heightArray;
         data.datasets[1].data = buoy_array[i].periodArray;
 
@@ -402,6 +410,11 @@ var buoy_array = [];
     graph_description_height.append(color_square_height);
  }
 
+ function check_if_current(){
+    var current_day_month = new Date().getDate();
+    return current_day_month;
+ }
+
 /********************
  * functionName: create_current_buoy_info
  * @purpose: populates the current buoy info boxes with the current data
@@ -410,7 +423,16 @@ var buoy_array = [];
  * @globals: N/A
  */
 
- function create_current_buoy_info(className, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
+ function create_current_buoy_info(className, buoyDate, readTime, swellHeight, swellPeriod, swellDirection, waterTemp){
+
+    var error_message = "";
+
+    if(check_if_current() != buoyDate){
+        var error_message = $('<p>',{
+            text: "It looks like this buoy is not up to date. Try refreshing.",
+            class: "error"
+        });
+    }
     var block_title = $('<h4>',{
         text: "Current buoy reading"
     });
@@ -432,7 +454,7 @@ var buoy_array = [];
     });
 
     var second_col_select = "." + className + " .col-sm-5";
-    $(second_col_select).append(block_title, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
+    $(second_col_select).append(block_title, error_message, taken_at, current_height, current_period, current_swell_direction, current_water_temp);
     //Need to select sibiling
  }
 
@@ -684,7 +706,6 @@ var buoy_array = [];
         
         Chart.defaults.global.responsive = true;
         var myLineChart = new Chart(ctx).Line(tide_data, tide_options);
-        console.log(ctx.canvas.width);
     }
 
 /**************
@@ -768,13 +789,17 @@ function set_top_padding(element) {
     $(element).css("padding-top", (topPaddingBanners() + "px"));
 }
 
-function detect_resize(){
-    $( window ).resize(function() {
-        set_canvas_dims();
-    });
-}
+    /**************************
+    onresize of window, wait 50 ms and then set the canvas dimensions.
+    **************************/
 
-detect_resize();
+    window.onresize = function() {
+        var doit;
+        clearTimeout(doit);
+        doit = setTimeout(function() {
+            set_canvas_dims();
+        }, 50);
+    };
 
 /***************************
  * End design related functions
