@@ -17,7 +17,7 @@ Pulling weather data from Wunderground was challenging as well, namely because W
 file periodically in order to perform a certain task. Every 2-3 minutes the cron job calls a file which then makes a call for one data point in California. The data point which is called
 is determined by which data point was last updated. It was really cool learning all about managing databases as well as about data handling.
 
-Lastly, the creation of the tide chart was a fun challenge as well. I had never worked with a plugin like chartjs before, so it was fun getting to work with a plugin built by someone else.
+Lastly, the creation of the tide charts and buoy charts were a fun challenge as well. I had never worked with a plugin like chartjs before, so it was fun getting to work with a plugin built by someone else.
 The data that was being returned to me by NOAA was also very very dense and difficult to work with. The find_highs_low as well as the remove_duplicate_data function are responsible for
 simplifying the tidal data into just high and low tide points. I also realized quickly that although the tide chart looks very pretty in mobile, it doesn't really work properly at the
 smallest screen sizes, hence the tide table in mobile.
@@ -43,6 +43,10 @@ Site displays realtime buoy, tide, wind, water temperature,  and weather informa
 Site is entirely mobile first, one of the biggest pitfalls of modern surfing sites, is the lack of accessibility on a phone.
 
 Detailed explanations of how how certain conditions effect certain areas. I want the site to be educational for people who are new the sport.
+
+###v1.2 (Finished 3/22/16)
+
+In addition to having current data, we now also have data from the past 24 hours which is populating into graphs. This gives the user a general trend as to what has been happening in their area. This is sort of an intermediarity step that will eventually allow me to get to v1.5.
 
 ###v1.5
 
