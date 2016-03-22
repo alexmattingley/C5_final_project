@@ -1,6 +1,6 @@
 <?php
 
-$connect_path = '/Users/alex/Sites/greenroomhunter/mysql_connect.php';
+$connect_path = '/var/www/html/C5_final_project/mysql_connect.php';
 
 /**
  *	@FName: cdip_call()
