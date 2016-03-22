@@ -429,7 +429,7 @@ var buoy_array = [];
 
     if(check_if_current() != buoyDate){
         var error_message = $('<p>',{
-            text: "It looks like this buoy is not up to date. Try refreshing.",
+            text: "It looks like this buoy has not been updated today, disregard it.",
             class: "error"
         });
     }

@@ -313,6 +313,11 @@ Data Pages/buoy-block
         border: 3px solid;
     }
 
+    .current-info .error {
+        color: red;
+        font-weight: bold;
+    }
+
     .current-info h4 {
         margin-top: 0px;
     }
