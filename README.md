@@ -27,7 +27,7 @@ smallest screen sizes, hence the tide table in mobile.
 
 HTML & CSS
 
-Javascript, Jquery, AJAX, SOAP, OOP(CDIP_get_data)
+Javascript, Jquery, AJAX, SOAP, OOP
 
 PHP, Curl requests, MySQL, PhpMyAdmin, MAMP, AWS(server), Ubuntu, Cron Job
 
