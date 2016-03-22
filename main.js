@@ -764,7 +764,6 @@ window.setInterval(get_current_url, 100);
     var columns = $('.even-col');
     var column_height_array = [];
     if(window.innerWidth >= 992){
-        console.log(columns);
       for(var i = 0; i < columns.length; i++){
         column_height_array[i] = columns[i].clientHeight;
       }

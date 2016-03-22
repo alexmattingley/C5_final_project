@@ -40,10 +40,6 @@ h6,
     font-size: 14.4px;
 }
 
-#content-container {
-    padding-bottom: 70px;
-}
-
 /***************
 Home Page // Header Styles
 ****************/
@@ -467,13 +463,19 @@ footer
 ********************/
 
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background: #80DED9;
     color: #FFFFF2;
     padding-top: 20px;
     padding-bottom: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #FFFFF2;
+}
+
+footer a:hover {
+    color: black;
 }
 
