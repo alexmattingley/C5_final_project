@@ -154,7 +154,7 @@ var raw_buoy_data;
         cache: "false",
         success: function(response){
             raw_buoy_data = response;
-            console.log(raw_buoy_data);
+            //console.log(raw_buoy_data);
             create_buoy_instance();
         }
     });
@@ -202,7 +202,7 @@ var buoy_array = [];
         var buoy = new buoy_object(buoyDate, buoyName, buoyNum, buoyTime, buoyHeightArray, buoyPeriodArray, buoydirArray, buoyWaterTempArray);
         buoy_array.push(buoy);
     }
-    console.log(buoy_array);
+    //console.log(buoy_array);
     create_buoy_charts();
  }
 
@@ -305,7 +305,7 @@ var buoy_array = [];
         }
         ]
     };
-    console.log(buoy_array);
+    //console.log(buoy_array);
     for(var i = 0; i < buoy_array.length; i++){
         data.datasets[0].data = [];
         data.datasets[1].data = [];
@@ -446,7 +446,7 @@ var buoy_array = [];
  */
 
  function set_canvas_dims(){
-    console.log('set_canvas_dims');
+    //console.log('set_canvas_dims');
     $('canvas').css({
         "width":"100%",
         "height": "100%"
@@ -486,7 +486,7 @@ var buoy_array = [];
             },
             cache: "false",
             success: function(response){
-                console.log(response);
+                //console.log(response);
                 var x = -1;
                 for(var i = 0; i < response.predictions.length; i++){
                     tidal_levels[x] = parseFloat(response.predictions[i].v); //create the tidal levels array
@@ -497,8 +497,8 @@ var buoy_array = [];
                     }
 
                 }
-                console.log("tidal_levels: " ,tidal_levels);
-                console.log("tidal_times: " ,tidal_times);
+                //console.log("tidal_levels: " ,tidal_levels);
+                //console.log("tidal_times: " ,tidal_times);
                 find_highs_lows(tidal_levels);
                 build_buoy_chart();
                 create_mobile_tide_table();
@@ -555,8 +555,8 @@ var buoy_array = [];
 
         remove_duplicate_data(highs_and_lows,tide_data.labels);
         tide_data.datasets[0].data = highs_and_lows;
-        console.log(tide_data.datasets[0].data);
-        console.log(tide_data.labels);
+        //console.log(tide_data.datasets[0].data);
+        //console.log(tide_data.labels);
     }
 
 
@@ -716,7 +716,7 @@ var current_url = [];
 function get_current_url() {
     current_url[counter] = location.search;
     if(counter > 1 && current_url[counter] !== current_url[counter-1]){
-        console.log(current_url);
+        //console.log(current_url);
         if(doc_switch == false) {
             location.reload(true);
         }
